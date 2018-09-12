@@ -4,6 +4,7 @@ public class JavaProject{
     System.out.println("Esta Sam!");
     System.out.println("Chris was here");
     System.out.println("Kaitlin is cool.");
+    System.out.println("Kaitlin understands how GitHub works!!!");
 
   }
 }
