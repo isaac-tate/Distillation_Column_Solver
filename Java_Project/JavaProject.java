@@ -3,6 +3,9 @@ public class JavaProject{
     System.out.println("Hey, it's me, Isaac");
     System.out.println("Esta Sam!");
     System.out.println("Chris was here");
+    System.out.println("Kaitlin is cool.");
+    System.out.println("Kaitlin still understands how GitHub works!!!");
+    
 
   }
 }
