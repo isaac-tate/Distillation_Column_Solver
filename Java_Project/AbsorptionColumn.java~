@@ -1,0 +1,24 @@
+import java.math.*;
+
+public class AbsorptionColumn{
+  
+  Packing packing;
+  Fluid fluid;
+  
+  double crossArea;
+  
+  AbsorptionColumn(Packing packing, Fluid fluid){
+    
+    this.packing = packing; //Needs deep copy
+    this.fluid = fluid; //needs deep copy
+    
+    crossArea = getCrossSectionalArea()
+    
+  }
+  
+  public double getCrossSectionalArea(){
+    return (Math.pi());
+  }
+  
+  
+}
