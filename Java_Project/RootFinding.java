@@ -3,15 +3,15 @@ import java.math.*;
 
 public class RootFinding{
   
-  public double ridders(double xal, double yag, double kxa, double kya, double error){
-    
+  public double ridders(double xal, double yag, double kxa, double kya, double error, double [] coefficients){
+    //CURRENTLY YAG AND XAL DO NOT CHANGE WHICH MEANS V,L,KS,AND MWS DO NOT CHANGE IMPPPPPPPP
     double xu = 1;
     double xl = 0;
     double x = (xl+xu)*0.5;
     double e = 1000;
     
     double fxl, fxu, sign, fx, xnew, y, m, b, xm, fxnew, fxm;
-    double[]coefficients = this.equilibriumData();
+    coefficients = this.equilibriumData();//deep copy
     
     do{
     fxl = function(kxa,kya,yag,xl,xal,coefficients);
