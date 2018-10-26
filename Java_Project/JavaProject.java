@@ -1,3 +1,5 @@
+//<<<<<<< HEAD
+//=======
 public class JavaProject{
   public static void main(String[] args){
     System.out.println("Hey, it's me, Isaac");
@@ -12,3 +14,4 @@ public class JavaProject{
 }
 
 
+//>>>>>>> 2394a7abe2ef127ddfc9ca3028e339c6b51c9a91
