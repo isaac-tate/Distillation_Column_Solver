@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.math.*;
+
 public class RootFinding{
   
   public double [] equilibriumData(){//enter the equilibrium equation data
@@ -18,4 +20,10 @@ public class RootFinding{
     }
     return coefficients;
   } 
+  
+  public double equilibriumDataY(double [] coefficients, double x){
+    double y = 0;
+    for(int i = 0;i<coefficients.length;i++){
+      y = y+Math.pow(x,i)*coefficients[i];
+    }
 }
