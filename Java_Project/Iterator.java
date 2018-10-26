@@ -42,7 +42,7 @@ public class Iterator{
     //Calculating k'xa
     workingValues[8] = Math.pow(((myColumn.crossArea/workingValues[4]) * (0.357/myColumn.packing.fpPacking) * Math.pow( (myColumn.fluid.nsc_L/372), 0.5) * Math.pow((workingValues[6]/myColumn.fluid.mu_L)/(6.782/0.0008937), 0.3)), -1);
     
-    //Calculating k'xa
+    //Calculating k'ya
     workingValues[9] = Math.pow(((myColumn.crossArea/workingValues[5]) * (0.226/myColumn.packing.fpPacking) * Math.pow((myColumn.fluid.nsc_V/0.660), 0.5) * Math.pow((workingValues[6]/6.782), -0.5) * Math.pow((workingValues[7]/0.678), 0.35)), -1);
     
     //Calculating HELP ME
