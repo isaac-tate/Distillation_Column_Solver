@@ -3,21 +3,41 @@ import java.math.*;
 
 public class RootFinding{
   
-  public double ridders(double xal, double yag, double kxa, double kya, double error, double [] coefficients){
-    //CURRENTLY YAG AND XAL DO NOT CHANGE WHICH MEANS V,L,KS,AND MWS DO NOT CHANGE IMPPPPPPPP
-    double xu = 1;
-    double xl = 0;
-    double x = (xl+xu)*0.5;
-    double e = 1000;
+  int iterations;
+  double delta_x;
+  AbsorptionColumn myColumn;
+  double error;
+  
+  RootFinding(AbsorptionColumn myColumn, int iterations){
+    this.iterations = iterations;
+    this.myColumn = myColumn;
+    this.delta_x = myColumn.x_a1/iterations;
+    this.error = 0.001;
+  }
+  
+  public double [] ridders(){
+    double xu = 1;//set upper bound
+    double xl = 0;//set lower bound
+    double x = (xl+xu)*0.5;//set initial guess as midpoint
+    double e = 1000;//set initial error to 1000
+    double [] data = new double[2];//create array to hold L, V, G, MW, k values
+    double xal = myColumn.x_a1; //set initial x_al
+    double yag = myColumn.y_a1; //set initial y_ag
+    double delxal = xal/iterations;// determine delxal
+    double [] xai = new double[iterations];
+    int i = 0;
     
     double fxl, fxu, sign, fx, xnew, y, m, b, xm, fxnew, fxm;
-    coefficients = this.equilibriumData();//deep copy
+    double [] coefficients = this.equilibriumData();//determine equilibrium coefficients
     
     do{
-    fxl = function(kxa,kya,yag,xl,xal,coefficients);
-    fxu = function(kxa,kya,yag,xu,xal,coefficients);
+      
+    data = this.data(xal, yag, myColumn);//solve for k values etc
+    fxl = function(data[0],data[1],yag,xl,xal,coefficients);//find f(xl)
+    fxu = function(data[0],data[1],yag,xu,xal,coefficients);//find f(xu)
     
-    sign = fxl-fxu;
+    
+    sign = fxl-fxu;//determine the sign of f(xl)-f(xu) to find new x
     if(sign>0){
       sign = 1;
     }
@@ -28,43 +48,47 @@ public class RootFinding{
       sign = 0;
     }
     
-    xm = (xl+xu)*0.5;
-    fxm = function(kxa,kya,yag,xm,xal,coefficients);
+    fx = function(data[0],data[1],yag,x,xal,coefficients);//find f(x) where x is guess
     
-    xnew = xm+(xm-xl)*(sign*fxm)/(Math.pow(Math.pow(fxm,2)-fxl*fxu,0.5));
+    xnew = x+(x-xl)*(sign*fx)/(Math.pow(Math.pow(fx,2)-fxl*fxu,0.5));//calculate new x
     
-    fxnew = function(kxa,kya,yag,xnew,xal,coefficients);
+    fxnew = function(data[0],data[1], yag,xnew,xal,coefficients);//calculate f(new x values)
     
-    e = Math.abs((xnew-x)/xnew);
+    e = Math.abs((xnew-x)/xnew);//find error
     
-    x = xnew;
+    x = xnew;//set x = newly found x
     
-    if(xnew<xm){
+    if(xnew<x){//determine new bounds based on position of new x within the numerical line
       if(fxl*fxnew<0){
         xu = xnew;}
-      else if(fxnew*fxm<0){
-        xu = xm;
+      else if(fxnew*fx<0){
+        xu = x;
         xl = xnew;
       }
     }
-    else if(xnew>xm){
-      if(fxm*fxnew<0){
+    else if(xnew>x){
+      if(fx*fxnew<0){
         xu = xnew;
-        xl = xm;
+        xl = x;
       }
       else if(fxnew*fxu<0){
         xl = xnew;
       }
     }
+    //calculate new yag and new xal
+    yag = ((myColumn.lPrime/myColumn.vPrime)*(((xal-delxal)/(1-(xal-delxal)))-(xal/(1-xal)))+(yag/(1-yag)))/((myColumn.lPrime/myColumn.vPrime)*(((xal-delxal)/(1-(xal-delxal)))-(xal/(1-xal)))+(yag/(1-yag))+1);
+    xal = xal-delxal; 
+    xai[i] = xnew;
+    i++;
       
-    }while(e>error);
+    }while(e>error&&i<iterations);//continue until e is less than the desired error and/or more than the desired number of iterations have occured
     
-      return xnew;
+      return xai;//return the new x value
     
   }
   
   public double function(double kxa, double kya, double yag, double x, double xal, double []coefficients){
-    double y = this.equilibriumDataY(coefficients, x);
+    double y = this.equilibriumDataY(coefficients, x);//calculate y using the equilibrium data
     double m = this.slope(kxa, kya, xal, yag, x, y); 
     double b = this.intercept(yag,y,xal,x,kxa,kya);
     double f = y-(m*x+b);
@@ -102,11 +126,28 @@ public class RootFinding{
     return coefficients;
   } 
   
-  public double equilibriumDataY(double [] coefficients, double x){
+  public double equilibriumDataY(double [] coefficients, double x){//calculate y using equilibrium data
     double y = 0;
     for(int i = 0;i<coefficients.length;i++){
       y = y+Math.pow(x,i)*coefficients[i];
     }
   return y;
+  }
+  
+  public double [] data(double xal, double yag, AbsorptionColumn myColumn){
+   
+   double [] data = new double[2];
+   double mw_avL= (xal*myColumn.fluid.mW_A + (1-xal)*myColumn.fluid.mW_L); //Calculate MW_av,L
+   double mw_avV = (yag*myColumn.fluid.mW_A + (1-yag)*myColumn.fluid.mW_V); //Calculate MW_av,V
+   double l = myColumn.lPrime/(1-xal); //Calculating L
+   double v = myColumn.vPrime/(1-yag); //Calculating V
+   double g_L = l*mw_avL/myColumn.crossArea;  //Calculating G_L
+   double g_V = v*mw_avV/myColumn.crossArea; //Calculating G_V
+   //Calculating k'xa
+   data[0] = Math.pow(((myColumn.crossArea/l) * (0.357/myColumn.packing.fpPacking) * Math.pow( (myColumn.fluid.nsc_L/372), 0.5) * Math.pow((g_L/myColumn.fluid.mu_L)/(6.782/0.0008937), 0.3)), -1);
+   //Calculating k'ya
+   data[1] = Math.pow(((myColumn.crossArea/v) * (0.226/myColumn.packing.fpPacking) * Math.pow((myColumn.fluid.nsc_V/0.660), 0.5) * Math.pow((g_L/6.782), -0.5) * Math.pow((g_V/0.678), 0.35)), -1);
+   return data;
+    
   }
 }

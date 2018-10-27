@@ -45,9 +45,29 @@ public class Iterator{
     //Calculating k'ya
     workingValues[9] = Math.pow(((myColumn.crossArea/workingValues[5]) * (0.226/myColumn.packing.fpPacking) * Math.pow((myColumn.fluid.nsc_V/0.660), 0.5) * Math.pow((workingValues[6]/6.782), -0.5) * Math.pow((workingValues[7]/0.678), 0.35)), -1);
     
-    //Calculating HELP ME
+    /*//Calculating xai using root finding
+    workingValues[10] = ridders(workingValues[0],workingValues[1],workingValues[8],workingValues[9],0.001, coefficients);
     
+    //Calculating yai using equilibrium data
+    workingValues[11] = equilibriumDataY(coefficients,workingValues[10]);
+    
+    //Calculating (1-xai)im
+    workingValues[12] = ((1-workingValues[0])-(1-workingValues[10]))/Math.log((1-workingValues[0])/(1-workingValues[10]));
+    
+    //Calculating (1-yai)im
+    workingValues[13] = ((1-workingValues[11])-(1-workingValues[1]))/Math.log((1-workingValues[11])/(1-workingValues[1]));
+    
+    //Calculating dzv
+    workingValues[14] = workingValues[5]/(workingValues[9]*myColumn.crossArea/workingValues[13]*(1-workingValues[1])*(workingValues[1]-workingValues[11]));
+    
+    //Calculating dzl
+    workingValues[15] = workingValues[4]/(workingValues[8]*myColumn.crossArea/workingValues[12]*(1-workingValues[0])*(workingValues[10]-workingValues[0]));
+  
+    //
+  */
+  
   }
+  
   
   
 }
