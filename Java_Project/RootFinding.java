@@ -7,7 +7,7 @@ public class RootFinding{
   double delta_x;
   AbsorptionColumn myColumn;
   double error;
-  double [] coefficients;
+  double [] coefficients=equilibriumData();
   double [] xal;
   double [] yag;
   Data [] data;
@@ -23,23 +23,30 @@ public class RootFinding{
     this.myColumn = myColumn;
     this.delta_x = myColumn.x_a1/iterations;//calculate delta x
     this.error = 0.001;//maybe have user set it but for now make constant
-    this.coefficients = this.equilibriumData();//determine equilibrium coefficients
+    //this.coefficients = this.equilibriumData();//determine equilibrium coefficients
+    this.xal = new double [iterations];
     for(int j = 0;j<iterations;j++){
-      this.xal[j] = myColumn.x_a1-delta_x*j;//calculate an array of xal values at which each height will be calculated
+      xal[j] = myColumn.x_a1-this.delta_x*j;//calculate an array of xal values at which each height will be calculated
     }
+    this.yag = new double [iterations];
     for(int k = 0;k<iterations;k++){
       this.yag[k] = equilibriumDataY(coefficients,xal[k]);//same with yag using eqbm data
     }
+    this.data = new Data[iterations];
     for(int l = 0;l<iterations;l++){
       this.data[l] = new Data(xal[l], yag[l], myColumn);//solve for k values etc;//create array to hold L, V, G, MW, k values
     }
+    this.xai = new double [iterations];
     this.xai = this.ridders();//solve for xai values using the ridders root finding method
+    this.yai = new double [iterations];
     for(int i = 0;i<iterations;i++){//determine yai values with the eqbm coefficients
       this.yai[i] = equilibriumDataY(coefficients, xai[i]);
     }
+    this.dzv = new double [iterations];
     for(int m = 0;m<iterations;m++){//calculate the incremental height values
       this.dzv[m] = data[m].getData(3)/(data[m].getData(7)*myColumn.crossArea/(((1-yai[m])-(1-yag[m]))/Math.log((1-yai[m])/(1-yag[m])))*(1-yag[m])*(yag[m]-yai[m]));
     }
+    this.dzl = new double [iterations];
     for(int n = 0;n<iterations;n++){//calculate the incremental height values
       this.dzl[n] = data[n].getData(2)/(data[n].getData(6)*myColumn.crossArea/(((1-xal[n])-(1-xai[n]))/Math.log((1-xal[n])/(1-xai[n])))*(1-xal[n])*(xai[n]-xal[n]));
     }
@@ -47,12 +54,14 @@ public class RootFinding{
     for(int o = 0;o<iterations-1;o++){//determine the difference in yag values 
       delyag[o] = yag[o]-yag[o+1];
     }
+    this.zv = new double [iterations];
     this.zv[0] = 0;
+    this.zl = new double [iterations];
     this.zl[0] = 0;
-    for(int p = 0;p<iterations;p++){//calculate zv using incremental heights
+    for(int p = 0;p<iterations-1;p++){//calculate zv using incremental heights
         this.zv[p+1] = zv[p]+delyag[p]*dzv[p];
     }
-    for(int q = 0;q<iterations;q++){//calculate zl using incremental heights
+    for(int q = 0;q<iterations-1;q++){//calculate zl using incremental heights
         this.zl[q+1] = zl[q]+delta_x*dzl[q];
     }
   }
@@ -154,9 +163,9 @@ public class RootFinding{
       System.out.println("That is not a valid power, please reenter a positive integer or exit the program.");
       j = myScan.nextInt();
     }
-    double[] coefficients = new double[j];
+    double[] coefficients = new double[j+1];
     System.out.println("Enter the coefficients of the equilibrium equation in increasing order.");
-    for(int i = 0;i<j;i++){
+    for(int i = 0;i<j+1;i++){
       System.out.println("Enter the coefficient of x^"+i+".");
       coefficients[i] = myScan.nextDouble();
     }
