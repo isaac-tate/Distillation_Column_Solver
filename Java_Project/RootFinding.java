@@ -21,27 +21,39 @@ public class RootFinding{
   RootFinding(AbsorptionColumn myColumn, int iterations){
     this.iterations = iterations;
     this.myColumn = myColumn;
-    this.delta_x = myColumn.x_a1/iterations;
+    this.delta_x = myColumn.x_a1/iterations;//calculate delta x
     this.error = 0.001;//maybe have user set it but for now make constant
-    this.coefficients = this.equilibriumData();
+    this.coefficients = this.equilibriumData();//determine equilibrium coefficients
     for(int j = 0;j<iterations;j++){
-      this.xal[j] = myColumn.x_a1-delta_x*j;
+      this.xal[j] = myColumn.x_a1-delta_x*j;//calculate an array of xal values at which each height will be calculated
     }
     for(int k = 0;k<iterations;k++){
-      this.yag[k] = equilibriumDataY(coefficients,xal[k]);
+      this.yag[k] = equilibriumDataY(coefficients,xal[k]);//same with yag using eqbm data
     }
-    for(int l = 0;l<iterations;l++){//WRONG
+    for(int l = 0;l<iterations;l++){
       this.data[l] = new Data(xal[l], yag[l], myColumn);//solve for k values etc;//create array to hold L, V, G, MW, k values
     }
-    this.xai = this.ridders();
-    for(int i = 0;i<xai.length;i++){
+    this.xai = this.ridders();//solve for xai values using the ridders root finding method
+    for(int i = 0;i<iterations;i++){//determine yai values with the eqbm coefficients
       this.yai[i] = equilibriumDataY(coefficients, xai[i]);
     }
-    for(int m = 0;m<iterations;m++){
+    for(int m = 0;m<iterations;m++){//calculate the incremental height values
       this.dzv[m] = data[m].getData(3)/(data[m].getData(7)*myColumn.crossArea/(((1-yai[m])-(1-yag[m]))/Math.log((1-yai[m])/(1-yag[m])))*(1-yag[m])*(yag[m]-yai[m]));
     }
-    for(int n = 0;n<iterations;n++){
+    for(int n = 0;n<iterations;n++){//calculate the incremental height values
       this.dzl[n] = data[n].getData(2)/(data[n].getData(6)*myColumn.crossArea/(((1-xal[n])-(1-xai[n]))/Math.log((1-xal[n])/(1-xai[n])))*(1-xal[n])*(xai[n]-xal[n]));
+    }
+    double [] delyag = new double [iterations-1];
+    for(int o = 0;o<iterations-1;o++){//determine the difference in yag values 
+      delyag[o] = yag[o]-yag[o+1];
+    }
+    this.zv[0] = 0;
+    this.zl[0] = 0;
+    for(int p = 0;p<iterations;p++){//calculate zv using incremental heights
+        this.zv[p+1] = zv[p]+delyag[p]*dzv[p];
+    }
+    for(int q = 0;q<iterations;q++){//calculate zl using incremental heights
+        this.zl[q+1] = zl[q]+delta_x*dzl[q];
     }
   }
   

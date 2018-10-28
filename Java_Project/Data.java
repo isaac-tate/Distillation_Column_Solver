@@ -13,7 +13,7 @@ public class Data{
     //Calculating k'ya
     this.data[7] = Math.pow(((myColumn.crossArea/data[3]) * (0.226/myColumn.packing.fpPacking) * Math.pow((myColumn.fluid.nsc_V/0.660), 0.5) * Math.pow((data[4]/6.782), -0.5) * Math.pow((data[5]/0.678), 0.35)), -1);
   }
-  public double getData(int m){
+  public double getData(int m){//returns a specific data point within the array Data
     return this.data[m];
   }
 }
