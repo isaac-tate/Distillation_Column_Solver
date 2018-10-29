@@ -28,32 +28,41 @@ public class RootFinding{
     for(int j = 0;j<iterations;j++){
       xal[j] = myColumn.x_a1-this.delta_x*j;//calculate an array of xal values at which each height will be calculated
     }
+    System.out.println(xal[5]+"xal");
     this.yag = new double [iterations];
-    for(int k = 0;k<iterations;k++){
-      this.yag[k] = equilibriumDataY(coefficients,xal[k]);//same with yag using eqbm data
+    this.yag[0] = myColumn.y_a1;
+    for(int k = 0;k<iterations-1;k++){
+      this.yag[k+1] = ((myColumn.lPrime/myColumn.vPrime)*(((xal[k+1]-delta_x)/(1-(xal[k+1]-delta_x)))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k])))/((myColumn.lPrime/myColumn.vPrime)*(((xal[k+1]-delta_x)/(1-(xal[k+1]-delta_x)))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k]))+1);;//same with yag using eqbm data
     }
+    System.out.println(yag[5]+"yag");
     this.data = new Data[iterations];
     for(int l = 0;l<iterations;l++){
       this.data[l] = new Data(xal[l], yag[l], myColumn);//solve for k values etc;//create array to hold L, V, G, MW, k values
     }
+    System.out.println(data[5].getData(3)+"v");
     this.xai = new double [iterations];
     this.xai = this.ridders();//solve for xai values using the ridders root finding method
+    System.out.println(xai[5]+"xai");
     this.yai = new double [iterations];
     for(int i = 0;i<iterations;i++){//determine yai values with the eqbm coefficients
       this.yai[i] = equilibriumDataY(coefficients, xai[i]);
     }
+    System.out.println(yai[5]+"yai");
     this.dzv = new double [iterations];
     for(int m = 0;m<iterations;m++){//calculate the incremental height values
       this.dzv[m] = data[m].getData(3)/(data[m].getData(7)*myColumn.crossArea/(((1-yai[m])-(1-yag[m]))/Math.log((1-yai[m])/(1-yag[m])))*(1-yag[m])*(yag[m]-yai[m]));
     }
+    System.out.println(dzv[5]+"dzv");
     this.dzl = new double [iterations];
     for(int n = 0;n<iterations;n++){//calculate the incremental height values
       this.dzl[n] = data[n].getData(2)/(data[n].getData(6)*myColumn.crossArea/(((1-xal[n])-(1-xai[n]))/Math.log((1-xal[n])/(1-xai[n])))*(1-xal[n])*(xai[n]-xal[n]));
     }
+    System.out.println(dzl[5]+"dzl");
     double [] delyag = new double [iterations-1];
     for(int o = 0;o<iterations-1;o++){//determine the difference in yag values 
       delyag[o] = yag[o]-yag[o+1];
     }
+    System.out.println(delyag[5]+"delyag");
     this.zv = new double [iterations];
     this.zv[0] = 0;
     this.zl = new double [iterations];
@@ -61,27 +70,28 @@ public class RootFinding{
     for(int p = 0;p<iterations-1;p++){//calculate zv using incremental heights
         this.zv[p+1] = zv[p]+delyag[p]*dzv[p];
     }
+    System.out.println(zv[5]+"zv");
     for(int q = 0;q<iterations-1;q++){//calculate zl using incremental heights
         this.zl[q+1] = zl[q]+delta_x*dzl[q];
     }
+    System.out.println(zl[5]+"zl");
   }
   
   public double [] ridders(){
-    double xu = 1;//set upper bound
+    double xu = 0.9999;//set upper bound
     double xl = 0;//set lower bound
     double x = (xl+xu)*0.5;//set initial guess as midpoint
     double e = 1000;//set initial error to 1000
-    double xal = myColumn.x_a1; //set initial x_al
-    double yag = myColumn.y_a1; //set initial y_ag
+    //double xal = myColumn.x_a1; //set initial x_al
+    //double yag = myColumn.y_a1; //set initial y_ag
     int i = 0;
     
     double fxl, fxu, sign, fx, xnew, y, m, b, xm, fxnew, fxm;
     
     do{
       
-    fxl = function(data[i].getData(6),data[i].getData(7),yag,xl,xal,coefficients);//find f(xl)
-    fxu = function(data[i].getData(6),data[i].getData(7),yag,xu,xal,coefficients);//find f(xu)
-    
+    fxl = function(data[i].getData(6),data[i].getData(7),yag[i],xl,xal[i],coefficients);//find f(xl)
+    fxu = function(data[i].getData(6),data[i].getData(7),yag[i],xu,xal[i],coefficients);//find f(xu)
     
     sign = fxl-fxu;//determine the sign of f(xl)-f(xu) to find new x
     if(sign>0){
@@ -94,11 +104,12 @@ public class RootFinding{
       sign = 0;
     }
     
-    fx = function(data[i].getData(6),data[i].getData(7),yag,x,xal,coefficients);//find f(x) where x is guess
+    fx = function(data[i].getData(6),data[i].getData(7),yag[i],x,xal[i],coefficients);//find f(x) where x is guess
     
     xnew = x+(x-xl)*(sign*fx)/(Math.pow(Math.pow(fx,2)-fxl*fxu,0.5));//calculate new x
     
-    fxnew = function(data[i].getData(6),data[i].getData(7), yag,xnew,xal,coefficients);//calculate f(new x values)
+    fxnew = function(data[i].getData(6),data[i].getData(7), yag[i],xnew,xal[i],coefficients);//calculate f(new x values)
+    
     
     e = Math.abs((xnew-x)/xnew);//find error
     
@@ -122,8 +133,8 @@ public class RootFinding{
       }
     }
     //calculate new yag and new xal
-    yag = ((myColumn.lPrime/myColumn.vPrime)*(((xal-delta_x)/(1-(xal-delta_x)))-(xal/(1-xal)))+(yag/(1-yag)))/((myColumn.lPrime/myColumn.vPrime)*(((xal-delta_x)/(1-(xal-delta_x)))-(xal/(1-xal)))+(yag/(1-yag))+1);
-    xal = xal-delta_x; 
+    //yag = ((myColumn.lPrime/myColumn.vPrime)*(((xal-delta_x)/(1-(xal-delta_x)))-(xal/(1-xal)))+(yag/(1-yag)))/((myColumn.lPrime/myColumn.vPrime)*(((xal-delta_x)/(1-(xal-delta_x)))-(xal/(1-xal)))+(yag/(1-yag))+1);
+    //xal = xal-delta_x; 
     xai[i] = xnew;
     i++;
       
@@ -178,5 +189,8 @@ public class RootFinding{
       y = y+Math.pow(x,i)*coefficients[i];
     }
   return y;
+  }
+  public double getVHeight(int n){
+    return zv[n];
   }
 }

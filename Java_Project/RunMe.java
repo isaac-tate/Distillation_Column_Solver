@@ -66,7 +66,7 @@ public class RunMe{
     
     RootFinding heights = new RootFinding(myColumn, interations);
     
-    
+    System.out.println(heights.getVHeight(50));
     
   }
 }
