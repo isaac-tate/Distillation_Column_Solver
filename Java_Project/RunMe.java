@@ -22,7 +22,7 @@ public class RunMe{
      * 
      */
     
-    double[] inputs = new double[6];
+    double[] inputs = new double[7];
     Scanner myScan = new Scanner(System.in);
 
     System.out.println("Welcome to column calculator");
@@ -48,6 +48,9 @@ public class RunMe{
     inputs[5] = myScan.nextDouble();
     myScan.nextLine();
     
+    System.out.println("Please enter a number of iterations");
+    inputs[6] = myScan.nextInt();
+    
     System.out.println("Please input an packing type (berl, rashig, pall)");
     String packType = myScan.nextLine();
     
@@ -61,13 +64,9 @@ public class RunMe{
     Fluid fluid = new Fluid();
     Packing packing = new Packing(packType);
     
-    AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, inputs);
+    AbsorptionColumn2 myColumn = new AbsorptionColumn2(packing, fluid, inputs);
     System.out.println(myColumn.v_2);
-    
-    RootFinding heights = new RootFinding(myColumn, interations);
-    
-    System.out.println(heights.getVHeight(50));
-    
+ 
   }
 }
     

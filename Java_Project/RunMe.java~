@@ -64,9 +64,9 @@ public class RunMe{
     AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, inputs);
     System.out.println(myColumn.v_2);
     
-    Iterator iterator = new Iterator(myColumn, interations);
+    RootFinding heights = new RootFinding(myColumn, interations);
     
-    
+    System.out.println(heights.getVHeight(50));
     
   }
 }
