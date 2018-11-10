@@ -2,7 +2,7 @@ public class Fluid{
   
   double d_AB_L, d_AB_V , mu_L , rho_L ,mu_V ,rho_V ,mW_A ,mW_L ,mW_V, nsc_L, nsc_V;
   
-  Fluid(){ //This is the deafult
+  Fluid(){ //This is the default
     
       d_AB_L = 0.00000000124;
       d_AB_V = 0.0000135;

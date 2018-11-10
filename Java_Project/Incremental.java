@@ -9,9 +9,8 @@ public class Incremental implements RootFinding2{
   double error = 0.0001;
   
   do{
-  fxl = f.setX2(xl);
-  fxu = f.setX2(xu);
-  fxdel = f.setX2(xl+delx);
+  fxl = f.setX(xl,"xl");
+  fxdel = f.setX(xl+delx,"xl+xdel");
   
   sign = fxl*fxdel;//determine the sign of f(xl)-f(xu) to find new x
     if(sign>0){

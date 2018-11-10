@@ -1,13 +1,13 @@
 public class Ridders implements RootFinding2{
   
   public double calculate(Function f){
-    double xu = 0.118;//set upper bound
+    double xu = 0.118;//set upper bound to equilibrium data limit
     double xl = 0;//set lower bound
     double xm = (xu+xl)/2;
     double xold = xm;
     double e = 1000;//set initial error to 1000
     int i = 0;
-    int iterations = 1000;//take from file?
+    int iterations = 1000;
     double error = 0.001;//take from file!!
     
     double sign, xnew, y, m, b,fxl,fxu,fxm,fxnew;

@@ -8,7 +8,8 @@ public class Function{//a generalized function class that can contain a number o
   double kya;
   AbsorptionColumn2 mycolumn;
   double z;
-  //this function is for the absorption column interface
+  
+//this function is for the absorption column interface
   public Function(double kxa, double kya, double xal, double yag, double x, EquilibriumData eqdata){
     this.xal = xal;
     this.yag = yag;
@@ -36,7 +37,7 @@ public class Function{//a generalized function class that can contain a number o
     this.mycolumn = mycolumn;
     this.x = x;
   }
-  public double setX2(double l){
+  public double setX(double l, String a){
     double x = this.mycolumn.recalculateHeightDifference(l);
     this.mycolumn = mycolumn;
     this.z = mycolumn.z;

@@ -240,7 +240,7 @@ public class AbsorptionColumn2{
     
     this.zl = Integration.Simpsons(xal,dzl);
     this.zv = Integration.Simpsons(yag,dzv);
-    if(this.zl>=this.zv){ this.z = zl;}
+    if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
     return zl-zv;
 
