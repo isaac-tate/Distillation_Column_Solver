@@ -30,42 +30,39 @@ public class RunMe{
     //GETTING INPUTS
     
     System.out.println("Please input a starting gas inlet flow rate");
-    inputs[0] = myScan.nextDouble();
-    
+    //inputs[0] = myScan.nextDouble();
+    inputs[0] = 10000;
     System.out.println("Please input a starting gas mole fraction");
-    inputs[1] = myScan.nextDouble();
+    //inputs[1] = myScan.nextDouble();
+    inputs[1] = 0.05;
     
     System.out.println("Please input a starting liquid inlet flow rate");
-    inputs[2] = myScan.nextDouble();
-    
+    //inputs[2] = myScan.nextDouble();
+    inputs[2] = 30000;
     System.out.println("Please input a starting liquid mole fraction");
-    inputs[3] = myScan.nextDouble();
-    
+    //inputs[3] = myScan.nextDouble();
+    inputs[3] = 0;
     System.out.println("Please input a recovery value");
-    inputs[4] = myScan.nextDouble();
-    
+    //inputs[4] = myScan.nextDouble();
+    inputs[4] = 0.95;
     System.out.println("Please input an inlet temp");
-    inputs[5] = myScan.nextDouble();
-    myScan.nextLine();
-    
+    //inputs[5] = myScan.nextDouble();
+    inputs[5] = 25;
     System.out.println("Please enter a number of iterations");
-    inputs[6] = myScan.nextInt();
-    
+    //inputs[6] = myScan.nextInt();
+    //myScan.nextLine();
+    inputs[6] = 100;
     System.out.println("Please input an packing type (berl, rashig, pall)");
-    String packType = myScan.nextLine();
-    
-    System.out.println("Please amount of iterations");
-    int interations = myScan.nextInt();
+    //String packType = myScan.nextLine();
+    String packType = "berl";
     
     //DONE GETTING INPUTS
-    
-    
     
     Fluid fluid = new Fluid();
     Packing packing = new Packing(packType);
     
     AbsorptionColumn2 myColumn = new AbsorptionColumn2(packing, fluid, inputs);
-    System.out.println(myColumn.v_2);
+    System.out.println(myColumn.z);
  
   }
 }

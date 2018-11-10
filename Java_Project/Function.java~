@@ -1,24 +1,32 @@
 public class Function{//a generalized function class that can contain a number of different functions for use in the rootfinding class, can be extended
   
+  double xal;
+  double yag;
   double x;
-  
-  public Function(xal, yag, x){
-    double []data = new data[8];
-    data[0]= (xal*myColumn.fluid.mW_A + (1-xal)*myColumn.fluid.mW_L); //Calculate MW_av,L
-    data[1] = (yag*myColumn.fluid.mW_A + (1-yag)*myColumn.fluid.mW_V); //Calculate MW_av,V
-    data[2] = myColumn.lPrime/(1-xal); //Calculating L
-    data[3] = myColumn.vPrime/(1-yag); //Calculating V
-    data[4] = data[2]*data[0]/myColumn.crossArea;  //Calculating G_L
-    data[5] = data[3]*data[1]/myColumn.crossArea; //Calculating G_V
-    //Calculating k'xa
-    this.data[6] = Math.pow(((myColumn.crossArea/data[2]) * (0.357/myColumn.packing.fpPacking) * Math.pow( (myColumn.fluid.nsc_L/372), 0.5) * Math.pow((data[4]/myColumn.fluid.mu_L)/(6.782/0.0008937), 0.3)), -1);
-    //Calculating k'ya
-    this.data[7] = Math.pow(((myColumn.crossArea/data[3]) * (0.226/myColumn.packing.fpPacking) * Math.pow((myColumn.fluid.nsc_V/0.660), 0.5) * Math.pow((data[4]/6.782), -0.5) * Math.pow((data[5]/0.678), 0.35)), -1);
-    double lmlconc =((1-xal)-(1-x))/Math.log((1-xal)/(1-x));///log mean liquid concentration at interface
-    double lmgconc =((1-y)-(1-yag))/Math.log((1-y)/(1-yag));//log mean gas concentration at interface
-    double m = -((data[6]/lmlconc)/(data[7]/lmgconc));
-    double b = 0.5*(yag+y-m*(xal+x));
-    double y = this.equilibriumDataY(coefficients, x);//calculate y using the equilibrium data
+  EquilibriumData eqdata;
+  double kxa;
+  double kya;
+  //this function is for the absorption column interface
+  public Function(double kxa, double kya, double xal, double yag, double x, EquilibriumData eqdata){
+    this.xal = xal;
+    this.yag = yag;
+    this.eqdata = eqdata; //needs deep copy
+    this.kxa = kxa;
+    this.kya = kya;
+    double y = eqdata.equilibriumDataY(x);//calculate y using the equilibrium data
+    double lmlconc =((1-this.xal)-(1-x))/Math.log((1-this.xal)/(1-x));///log mean liquid concentration at interface
+    double lmgconc =((1-y)-(1-this.yag))/Math.log((1-y)/(1-this.yag));//log mean gas concentration at interface
+    double m = -((kxa/lmlconc)/(kya/lmgconc));
+    double b = 0.5*(this.yag+y-m*(this.xal+x));
     this.x = y-(m*x+b);//calculate the function for the determination of xai
+  }
+  public double setX(double x){
+    double y = this.eqdata.equilibriumDataY(x);//calculate y using the equilibrium data
+    double lmlconc =((1-this.xal)-(1-x))/Math.log((1-this.xal)/(1-x));///log mean liquid concentration at interface
+    double lmgconc =((1-y)-(1-this.yag))/Math.log((1-y)/(1-this.yag));//log mean gas concentration at interface
+    double m = -((this.kxa/lmlconc)/(this.kya/lmgconc));
+    double b = 0.5*(this.yag+y-m*(this.xal+x));
+    double g = y-(m*x+b);//calculate the function for the determination of xai
+    return g;
   }
 }

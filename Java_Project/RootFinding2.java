@@ -1,27 +1,23 @@
-public class RootFinding2{
+public class RootFinding2{//a generalized class within which rootfinding methods can be contained
   
   private double x;
   
   public static double Ridders(Function f){
-    double xu = 0.9999;//set upper bound
+    double xu = 0.118;//set upper bound
     double xl = 0;//set lower bound
-    double x = (0.9999-0)/2;
+    double xm = (xu+xl)/2;
+    double xold = xm;
     double e = 1000;//set initial error to 1000
-    //double xal = myColumn.x_a1; //set initial x_al
-    //double yag = myColumn.y_a1; //set initial y_ag
     int i = 0;
     int iterations = 1000;//take from file?
     double error = 0.001;
     
-    double sign, xnew, y, m, b, xm;
+    double sign, xnew, y, m, b,fxl,fxu,fxm,fxnew;
     
     do{
       
-    double fxl = f.setX(xl);
-    double fxu = f.setX(xu);
-      
-    //fxl = function(data[i].getData(6),data[i].getData(7),yag[i],xl,xal[i],coefficients);//find f(xl)
-   // fxu = function(data[i].getData(6),data[i].getData(7),yag[i],xu,xal[i],coefficients);//find f(xu)
+    fxl = f.setX(xl);
+    fxu = f.setX(xu);
     
     sign = fxl-fxu;//determine the sign of f(xl)-f(xu) to find new x
     if(sign>0){
@@ -34,44 +30,35 @@ public class RootFinding2{
       sign = 0;
     }
     
-    double fx = f.setX(x);
-    //fx = function(data[i].getData(6),data[i].getData(7),yag[i],x,xal[i],coefficients);//find f(x) where x is guess
+    xm = (xu+xl)/2;
     
-    xnew = x+(x-xl)*(sign*fx)/(Math.pow(Math.pow(fx,2)-fxl*fxu,0.5));//calculate new x
+    fxm = f.setX(xm);
+    xnew = xm+(xm-xl)*((sign*fxm)/(Math.pow(Math.pow(fxm,2)-fxl*fxu,0.5)));//calculate new x
+    fxnew  = f.setX(xnew);
+    e = Math.abs((xnew-xold)/xnew);//find error
     
-    double fxnew  = f.setX(xnew);
-
-    //fxnew = function(data[i].getData(6),data[i].getData(7), yag[i],xnew,xal[i],coefficients);//calculate f(new x values)
+    xold = xnew;//set x = newly found x
     
-    
-    e = Math.abs((xnew-x)/xnew);//find error
-    
-    x = xnew;//set x = newly found x
-    
-    if(xnew<x){//determine new bounds based on position of new x within the numerical line
+    if(xnew<xm){//determine new bounds based on position of new x within the numerical line
       if(fxl*fxnew<0){
         xu = xnew;}
-      else if(fxnew*fx<0){
-        xu = x;
+      else if(fxnew*fxm<0){
+        xu = xm;
         xl = xnew;
       }
     }
-    else if(xnew>x){
-      if(fx*fxnew<0){
+    else if(xnew>xm){
+      if(fxm*fxnew<0){
         xu = xnew;
-        xl = x;
+        xl = xm;
       }
       else if(fxnew*fxu<0){
         xl = xnew;
       }
     }
-    //calculate new yag and new xal
-    //yag = ((myColumn.lPrime/myColumn.vPrime)*(((xal-delta_x)/(1-(xal-delta_x)))-(xal/(1-xal)))+(yag/(1-yag)))/((myColumn.lPrime/myColumn.vPrime)*(((xal-delta_x)/(1-(xal-delta_x)))-(xal/(1-xal)))+(yag/(1-yag))+1);
-    //xal = xal-delta_x; 
-    i++;
-      
+    i++; 
     }while(e>error&&i<iterations);//continue until e is less than the desired error and/or more than the desired number of iterations have occured
     
-      return x;//return the new x value 
+      return xnew;//return the new x value 
   }
 }

@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class EquilibriumData{
   
   double [] eqdata;
@@ -11,13 +12,12 @@ public class EquilibriumData{
       System.out.println("That is not a valid power, please reenter a positive integer or exit the program.");
       j = myScan.nextInt();
     }
-    double[] coefficients = new double[j+1];
+    this.eqdata = new double[j+1];
     System.out.println("Enter the coefficients of the equilibrium equation in increasing order.");
     for(int i = 0;i<j+1;i++){
       System.out.println("Enter the coefficient of x^"+i+".");
-      coefficients[i] = myScan.nextDouble();
+      this.eqdata[i] = myScan.nextDouble();
     }
-    this.eqdata=coefficients;
   }
   public double equilibriumDataY(double x){//calculate y using equilibrium data
     double y = 0;

@@ -1,0 +1,48 @@
+public class Integration{
+  
+  public double Simpsons(double [] x, double [] y){
+    
+    for(int i = 0;i<x.length;i++){
+    }
+    double a = x[0];
+    double b = x[x.length-1];
+    
+    double delx,
+    
+    if(x.length%2!=0){
+      delx = (b-a)/(x.length);
+      intapprox = y[0];
+      
+      for(int i = 1;i<x.length;i++){
+        if(i%2 = 0){
+          intapprox = intapprox+4*y[i];
+        }
+        else{
+          intapprox = intapprox+2*y[i];
+        }
+      }
+      intapprox = intapprox+y[y.length-1];
+      intapprox = intapprox*delx/3;
+    }
+    else{
+      b2 = x[x.length-3];
+      delx = (b2-a)/(x.length-4);
+      intapprox = y[0];
+      
+      for(int i = 1;i<x.length-4;i++){
+        if(i%2 = 0){
+          intapprox = intapprox+4*y[i];
+        }
+        else{
+          intapprox = intapprox+2*y[i];
+        }
+      }
+      intapprox = intapprox+y[y.length-3];
+      intapprox = intapprox*delx/3;
+      
+      intapprox = intapprox+(3/8)*(y[y.length-3]+3*y[y.length-2]+3*y[y.length-1]+y[y.length]);
+      
+    }
+    return intapprox;
+                                   
+     

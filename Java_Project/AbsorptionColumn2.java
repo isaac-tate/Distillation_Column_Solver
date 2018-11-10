@@ -69,19 +69,18 @@ public class AbsorptionColumn2{
     this.iterations = (int)conditions[6];
     double delta_x = this.x_a1/this.iterations;//calculate delta x
     this.eqdata = new EquilibriumData();
+    
     this.xal = new double [this.iterations];
     for(int j = 0;j<this.iterations;j++){
       xal[j] = this.x_a1-delta_x*j;//calculate an array of xal values at which each dzv will be calculated
     }
+    
     this.yag = new double [this.iterations];
     this.yag[0] = y_a1;
     for(int k = 0;k<this.iterations-1;k++){
-      this.yag[k+1] = ((this.lPrime/this.vPrime)*(((xal[k+1]-delta_x)/(1-(xal[k+1]-delta_x)))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k])))/((this.lPrime/this.vPrime)*(((xal[k+1]-delta_x)/(1-(xal[k+1]-delta_x)))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k]))+1);;//same with yag using eqbm data
+      this.yag[k+1] = ((this.lPrime/this.vPrime)*(((xal[k+1])/(1-(xal[k+1])))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k])))/((this.lPrime/this.vPrime)*(((xal[k+1])/(1-(xal[k+1])))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k]))+1);//same with yag using eqbm data
     }
-    /*this.data = new Data[this.iterations];
-    for(int l = 0;l<this.iterations;l++){
-      this.data[l] = new Data(xal[l], yag[l], myColumn);//solve for k values etc;//create array to hold L, V, G, MW, k values
-    }*///Need to determine data values within the function class for the rootfinding method
+    
     this.xai = new double [this.iterations];
     double x = (0.9999-0)/2;
     double [][]data = new double [8][this.iterations];
@@ -96,23 +95,32 @@ public class AbsorptionColumn2{
       data[6][i] = Math.pow(((this.crossArea/data[2][i]) * (0.357/this.packing.fpPacking) * Math.pow( (this.fluid.nsc_L/372), 0.5) * Math.pow((data[4][i]/this.fluid.mu_L)/(6.782/0.0008937), 0.3)), -1);
       //Calculating k'ya
       data[7][i] = Math.pow(((this.crossArea/data[3][i]) * (0.226/this.packing.fpPacking) * Math.pow((this.fluid.nsc_V/0.660), 0.5) * Math.pow((data[4][i]/6.782), -0.5) * Math.pow((data[5][i]/0.678), 0.35)), -1);
-      Function f = new Function(data,xal[i],yag[i],x,eqdata, i);
+      Function f = new Function(data[6][i],data[7][i],xal[i],yag[i],x,eqdata);
       this.xai[i] = RootFinding2.Ridders(f);//solve for xai values using the ridders root finding method
       x = xai[i];
     }
+    
     this.yai = new double [this.iterations];
     for(int i = 0;i<this.iterations;i++){//determine yai values with the eqbm coefficients
       this.yai[i] = eqdata.equilibriumDataY(xai[i]);
     }
+    
     this.dzv = new double [this.iterations];
     for(int m = 0;m<this.iterations;m++){//calculate the incremental height values
       this.dzv[m] = data[3][m]/(data[7][m]*this.crossArea/(((1-yai[m])-(1-yag[m]))/Math.log((1-yai[m])/(1-yag[m])))*(1-yag[m])*(yag[m]-yai[m]));
     }
+    
     this.dzl = new double [this.iterations];
     for(int n = 0;n<this.iterations;n++){//calculate the incremental height values
-      this.dzl[n] = data[2][n]/(data[2][n]*this.crossArea/(((1-xal[n])-(1-xai[n]))/Math.log((1-xal[n])/(1-xai[n])))*(1-xal[n])*(xai[n]-xal[n]));
+      this.dzl[n] = data[2][n]/(data[6][n]*this.crossArea/(((1-xal[n])-(1-xai[n]))/Math.log((1-xal[n])/(1-xai[n])))*(1-xal[n])*(xai[n]-xal[n]));
     }
     
+    this.zl = Integration.Simpsons(xal,dzl);
+    System.out.println(zl);
+    this.zv = Integration.Simpsons(yag,dzv);
+    System.out.println(zv);
+    if(this.zl>=this.zv){ z = zl;}
+    else{ z = zv;}
 
   }
   
