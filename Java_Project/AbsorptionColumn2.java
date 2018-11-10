@@ -175,11 +175,13 @@ public class AbsorptionColumn2{
     this.zv = source.zv;
     this.z = source.z;
   }
+  //optimizes the column liquid flow
   public double optimizeLiquidFlow(){
     Function f = new Function(this,10000);
     Incremental i = new Incremental();
     return i.calculate(f);
   }
+  
   public double recalculateHeightDifference(double l){//use to recalculate the difference in heights for optimization
     
     this.l_2 = l;
