@@ -4,8 +4,21 @@ public class Integration{//a generalized class that can hold a number of differe
     
     double intapprox,a,b,delx,b2;
     
-    for(int i = 0;i<x.length;i++){
+    double tempx=0;
+    double tempy=0;
+    for(int i = 0;i<x.length;i++){//bubble sort to make sure the array is in increasing order
+      for(int j = 1;j<(x.length-1);j++){
+        if(x[j-1]>x[j]){
+          tempx = x[j-1];
+          x[j-1] = x[j];
+          x[j] = tempx;
+          tempy = y[j-1];
+          y[j-1] = y[j];
+          y[j] = tempy;
+        }
+      }
     }
+
     a = x[0];
     b = x[x.length-1];
     

@@ -98,6 +98,7 @@ public class AbsorptionColumn2{
       Function f = new Function(data[6][i],data[7][i],xal[i],yag[i],x,eqdata);
       this.xai[i] = RootFinding2.Ridders(f);//solve for xai values using the ridders root finding method
       x = xai[i];
+      System.out.println(xai+" "+i);
     }
     
     this.yai = new double [this.iterations];
