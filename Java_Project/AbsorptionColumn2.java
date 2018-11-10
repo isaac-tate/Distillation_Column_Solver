@@ -40,7 +40,6 @@ public class AbsorptionColumn2{
   int iterations;
   EquilibriumData eqdata;
   double [] xal, yag, xai, yai, dzv, dzl;
-    
   
   //Constructor
   public AbsorptionColumn2(Packing packing, Fluid fluid, double[] conditions){
@@ -99,7 +98,6 @@ public class AbsorptionColumn2{
       Ridders r = new Ridders();
       this.xai[i] = r.calculate(f);//solve for xai values using the ridders root finding method
       x = xai[i];
-      System.out.println(xai[i]+" "+i);
     }
     
     this.yai = new double [this.iterations];
@@ -118,16 +116,14 @@ public class AbsorptionColumn2{
     }
     
     this.zl = Integration.Simpsons(xal,dzl);
-    System.out.println(zl);
     this.zv = Integration.Simpsons(yag,dzv);
-    System.out.println(zv);
     if(this.zl>=this.zv){ z = zl;}
     else{z = zv;}
     
     this.optL = optimizeLiquidFlow();
 
   }
-  
+  //copy constructor
   public AbsorptionColumn2(AbsorptionColumn2 source){
     this.packing = source.packing; //Needs deep copy
     this.fluid = source.fluid; //Needs deep copy
@@ -180,12 +176,73 @@ public class AbsorptionColumn2{
     this.z = source.z;
   }
   public double optimizeLiquidFlow(){
-    Function f = new Function(this,5);
+    Function f = new Function(this,10000);
     Incremental i = new Incremental();
     return i.calculate(f);
   }
-  public void setL(double l){
-   this.l_2 = l; 
-  }
+  public double recalculateHeightDifference(double l){//use to recalculate the difference in heights for optimization
     
+    this.l_2 = l;
+    
+    //Calculating System Constants
+    this.lPrime = (l_2*(1-x_a2)/3600);
+    this.x_a1 = ((vPrime/lPrime)*((y_a1/(1-y_a1))-(y_a2/(1-y_a2))))/(1+((vPrime/lPrime)*((y_a1/(1-y_a1))-(y_a2/(1-y_a2)))));
+    this.l_1 = lPrime/(1-x_a1)*3600;
+    
+    //Calculating System Properties
+    double delta_x = this.x_a1/this.iterations;//calculate delta x
+    
+    this.xal = new double [this.iterations];
+    for(int j = 0;j<this.iterations;j++){
+      xal[j] = this.x_a1-delta_x*j;//calculate an array of xal values at which each dzv will be calculated
+    }
+    
+    this.yag = new double [this.iterations];
+    this.yag[0] = y_a1;
+    for(int k = 0;k<this.iterations-1;k++){
+      this.yag[k+1] = ((this.lPrime/this.vPrime)*(((xal[k+1])/(1-(xal[k+1])))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k])))/((this.lPrime/this.vPrime)*(((xal[k+1])/(1-(xal[k+1])))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k]))+1);//same with yag using eqbm data
+    }
+    
+    this.xai = new double [this.iterations];
+    double x = (0.9999-0)/2;
+    double [][]data = new double [8][this.iterations];
+    for (int i=0;i<this.iterations;i++){
+      data[0][i]= (xal[i]*this.fluid.mW_A + (1-xal[i])*this.fluid.mW_L); //Calculate MW_av,L
+      data[1][i] = (yag[i]*this.fluid.mW_A + (1-yag[i])*this.fluid.mW_V); //Calculate MW_av,V
+      data[2][i] = this.lPrime/(1-xal[i]); //Calculating L
+      data[3][i] = this.vPrime/(1-yag[i]); //Calculating V
+      data[4][i] = data[2][i]*data[0][i]/this.crossArea;  //Calculating G_L
+      data[5][i] = data[3][i]*data[1][i]/this.crossArea; //Calculating G_V
+      //Calculating k'xa
+      data[6][i] = Math.pow(((this.crossArea/data[2][i]) * (0.357/this.packing.fpPacking) * Math.pow( (this.fluid.nsc_L/372), 0.5) * Math.pow((data[4][i]/this.fluid.mu_L)/(6.782/0.0008937), 0.3)), -1);
+      //Calculating k'ya
+      data[7][i] = Math.pow(((this.crossArea/data[3][i]) * (0.226/this.packing.fpPacking) * Math.pow((this.fluid.nsc_V/0.660), 0.5) * Math.pow((data[4][i]/6.782), -0.5) * Math.pow((data[5][i]/0.678), 0.35)), -1);
+      Function f = new Function(data[6][i],data[7][i],xal[i],yag[i],x,eqdata);
+      Ridders r = new Ridders();
+      this.xai[i] = r.calculate(f);//solve for xai values using the ridders root finding method
+      x = xai[i];
+    }
+    
+    this.yai = new double [this.iterations];
+    for(int i = 0;i<this.iterations;i++){//determine yai values with the eqbm coefficients
+      this.yai[i] = eqdata.equilibriumDataY(xai[i]);
+    }
+    
+    this.dzv = new double [this.iterations];
+    for(int m = 0;m<this.iterations;m++){//calculate the incremental height values
+      this.dzv[m] = data[3][m]/(data[7][m]*this.crossArea/(((1-yai[m])-(1-yag[m]))/Math.log((1-yai[m])/(1-yag[m])))*(1-yag[m])*(yag[m]-yai[m]));
+    }
+    
+    this.dzl = new double [this.iterations];
+    for(int n = 0;n<this.iterations;n++){//calculate the incremental height values
+      this.dzl[n] = data[2][n]/(data[6][n]*this.crossArea/(((1-xal[n])-(1-xai[n]))/Math.log((1-xal[n])/(1-xai[n])))*(1-xal[n])*(xai[n]-xal[n]));
+    }
+    
+    this.zl = Integration.Simpsons(xal,dzl);
+    this.zv = Integration.Simpsons(yag,dzv);
+    if(this.zl>=this.zv){ this.z = zl;}
+    else{this.z = zv;}
+    return zl-zv;
+
+  }
 }

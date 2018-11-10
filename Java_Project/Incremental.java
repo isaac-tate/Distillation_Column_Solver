@@ -1,12 +1,12 @@
 public class Incremental implements RootFinding2{
   
   public double calculate (Function f){ 
-  double xl = 0;
-  double xu = 10000;//to change
+  double xl = 5000;
+  double xu = 200000;//to change
   
   double delx = 1000;//to change
   double sign,fxl,fxu,fxdel;
-  double error = 0.001;
+  double error = 0.0001;
   
   do{
   fxl = f.setX2(xl);
@@ -30,7 +30,6 @@ public class Incremental implements RootFinding2{
     else if(sign>0){
       xl = xl+delx;
     }
-    System.out.println(xl);
   }while(Math.abs(fxl)>error&&xl<xu);
     return xl;
   }
