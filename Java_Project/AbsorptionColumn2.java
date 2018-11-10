@@ -34,7 +34,7 @@ public class AbsorptionColumn2{
   double vPrime, lPrime, dC, crossArea, x_a1, y_a2;
  
   //Other output values
-  double v_2, l_1, z, zl, zv;
+  double v_2, l_1, z, zl, zv,optL;
   
   //System properties
   int iterations;
@@ -96,9 +96,10 @@ public class AbsorptionColumn2{
       //Calculating k'ya
       data[7][i] = Math.pow(((this.crossArea/data[3][i]) * (0.226/this.packing.fpPacking) * Math.pow((this.fluid.nsc_V/0.660), 0.5) * Math.pow((data[4][i]/6.782), -0.5) * Math.pow((data[5][i]/0.678), 0.35)), -1);
       Function f = new Function(data[6][i],data[7][i],xal[i],yag[i],x,eqdata);
-      this.xai[i] = RootFinding2.Ridders(f);//solve for xai values using the ridders root finding method
+      Ridders r = new Ridders();
+      this.xai[i] = r.calculate(f);//solve for xai values using the ridders root finding method
       x = xai[i];
-      System.out.println(xai+" "+i);
+      System.out.println(xai[i]+" "+i);
     }
     
     this.yai = new double [this.iterations];
@@ -121,10 +122,70 @@ public class AbsorptionColumn2{
     this.zv = Integration.Simpsons(yag,dzv);
     System.out.println(zv);
     if(this.zl>=this.zv){ z = zl;}
-    else{ z = zv;}
+    else{z = zv;}
+    
+    this.optL = optimizeLiquidFlow();
 
   }
   
-  
-  
+  public AbsorptionColumn2(AbsorptionColumn2 source){
+    this.packing = source.packing; //Needs deep copy
+    this.fluid = source.fluid; //Needs deep copy
+    
+    //Given Inputs
+    this.v_1 = source.v_1;
+    this.y_a1 = source.y_a1;
+    this.l_2 = source.l_2;
+    this.x_a2 = source.x_a2;
+    this.recovery = source.recovery;
+    this.temp_in = source.temp_in;
+    
+    //Calculating System Constants
+    this.crossArea = source.crossArea;
+    this.vPrime = source.vPrime;
+    this.lPrime = source.lPrime;
+    this.v_2 = source.v_2;
+    this.y_a2 = source.y_a2;
+    this.x_a1 = source.x_a1;
+    this.l_1 = source.l_1;
+    this.iterations = source.iterations;
+    this.eqdata = source.eqdata;//deep copy
+ 
+    this.xal = new double [this.iterations];
+    for(int j = 0;j<this.iterations;j++){
+      this.xal[j] = source.xal[j];//calculate an array of xal values at which each dzv will be calculated
+    }
+    this.yag = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      this.yag[k] = source.yag[k];
+    }
+    this.xai = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      this.xai[k] = source.xai[k];
+    }
+    this.yai = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      this.yai[k] = source.yai[k];
+    }
+    this.dzv = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      this.dzv[k] = source.dzv[k];
+    }
+    this.dzl = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      this.dzl[k] = source.dzl[k];
+    }
+    this.zl = source.zl;
+    this.zv = source.zv;
+    this.z = source.z;
+  }
+  public double optimizeLiquidFlow(){
+    Function f = new Function(this,5);
+    Incremental i = new Incremental();
+    return i.calculate(f);
+  }
+  public void setL(double l){
+   this.l_2 = l; 
+  }
+    
 }
