@@ -49,6 +49,7 @@ public class Fluid{
     this.nsc_V = source.nsc_V;
   }
   
+  //Accessors and mutators
   public double calculateNsc_L(){return mu_L/(rho_L*d_AB_L);}
   
   public double calculateNsc_V(){return mu_V/(rho_V*d_AB_V);}

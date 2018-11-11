@@ -1,5 +1,5 @@
 public class Ridders implements RootFinding{
-  
+  //Rootfinding method that returns the root of a given function using Ridders method
   public double calculate(Function f){
     
     double xu = 0.118;//set upper bound to equilibrium data limit

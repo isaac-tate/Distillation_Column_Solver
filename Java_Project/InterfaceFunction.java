@@ -1,4 +1,5 @@
 public class InterfaceFunction extends Function{
+  //The function to determine xai
   
   private double xal,yag,kxa,kya,x;
   private EquilibriumData eqdata;
@@ -16,6 +17,16 @@ public class InterfaceFunction extends Function{
     double b = 0.5*(this.yag+y-m*(this.xal+x));
     this.x = y-(m*x+b);//calculate the function for the determination of xai
   }
+  //Copy constructor
+  public InterfaceFunction(InterfaceFunction source){
+    this.xal = source.xal;
+    this.yag = source.yag;
+    this.eqdata = new EquilibriumData(source.eqdata);
+    this.kxa = source.kxa;
+    this.kya = source.kya;
+    this.x = source.x;
+  }
+  //Mutators
   public double setX(double x){
     double y = this.eqdata.equilibriumDataY(x);//calculate y using the equilibrium data
     double lmlconc =((1-this.xal)-(1-x))/Math.log((1-this.xal)/(1-x));///log mean liquid concentration at interface
@@ -70,6 +81,7 @@ public class InterfaceFunction extends Function{
     double g = y-(m*this.x+b);//calculate the function for the determination of xai
     return g;
   }
+  //Accessors
   public double getXal(){
     return this.xal;
   }

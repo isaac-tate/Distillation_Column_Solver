@@ -1,7 +1,7 @@
 public class Packing{
   
-  double nominalSize = 0.025; //[m]
-  double voidFraction, aPacking, fPacking, fpPacking, chPacking, colDiamterHeuristic;
+  public static final double nominalSize = 0.025; //[m]
+  private double voidFraction, aPacking, fPacking, fpPacking, chPacking, colDiameterHeuristic;
   
   Packing(String type){
     this.setPackingType(type);
@@ -15,7 +15,7 @@ public class Packing{
       fPacking = 587;
       fpPacking = 1.246;
       chPacking = 0.577;
-      colDiamterHeuristic = 30;
+      colDiameterHeuristic = 30;
     }
     
     else if(type.equals("berl")){
@@ -24,7 +24,7 @@ public class Packing{
       fPacking = 361;
       fpPacking = 1.361;
       chPacking = 0.62;
-      colDiamterHeuristic = 15;
+      colDiameterHeuristic = 15;
     }
     
     else if(type.equals("pall")){
@@ -33,11 +33,58 @@ public class Packing{
       fPacking = 180;
       fpPacking = 0.905;
       chPacking = 0.528;
-      colDiamterHeuristic = 10;
+      colDiameterHeuristic = 10;
     } 
     
     else{System.out.println("Not a valid packing type");
       
     }
+  }
+  //Copy constructor
+  public Packing(Packing source){
+    this.voidFraction = source.voidFraction;
+    this.aPacking = source.aPacking;
+    this.fPacking = source.fPacking;
+    this.fpPacking = source.fpPacking;
+    this.chPacking = source.chPacking;
+    this.colDiameterHeuristic = colDiameterHeuristic;
+  }
+  //Accessors
+  public double getVoidFraction(){
+    return this.voidFraction;
+  }
+  public double getAPacking(){
+    return this.aPacking;
+  }
+  public double getFPacking(){
+    return this.fPacking;
+  }
+    public double getFPPacking(){
+    return this.fpPacking;
+  }
+  public double getChPacking(){
+    return this.chPacking;
+  }
+  public double getColDiameterHeuristic(){
+    return this.colDiameterHeuristic;
+  }
+  //Mutator
+  public void setVoidFraction(double voidFraction){
+    this.voidFraction = voidFraction;
+  }
+  public void setAPacking(double aPacking){
+    this.aPacking = aPacking;
+  }
+  public void getFPacking(double fPacking){
+    this.fPacking = fPacking;
+  }
+    public void setFPPacking(double fpPacking){
+    this.fpPacking = fpPacking;
+  }
+  public void setChPacking(double chPacking){
+    this.chPacking = chPacking;
+  }
+  public void setColDiameterHeuristic(double colDiameterHeuristic){
+    this.colDiameterHeuristic = colDiameterHeuristic;
   }
 }

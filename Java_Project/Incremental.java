@@ -1,5 +1,5 @@
 public class Incremental implements RootFinding{
-  
+  //Incremental search that returns the root of a specific function
   public double calculate (Function f){ 
   
     double xl = 5000;
