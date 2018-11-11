@@ -60,8 +60,8 @@ public class RunMe{
     
     Fluid fluid = new Fluid();
     Packing packing = new Packing(packType);
-    AbsorptionColumn2 myColumn = new AbsorptionColumn2(packing, fluid, inputs);
-    System.out.println("The optimal height of the column for mass transfer is "+myColumn.z+"m.");
+    AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, inputs);
+    System.out.println("The height of the column is "+myColumn.z+"m.");
     System.out.println("The optimal liquid flow rate through the column for optimization of mass transfer is "+myColumn.optL+"kmol/h.");
   }
 }

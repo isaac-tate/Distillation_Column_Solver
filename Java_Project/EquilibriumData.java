@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class EquilibriumData{
   
-  double [] eqdata;
+  private double [] eqdata;
   
   public EquilibriumData(){
     Scanner myScan = new Scanner(System.in);
@@ -19,6 +19,24 @@ public class EquilibriumData{
       this.eqdata[i] = myScan.nextDouble();
     }
   }
+  public EquilibriumData(EquilibriumData source){
+    this.eqdata = new double[source.eqdata.length];
+    for(int i = 0;i<source.eqdata.length;i++){
+      this.eqdata[i] = source.eqdata[i];
+    }
+  }
+  
+  public double [] getEqdata(){
+    return this.eqdata;
+  }
+  
+  public void setEqdata(double [] eqdata){
+    this.eqdata = new double[eqdata.length];
+    for(int i = 0;i<eqdata.length;i++){
+      this.eqdata[i] = eqdata[i];
+    }
+  }
+          
   public double equilibriumDataY(double x){//calculate y using equilibrium data
     double y = 0;
     for(int i = 0;i<this.eqdata.length;i++){

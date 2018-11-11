@@ -1,16 +1,9 @@
-public abstract class Function{//a generalized function class that can contain a number of different functions for use in the rootfinding class, can be extended
+public class InterfaceFunction extends Function{
   
- public abstract double setX(double x);
-    
-  /*private double xal,yag,kxa,kya;
-  private double x;
+  private double xal,yag,kxa,kya,x;
   private EquilibriumData eqdata;
-  private AbsorptionColumn mycolumn;
-  private double z;
   
-  
-//this function is for the absorption column interface
-  public AbsorptionColumn(double kxa, double kya, double xal, double yag, double x, EquilibriumData eqdata){
+  public InterfaceFunction(double kxa, double kya, double xal, double yag, double x, EquilibriumData eqdata){
     this.xal = xal;
     this.yag = yag;
     this.eqdata = new EquilibriumData(eqdata);
@@ -32,23 +25,6 @@ public abstract class Function{//a generalized function class that can contain a
     double g = y-(m*x+b);//calculate the function for the determination of xai
     return g;
   }
-  public AbsorptionColumn(AbsorptionColumn mycolumn, double l){
-    double x = mycolumn.recalculateHeightDifference(l);
-    this.mycolumn = new AbsorptionColumn(mycolumn);
-    this.x = x;
-  }
-  public double setX(double l, String a){
-    double x = this.mycolumn.recalculateHeightDifference(l);
-    this.mycolumn = new AbsorptionColumn(mycolumn);
-    this.z = mycolumn.z;
-    return x;
-  }
-  public double getX(){
-    return this.x;
-  }
-  public double getZ(){
-    return this.z;
-  }
   public double getXal(){
     return this.xal;
   }
@@ -61,10 +37,9 @@ public abstract class Function{//a generalized function class that can contain a
   public double getKya(){
     return this.kya;
   }
-  public AbsorptionColumn getColumn(){
-    return this.mycolumn;
+  public double getX(){
+    return this.x;
   }
   public EquilibriumData getEqdata(){
     return this.eqdata;
-  }*/
-}
+  }

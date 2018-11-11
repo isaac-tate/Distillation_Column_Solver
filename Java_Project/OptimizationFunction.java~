@@ -1,0 +1,27 @@
+public class OptimizationFunction extends Function{
+  
+  private AbsorptionColumn2 mycolumn;
+  private double z;
+  private double x;
+  
+  public Function(AbsorptionColumn2 mycolumn, double l){
+    double x = mycolumn.recalculateHeightDifference(l);
+    this.mycolumn = new AbsorptionColumn2(mycolumn);
+    this.x = x;
+  }
+  public double setX(double l){
+    double x = this.mycolumn.recalculateHeightDifference(l);
+    this.mycolumn = new AbsorptionColumn2(mycolumn);
+    this.z = mycolumn.z;
+    return x;
+  }
+  public double getX(){
+    return this.x;
+  }
+  public double getZ(){
+    return this.z;
+  }
+  public AbsorptionColumn2 getColumn(){
+    return new AbsorptionColumn2(this.mycolumn);
+  }
+}
