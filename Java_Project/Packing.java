@@ -68,7 +68,7 @@ public class Packing{
   public double getColDiameterHeuristic(){
     return this.colDiameterHeuristic;
   }
-  //Mutator
+  //Mutators
   public void setVoidFraction(double voidFraction){
     this.voidFraction = voidFraction;
   }
