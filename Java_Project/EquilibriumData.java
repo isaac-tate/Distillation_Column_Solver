@@ -87,7 +87,7 @@ public class EquilibriumData{
     String fileName = myScan.nextLine();
     
     if(fileName.isEmpty()){
-      System.out.println("-- Using defualt --");
+      System.out.println("-- Using default --");
       fileName = "equilibrium.txt";
     }
     

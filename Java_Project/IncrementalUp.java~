@@ -10,9 +10,9 @@ public class IncrementalUp implements RootFinding{
   
   public double calculate (Function f){ 
     
-    double delx = 100;//to change
+    double delx = 10;//to change
     double sign,fxl,fxdel;
-    double error = 0.001;
+    double error = 0.000001;
       
       do{
         fxl = f.setX(xl);

@@ -3,12 +3,10 @@ public class OptimizationFunction extends Function{
   private AbsorptionColumn mycolumn;
   private double z;
   private double x;
-  double zl,zv,l;
+  double l;
   
   public OptimizationFunction(AbsorptionColumn mycolumn, double l){
     this.l = mycolumn.l_2;
-    this.zv = mycolumn.zv;
-    this.zl = mycolumn.zl;
     double x = mycolumn.calculateHeightDifference(l);
     this.mycolumn = new AbsorptionColumn(mycolumn);
     this.x = x;
@@ -41,12 +39,6 @@ public class OptimizationFunction extends Function{
   }
   public AbsorptionColumn getColumn(){
     return new AbsorptionColumn(this.mycolumn);
-  }
-  public double getZV(){
-    return this.zv;
-  }
-  public double getZL(){
-    return this.zl;
   }
   public double getl_2(){
     return this.l;

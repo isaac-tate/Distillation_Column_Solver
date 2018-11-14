@@ -9,9 +9,9 @@ public class IncrementalDown implements RootFinding{
   
  public double calculate (Function f){ 
     
-    double delx = 10;//to change
+    double delx = 100;//to change
     double sign,fxdel,fxu;
-    double error = 0.000001;
+    double error = 0.001;
     
       do{
         fxu = f.setX(xu);
