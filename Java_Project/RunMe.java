@@ -59,8 +59,8 @@ public class RunMe{
     Fluid fluid = new Fluid();
     Packing packing = new Packing(systemData.getPackingType());
     AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData.getSC());
-    System.out.println("The height of the column is "+myColumn.z+"m.");
-    System.out.println("The optimal liquid flow rate through the column for optimization of mass transfer is "+myColumn.optL+"kmol/h.");
+    System.out.printf("The height of the column is %.2f m.", myColumn.z);
+    System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.optL);
     
     //Exporting Data
     
@@ -92,7 +92,7 @@ public class RunMe{
     String fileName = myScan.nextLine();
     
     if(fileName.isEmpty()){
-      System.out.println("-- Using defualt --");
+      System.out.println("-- Using default --");
       fileName = "inputs.txt";
     }
     

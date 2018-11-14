@@ -67,12 +67,23 @@ public class AbsorptionColumn{
     double zdiff = calculateHeightDifference(conditions[2]);
     
     Scanner myscan = new Scanner(System.in);
+    boolean flag = false;
    //Choose whether or not to optimize the column
     System.out.println("Would you like to optimize the column? Enter 1 if yes and 0 if no.");
-    int i = myscan.nextInt();
-    if(i==1) this.optL = optimizeLiquidFlow();
-    else this.optL = 0;
-
+    int i = 10;
+    while(flag==false){
+      i = myscan.nextInt();
+      if(i==1) {
+      this.optL = optimizeLiquidFlow();
+      flag = true;
+    }
+    else if(i==0) {
+      this.optL = 0;
+      flag = true;
+    }
+    else System.out.println("That is not an acceptable input, please input 1 if you would like to optimize the column, 0 if not.");
+  }
+    
   }
   //copy constructor
   public AbsorptionColumn(AbsorptionColumn source){
@@ -131,8 +142,15 @@ public class AbsorptionColumn{
   //Method that optimizes the column liquid flow
   public double optimizeLiquidFlow(){
     OptimizationFunction f = new OptimizationFunction(this,10000);
-    Incremental i = new Incremental();
-    return i.calculate(f);//use incremental search to optimize the column based on a certain liquid flow
+    if(this.zv>this.zl){
+      IncrementalUp i = new IncrementalUp(this.l_2,this.l_2*100);
+      return i.calculate(f);
+    }
+    else{
+      IncrementalDown i = new IncrementalDown(this.l_2/100,this.l_2);
+      return i.calculate(f);
+    }
+    //use incremental search to optimize the column based on a certain liquid flow
   }
   
   public double calculateHeightDifference(double l){//use to calculate the difference in heights for optimization and construction
@@ -196,7 +214,7 @@ public class AbsorptionColumn{
     
     Simpsons szl = new Simpsons();
     this.zl = szl.calculate(xal,dzl);//solve liquid height using integration method
-    TrapezoidRule szv = new TrapezoidRule();
+    Simpsons szv = new Simpsons();
     this.zv = szv.calculate(yag,dzv);//solve vapour height using integration method
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
