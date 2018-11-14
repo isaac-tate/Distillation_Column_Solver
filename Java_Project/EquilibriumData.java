@@ -96,7 +96,7 @@ public class EquilibriumData{
     System.out.println("Please input a file name (leave blank for default: 'equilibrium.txt')");
     
     if(fileName.isEmpty()){
-      System.out.println("-- Using defualt --");
+      System.out.println("-- Using default --");
       fileName = "equilibrium.txt";
     }
     

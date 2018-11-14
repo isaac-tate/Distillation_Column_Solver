@@ -9,7 +9,7 @@ public class Ridders implements RootFinding{
     double e = 1000;//set initial error to 1000
     int i = 0;
     int iterations = 1000;
-    double error = 0.001;//take from file!!
+    double error = 0.00001;//take from file!!
     
     double sign, xnew, y, m, b,fxl,fxu,fxm,fxnew;
     

@@ -108,6 +108,39 @@ public class RunMe{
         
       }     
     }
+<<<<<<< HEAD
+=======
+
+    
+    //DONE GETTING INPUTS
+    
+    Fluid fluid = new Fluid();
+    Packing packing = new Packing(systemData.getPackingType());
+    AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData.getSC());
+    System.out.printf("The height of the column is %.2f m.", myColumn.z);
+    System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.optL);
+    
+    //Exporting Data
+    
+    while(true){
+      System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
+      int answer_export = myScan.nextInt();
+      
+      if(answer_export == 1){
+        DataExport myExport = new DataExport(myColumn);
+        System.out.println("Data exported");
+        break;
+      }
+      if(answer_export == 0){
+        System.out.println("Not exporting");
+        break;
+      }
+      else{
+        System.out.println("Not a valid input");
+      }
+          
+    }     
+>>>>>>> 9e54310a66eeae370c9c613785d888a20c3d1595
   }
   
   public static void valuesFromFile(Scanner myScan, InputData myData){
@@ -118,7 +151,7 @@ public class RunMe{
     String fileName = myScan.nextLine();
     
     if(fileName.isEmpty()){
-      System.out.println("-- Using defualt --");
+      System.out.println("-- Using default --");
       fileName = "inputs.txt";
     }
     
