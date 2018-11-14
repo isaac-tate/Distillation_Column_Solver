@@ -1,0 +1,26 @@
+public class FileData{
+  
+  String packingType;
+  double[] systemConstants;
+  double[] equlibData;
+  
+  FileData(double[] systemConstants, double[] equlibDats, String packingType){
+    this.systemConstants = systemConstants;
+    this.equlibData = equlibData;
+    this.packingType = packingType;
+    
+  }
+  
+  public double[] getSC(){
+    return systemConstants;
+  }
+  
+  public double[] getED(){
+    return equlibData;
+  }
+  
+  public String getPackingType(){
+    return packingType;
+  }
+}
+    
