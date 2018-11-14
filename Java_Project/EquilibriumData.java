@@ -89,11 +89,9 @@ public class EquilibriumData{
   public void fileInputs(){
     
     ArrayList<String> valueList = new ArrayList<String>();
-    String fileName = myScan.nextLine();
-    
-    
-    
+
     System.out.println("Please input a file name (leave blank for default: 'equilibrium.txt')");
+    String fileName = myScan.nextLine();
     
     if(fileName.isEmpty()){
       System.out.println("-- Using default --");
