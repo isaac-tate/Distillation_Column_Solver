@@ -31,20 +31,26 @@ public class RunMe{
     //GETTING INPUTS
     String dataType; //The input for the method used to get inputs
     String packType = "";
-    System.out.println("How would like to input conditions through a file ('f') or by input ('i')");
-    dataType = myScan.nextLine();
     
-    switch(dataType){
-      case "f":
-        valuesFromFile(myScan, systemData);
-        break;
-      case "i":
-        valuesFromInput(myScan, systemData);
-        packType = myScan.nextLine();
-        break;
-      default:
-        System.out.println("Not a valid input");
-        System.exit(0); // - Harsh
+    boolean flag = false;
+    
+    while(!flag){
+      System.out.println("How would like to input conditions through a file ('f') or by input ('i')");
+      dataType = myScan.nextLine();
+      
+      switch(dataType){
+        case "f":
+          valuesFromFile(myScan, systemData);
+          flag=true;
+          break;
+        case "i":
+          valuesFromInput(myScan, systemData);
+          packType = myScan.nextLine();
+          flag=true;
+          break;
+        default:
+          System.out.println("Not a valid input");
+      }
     }
 
     
@@ -74,9 +80,9 @@ public class RunMe{
       Scanner fileInput = new Scanner(file);
       int i = 0;
       while(fileInput.hasNext() && i<inputs.length){
-        String valueString = fileInput.nextLine().split("=")[1];
-        inputs[i] = new Double(valueString).doubleValue();
-        System.out.println(inputs[i]);
+        String[] valueString = fileInput.nextLine().split("=");
+        inputs[i] = new Double(valueString[1]).doubleValue();
+        System.out.println(valueString[0] + " = " + inputs[i]);
         i++;
       }
       
@@ -87,6 +93,7 @@ public class RunMe{
     }
     catch(FileNotFoundException e){
       System.out.println("Not a valid file name");
+      valuesFromFile(myScan, myData);
     }
     
     

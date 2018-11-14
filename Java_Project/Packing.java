@@ -1,3 +1,5 @@
+//No need for an abstract class here as it's only a difference in values and not methods between packings
+
 public class Packing{
   
   public static final double nominalSize = 0.025; //[m]

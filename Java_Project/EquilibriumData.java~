@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class EquilibriumData{
   
-  double [] eqdata;
+  private double [] eqdata;
   
   public EquilibriumData(){
     Scanner myScan = new Scanner(System.in);
@@ -12,6 +12,7 @@ public class EquilibriumData{
       System.out.println("That is not a valid power, please reenter a positive integer or exit the program.");
       j = myScan.nextInt();
     }
+    //takes in the equilibrium coefficients from user input
     this.eqdata = new double[j+1];
     System.out.println("Enter the coefficients of the equilibrium equation in increasing order.");
     for(int i = 0;i<j+1;i++){
@@ -19,7 +20,26 @@ public class EquilibriumData{
       this.eqdata[i] = myScan.nextDouble();
     }
   }
-  public double equilibriumDataY(double x){//calculate y using equilibrium data
+  //Copy constructor
+  public EquilibriumData(EquilibriumData source){
+    this.eqdata = new double[source.eqdata.length];
+    for(int i = 0;i<source.eqdata.length;i++){
+      this.eqdata[i] = source.eqdata[i];
+    }
+  }
+  //Accessor 
+  public double [] getEqdata(){
+    return this.eqdata;
+  }
+  //Mutator
+  public void setEqdata(double [] eqdata){
+    this.eqdata = new double[eqdata.length];
+    for(int i = 0;i<eqdata.length;i++){
+      this.eqdata[i] = eqdata[i];
+    }
+  }
+   //Returns equivalent y for a given x based on equilibrium data       
+  public double equilibriumDataY(double x){
     double y = 0;
     for(int i = 0;i<this.eqdata.length;i++){
       y = y+Math.pow(x,i)*this.eqdata[i];
