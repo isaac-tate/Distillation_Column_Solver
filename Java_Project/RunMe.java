@@ -61,6 +61,27 @@ public class RunMe{
     AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData.getSC());
     System.out.println("The height of the column is "+myColumn.z+"m.");
     System.out.println("The optimal liquid flow rate through the column for optimization of mass transfer is "+myColumn.optL+"kmol/h.");
+    
+    //Exporting Data
+    
+    while(true){
+      System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
+      int answer_export = myScan.nextInt();
+      
+      if(answer_export == 1){
+        DataExport myExport = new DataExport(myColumn);
+        System.out.println("Data exported");
+        break;
+      }
+      if(answer_export == 0){
+        System.out.println("Not exporting");
+        break;
+      }
+      else{
+        System.out.println("Not a valid input");
+      }
+          
+    }     
   }
   
   public static void valuesFromFile(Scanner myScan, InputData myData){

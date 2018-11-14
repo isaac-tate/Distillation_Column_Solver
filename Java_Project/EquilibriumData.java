@@ -11,7 +11,7 @@ public class EquilibriumData{
     String answer_outside;
     
     while(true){
-      System.out.println("How would like to input conditions through a file ('f') or by input ('i')");
+      System.out.println("How would like to input equilibrium data through a file ('f') or by input ('i')");
       String answer = myScan.nextLine();
       if(answer.equals("f") || answer.equals("i")){
         answer_outside = answer;

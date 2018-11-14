@@ -4,5 +4,5 @@ Starting liquid inlet flow rate=30000
 Starting liquid mole fraction=0
 Recovery value=0.95
 Inlet temperature=25
-Number of iterations=10
+Number of iterations=100
 Packing type=pall

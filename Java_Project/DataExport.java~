@@ -1,0 +1,27 @@
+public class DataExport{
+  
+  AbsorptionColumn dataColumn;
+  
+  DataExport(AbsorptionColumn dataColumn){
+    this.dataColumn = dataColumn;
+    exportToExcel();
+  }
+  
+  public void exportToExcel(){
+    
+    BufferedWriter br = new BufferedWriter(new FileWriter("outputData.csv"));
+    StringBuilder sb = new StringBuilder();
+    
+// Append strings from array
+    for(String element : dataColumn.dzv){
+      sb.append(element);
+      sb.append(",");
+    }
+    
+    br.write(sb.toString());
+    br.close();
+    
+  }
+}
+  
+  
