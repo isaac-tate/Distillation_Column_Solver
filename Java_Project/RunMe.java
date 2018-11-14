@@ -108,8 +108,8 @@ public class RunMe{
         
       }     
     }
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 
     
     //DONE GETTING INPUTS
@@ -140,7 +140,7 @@ public class RunMe{
       }
           
     }     
->>>>>>> 9e54310a66eeae370c9c613785d888a20c3d1595
+//>>>>>>> 9e54310a66eeae370c9c613785d888a20c3d1595
   }
   
   public static void valuesFromFile(Scanner myScan, InputData myData){

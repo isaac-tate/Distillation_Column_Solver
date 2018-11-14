@@ -71,7 +71,7 @@ public class AbsorptionColumn{
     Scanner myscan = new Scanner(System.in);
     boolean flag = false;
    //Choose whether or not to optimize the column
-<<<<<<< HEAD
+//<<<<<<< HEAD
     int i;
     if(data.useGUI == false){
       System.out.println("Would you like to optimize the column? Enter 1 if yes and 0 if no.");
@@ -85,9 +85,9 @@ public class AbsorptionColumn{
     if(i==1) this.optL = optimizeLiquidFlow();
     else this.optL = 0;
 
-=======
+//=======
     System.out.println("Would you like to optimize the column? Enter 1 if yes and 0 if no.");
-    int i = 10;
+
     while(flag==false){
       i = myscan.nextInt();
       if(i==1) {
@@ -101,7 +101,7 @@ public class AbsorptionColumn{
     else System.out.println("That is not an acceptable input, please input 1 if you would like to optimize the column, 0 if not.");
   }
     
->>>>>>> 9e54310a66eeae370c9c613785d888a20c3d1595
+//>>>>>>> 9e54310a66eeae370c9c613785d888a20c3d1595
   }
   //copy constructor
   public AbsorptionColumn(AbsorptionColumn source){
