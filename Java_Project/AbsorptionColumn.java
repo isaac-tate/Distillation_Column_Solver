@@ -196,7 +196,7 @@ public class AbsorptionColumn{
     
     Simpsons szl = new Simpsons();
     this.zl = szl.calculate(xal,dzl);//solve liquid height using integration method
-    Simpsons szv = new Simpsons();
+    TrapezoidRule szv = new TrapezoidRule();
     this.zv = szv.calculate(yag,dzv);//solve vapour height using integration method
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
