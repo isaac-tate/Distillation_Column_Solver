@@ -1,0 +1,72 @@
+//Imports are listed in full to show what's being used
+//could just import javax.swing.* and java.awt.* etc..
+import java.awt.*;
+import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+
+public class UseGUI{
+  
+  public boolean useGUI;
+
+
+  public static void main(String[] args) {
+    UseGUI myApp = new UseGUI();
+  }
+  public UseGui()
+  {
+    JFrame guiFrame = new JFrame();
+    
+    guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    guiFrame.setTitle("Use GUI");
+    guiFrame.setSize(350,125);
+    
+    guiFrame.setLocationRelativeTo(null);
+    
+//The first JPanel contains a JLabel and JCombobox
+    final JPanel startingPanel = new JPanel();
+    JLabel welcomeText = new JLabel("Would you like to use the Graphic User Interface(GUI)?");
+    startingPanel.add(welcomeText);
+    
+    
+    final JPanel buttonPanel = new JPanel();
+    JButton startFileButton = new JButton("Yes, please!");
+    buttonPanel.add(startFileButton);
+    
+    JButton startInputButton = new JButton("No, thanks!");
+    buttonPanel.add(startInputButton);
+//Create the second JPanel. Add a JLabel and JList and
+//make use the JPanel is not visible.
+    
+    
+    guiFrame.add(startingPanel, BorderLayout.NORTH);
+    guiFrame.add(buttonPanel, BorderLayout.SOUTH);
+    
+//make sure the JFrame is visible
+    guiFrame.setVisible(true);
+    
+    
+    //BUTTONS
+    
+    startInputButton.addActionListener(new ActionListener(){
+      @Override
+      public void actionPerformed(ActionEvent event)
+      {
+        fromFiles = false;
+        userInput();
+      }
+    });
+    
+    startFileButton.addActionListener(new ActionListener(){
+      @Override
+      public void actionPerformed(ActionEvent event)
+      {
+        fromFiles = true;
+        guiFrame.setVisible(false);
+        userFile();
+      }
+    });
+  }

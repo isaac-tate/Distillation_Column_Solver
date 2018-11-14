@@ -1,14 +1,19 @@
-public class FileData{
+public class InputData{
   
-  String packingType;
-  double[] systemConstants;
-  double[] equlibData;
+  private String packingType;
+  private double[] systemConstants;
+  private double[] equlibData;
   
-  FileData(double[] systemConstants, double[] equlibDats, String packingType){
+  public void setSC(double[] systemConstants){
     this.systemConstants = systemConstants;
+  }
+  
+  public void setED(double[] equlibData){
     this.equlibData = equlibData;
+  }
+  
+  public void setPackingType(String packingType){
     this.packingType = packingType;
-    
   }
   
   public double[] getSC(){
@@ -23,4 +28,3 @@ public class FileData{
     return packingType;
   }
 }
-    

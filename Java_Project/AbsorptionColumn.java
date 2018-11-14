@@ -41,7 +41,9 @@ public class AbsorptionColumn{
   double [] xal, yag, xai, yai, dzv, dzl;
   
   //Constructor
-  public AbsorptionColumn(Packing packing, Fluid fluid, double[] conditions){
+  public AbsorptionColumn(Packing packing, Fluid fluid, InputData data){
+    
+    double[] conditions = data.getSC();
     
     this.packing = new Packing(packing); //Needs deep copy
     this.fluid = new Fluid(fluid);
@@ -61,15 +63,23 @@ public class AbsorptionColumn{
     
     //Calculating System Properties
     this.iterations = (int)conditions[6];
-    this.eqdata = new EquilibriumData();
+    this.eqdata = new EquilibriumData(data);
     
     //The method recalculateHeightDifference sets the rest of the instance variables and allows for optimization
     double zdiff = calculateHeightDifference(conditions[2]);
     
     Scanner myscan = new Scanner(System.in);
    //Choose whether or not to optimize the column
-    System.out.println("Would you like to optimize the column? Enter 1 if yes and 0 if no.");
-    int i = myscan.nextInt();
+    int i;
+    if(data.useGUI == false){
+      System.out.println("Would you like to optimize the column? Enter 1 if yes and 0 if no.");
+      i = myscan.nextInt();
+    }
+    else{
+      if(data.optimize==true){i = 1;}
+      else{i = 0;}
+    }
+    
     if(i==1) this.optL = optimizeLiquidFlow();
     else this.optL = 0;
 

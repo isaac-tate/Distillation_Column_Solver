@@ -6,31 +6,38 @@ public class EquilibriumData{
   private double [] eqdata;
   Scanner myScan = new Scanner(System.in);
   
-  public EquilibriumData(){
+  public EquilibriumData(InputData data){
     
     String answer_outside;
     
-    while(true){
-      System.out.println("How would like to input equilibrium data through a file ('f') or by input ('i')");
-      String answer = myScan.nextLine();
-      if(answer.equals("f") || answer.equals("i")){
-        answer_outside = answer;
-        break;
+    if(data.useGUI == true){
+      eqdata = data.getED();
+    }
+
+    
+    else{
+      
+      while(true){
+        System.out.println("How would like to input equilibrium data through a file ('f') or by input ('i')");
+        String answer = myScan.nextLine();
+        if(answer.equals("f") || answer.equals("i")){
+          answer_outside = answer;
+          break;
+        }
+        else{
+          System.out.println("This is not a valid input");
+        }
       }
-      else{
-        System.out.println("This is not a valid input");
+      
+      switch(answer_outside){
+        case "f":
+          fileInputs();
+          break;
+        case "i":
+          manualInputs();
+          break;
       }
     }
-    
-    switch(answer_outside){
-      case "f":
-        fileInputs();
-        break;
-      case "i":
-        manualInputs();
-        break;
-    }
-    
   }
   //Copy constructor
   public EquilibriumData(EquilibriumData source){
@@ -82,9 +89,11 @@ public class EquilibriumData{
   public void fileInputs(){
     
     ArrayList<String> valueList = new ArrayList<String>();
+    String fileName = myScan.nextLine();
+    
+    
     
     System.out.println("Please input a file name (leave blank for default: 'equilibrium.txt')");
-    String fileName = myScan.nextLine();
     
     if(fileName.isEmpty()){
       System.out.println("-- Using defualt --");
@@ -94,7 +103,7 @@ public class EquilibriumData{
     try{
       File file = new File(fileName);
       Scanner fileInput = new Scanner(file);
-
+      
       while(fileInput.hasNext()){
         String[] thisValue = fileInput.nextLine().split("=");
         valueList.add(thisValue[1]);
@@ -103,14 +112,14 @@ public class EquilibriumData{
       
     }
     catch(FileNotFoundException e){
-      System.out.println("Not a valid file name");
+      //System.out.println("Not a valid file name");
       fileInputs();
     }
     
     eqdata = new double[valueList.size()];
     
     for(int i = 0; i<valueList.size(); i++){
-       eqdata[i] = new Double(valueList.get(i)).doubleValue();
+      eqdata[i] = new Double(valueList.get(i)).doubleValue();
     }                                      
     
     

@@ -4,6 +4,8 @@ import java.io.*;
 public class RunMe{
   public static void main(String[] args){
     
+    UseGUI useGUI = new UseGUI();
+    
     /* Inputted Data Should Include
      * 
      * Gas inlet flow (gas_in_flow)
@@ -23,65 +25,89 @@ public class RunMe{
      * 
      */
     
-    InputData systemData = new InputData();
-    Scanner myScan = new Scanner(System.in);
-
-    System.out.println("Welcome to column calculator");
-    
-    //GETTING INPUTS
-    String dataType; //The input for the method used to get inputs
-    String packType = "";
-    
-    boolean flag = false;
-    
-    while(!flag){
-      System.out.println("How would like to input conditions through a file ('f') or by input ('i')");
-      dataType = myScan.nextLine();
-      
-      switch(dataType){
-        case "f":
-          valuesFromFile(myScan, systemData);
-          flag=true;
-          break;
-        case "i":
-          valuesFromInput(myScan, systemData);
-          packType = myScan.nextLine();
-          flag=true;
-          break;
-        default:
-          System.out.println("Not a valid input");
-      }
+    boolean answered = false;
+    while(answered == false){
+      answered = useGUI.answered;
+      System.out.print("");
     }
-
     
-    //DONE GETTING INPUTS
-    
-    Fluid fluid = new Fluid();
-    Packing packing = new Packing(systemData.getPackingType());
-    AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData.getSC());
-    System.out.println("The height of the column is "+myColumn.z+"m.");
-    System.out.println("The optimal liquid flow rate through the column for optimization of mass transfer is "+myColumn.optL+"kmol/h.");
-    
-    //Exporting Data
-    
-    while(true){
-      System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
-      int answer_export = myScan.nextInt();
+    if(useGUI.use == true){
+     
+      GuiApp myGui = new GuiApp();
+      while(!myGui.dataStored){System.out.print("");}
+      InputData systemData = myGui.data;
+      systemData.setGUI(true);
+      systemData.setFromFiles(myGui.fromFiles);
+      Fluid fluid = new Fluid();
+      Packing packing = new Packing(systemData.getPackingType());
+      AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
+      ResultsScreen myResults = new ResultsScreen(myColumn.z, myColumn.optL);
+      if(myResults.exportV == true){DataExport myExport = new DataExport(myColumn);}
       
-      if(answer_export == 1){
-        DataExport myExport = new DataExport(myColumn);
-        System.out.println("Data exported");
-        break;
+    }
+    
+    if(useGUI.use == false){
+      
+      InputData systemData = new InputData();
+      Scanner myScan = new Scanner(System.in);
+      
+      System.out.println("Welcome to column calculator");
+      
+      //GETTING INPUTS
+      String dataType; //The input for the method used to get inputs
+      String packType = "";
+      
+      boolean flag = false;
+      
+      while(!flag){
+        System.out.println("How would like to input conditions through a file ('f') or by input ('i')");
+        dataType = myScan.nextLine();
+        
+        switch(dataType){
+          case "f":
+            valuesFromFile(myScan, systemData);
+            flag=true;
+            break;
+          case "i":
+            valuesFromInput(myScan, systemData);
+            packType = myScan.nextLine();
+            flag=true;
+            break;
+          default:
+            System.out.println("Not a valid input");
+        }
       }
-      if(answer_export == 0){
-        System.out.println("Not exporting");
-        break;
-      }
-      else{
-        System.out.println("Not a valid input");
-      }
-          
-    }     
+      
+      
+      //DONE GETTING INPUTS
+      
+      Fluid fluid = new Fluid();
+      Packing packing = new Packing(systemData.getPackingType());
+      AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
+      System.out.println("The height of the column is "+myColumn.z+"m.");
+      System.out.println("The optimal liquid flow rate through the column for optimization of mass transfer is "+myColumn.optL+"kmol/h.");
+      
+      //Exporting Data
+      
+      while(true){
+        System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
+        int answer_export = myScan.nextInt();
+        
+        if(answer_export == 1){
+          DataExport myExport = new DataExport(myColumn);
+          System.out.println("Data exported");
+          break;
+        }
+        if(answer_export == 0){
+          System.out.println("Not exporting");
+          break;
+        }
+        else{
+          System.out.println("Not a valid input");
+        }
+        
+      }     
+    }
   }
   
   public static void valuesFromFile(Scanner myScan, InputData myData){
