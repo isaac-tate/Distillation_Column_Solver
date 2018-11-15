@@ -1,4 +1,5 @@
 import java.math.*;
+import java.util.Scanner;
 
     /* Inputted Data Should Include
      * 
@@ -21,8 +22,6 @@ import java.math.*;
 
 public class AbsorptionColumn{
   
-  
-  
   //Input objects
   Packing packing;
   Fluid fluid;
@@ -42,9 +41,11 @@ public class AbsorptionColumn{
   double [] xal, yag, xai, yai, dzv, dzl;
   
   //Constructor
-  public AbsorptionColumn(Packing packing, Fluid fluid, double[] conditions){
+  public AbsorptionColumn(Packing packing, Fluid fluid, InputData data){
     
-    this.packing = packing; //Needs deep copy
+    double[] conditions = data.getSC();
+    
+    this.packing = new Packing(packing); //Needs deep copy
     this.fluid = new Fluid(fluid);
     
     //Given Inputs
@@ -55,24 +56,57 @@ public class AbsorptionColumn{
     this.temp_in = conditions[5];
     
     //Calculating System Constants
-    this.crossArea = ((Math.PI*Math.pow((packing.colDiamterHeuristic*packing.nominalSize), 2))/4);
+    this.crossArea = ((Math.PI*Math.pow((packing.getColDiameterHeuristic()*packing.nominalSize), 2))/4);
     this.vPrime = (v_1*(1-y_a1)/3600);
     this.v_2 = vPrime*3600+(1-recovery)*v_1*y_a1;
     this.y_a2 = y_a1*(1-recovery)*v_1/v_2;
     
     //Calculating System Properties
     this.iterations = (int)conditions[6];
-    this.eqdata = new EquilibriumData();
+    this.eqdata = new EquilibriumData(data);
     
-    double zdiff = recalculateHeightDifference(conditions[2]);
+    //The method recalculateHeightDifference sets the rest of the instance variables and allows for optimization
+    double zdiff = calculateHeightDifference(conditions[2]);
     
-    this.optL = optimizeLiquidFlow();
+    Scanner myscan = new Scanner(System.in);
+    boolean flag = false;
+   //Choose whether or not to optimize the column
+<<<<<<< HEAD
+    int i;
+    if(data.useGUI == false){
+      System.out.println("Would you like to optimize the column? Enter 1 if yes and 0 if no.");
+      i = myscan.nextInt();
+    }
+    else{
+      if(data.optimize==true){i = 1;}
+      else{i = 0;}
+    }
+    
+    if(i==1) this.optL = optimizeLiquidFlow();
+    else this.optL = 0;
 
+=======
+    System.out.println("Would you like to optimize the column? Enter 1 if yes and 0 if no.");
+    int i = 10;
+    while(flag==false){
+      i = myscan.nextInt();
+      if(i==1) {
+      this.optL = optimizeLiquidFlow();
+      flag = true;
+    }
+    else if(i==0) {
+      this.optL = 0;
+      flag = true;
+    }
+    else System.out.println("That is not an acceptable input, please input 1 if you would like to optimize the column, 0 if not.");
+  }
+    
+>>>>>>> 9e54310a66eeae370c9c613785d888a20c3d1595
   }
   //copy constructor
   public AbsorptionColumn(AbsorptionColumn source){
-    this.packing = source.packing; //Needs deep copy
-    this.fluid = new Fluid(source.fluid); //Needs deep copy
+    this.packing = new Packing(source.packing); //Needs deep copy
+    this.fluid = new Fluid(source.fluid);
     
     //Given Inputs
     this.v_1 = source.v_1;
@@ -92,10 +126,11 @@ public class AbsorptionColumn{
     this.l_1 = source.l_1;
     this.iterations = source.iterations;
     this.eqdata = new EquilibriumData(source.eqdata);
- 
+    
+    //Calculate System Properties
     this.xal = new double [this.iterations];
     for(int j = 0;j<this.iterations;j++){
-      this.xal[j] = source.xal[j];//calculate an array of xal values at which each dzv will be calculated
+      this.xal[j] = source.xal[j];
     }
     this.yag = new double [this.iterations];
     for(int k = 0;k<this.iterations;k++){
@@ -121,14 +156,22 @@ public class AbsorptionColumn{
     this.zv = source.zv;
     this.z = source.z;
   }
-  //optimizes the column liquid flow
+  
+  //Method that optimizes the column liquid flow
   public double optimizeLiquidFlow(){
-    OptimizationAbsorptionColumn f = new OptimizationAbsorptionColumn(this,10000);
-    Incremental i = new Incremental();
-    return i.calculate(f);
+    OptimizationFunction f = new OptimizationFunction(this,10000);
+    if(this.zv>this.zl){
+      IncrementalUp i = new IncrementalUp(this.l_2,this.l_2*100);
+      return i.calculate(f);
+    }
+    else{
+      IncrementalDown i = new IncrementalDown(this.l_2/100,this.l_2);
+      return i.calculate(f);
+    }
+    //use incremental search to optimize the column based on a certain liquid flow
   }
   
-  public double recalculateHeightDifference(double l){//use to recalculate the difference in heights for optimization
+  public double calculateHeightDifference(double l){//use to calculate the difference in heights for optimization and construction
     
     this.l_2 = l;
     
@@ -149,11 +192,12 @@ public class AbsorptionColumn{
     this.yag[0] = y_a1;
     for(int k = 0;k<this.iterations-1;k++){
       this.yag[k+1] = ((this.lPrime/this.vPrime)*(((xal[k+1])/(1-(xal[k+1])))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k])))/((this.lPrime/this.vPrime)*(((xal[k+1])/(1-(xal[k+1])))-(xal[k]/(1-xal[k])))+(yag[k]/(1-yag[k]))+1);//same with yag using eqbm data
-    }
+    }//calculate array of yag values
     
     this.xai = new double [this.iterations];
     double x = (0.9999-0)/2;
-    double [][]data = new double [8][this.iterations];
+    double [][]data = new double [8][this.iterations];//mutlidimensional array that calculates 8 system properties for each iteration
+    //calculates xai at each iteration using ridders method
     for (int i=0;i<this.iterations;i++){
       data[0][i]= (xal[i]*fluid.getMW_A() + (1-xal[i])*fluid.getMW_L()); //Calculate MW_av,L
       data[1][i] = (yag[i]*fluid.getMW_A() + (1-yag[i])*fluid.getMW_V()); //Calculate MW_av,V
@@ -162,10 +206,10 @@ public class AbsorptionColumn{
       data[4][i] = data[2][i]*data[0][i]/this.crossArea;  //Calculating G_L
       data[5][i] = data[3][i]*data[1][i]/this.crossArea; //Calculating G_V
       //Calculating k'xa
-      data[6][i] = Math.pow(((this.crossArea/data[2][i]) * (0.357/this.packing.fpPacking) * Math.pow( (this.fluid.getNsc_L()/372), 0.5) * Math.pow((data[4][i]/this.fluid.getMu_L())/(6.782/0.0008937), 0.3)), -1);
+      data[6][i] = Math.pow(((this.crossArea/data[2][i]) * (0.357/this.packing.getFPPacking()) * Math.pow( (this.fluid.getNsc_L()/372), 0.5) * Math.pow((data[4][i]/this.fluid.getMu_L())/(6.782/0.0008937), 0.3)), -1);
       //Calculating k'ya
-      data[7][i] = Math.pow(((this.crossArea/data[3][i]) * (0.226/this.packing.fpPacking) * Math.pow((this.fluid.getNsc_V()/0.660), 0.5) * Math.pow((data[4][i]/6.782), -0.5) * Math.pow((data[5][i]/0.678), 0.35)), -1);
-      InterfaceAbsorptionColumn f = new InterfaceAbsorptionColumn(data[6][i],data[7][i],xal[i],yag[i],x,eqdata);
+      data[7][i] = Math.pow(((this.crossArea/data[3][i]) * (0.226/this.packing.getFPPacking()) * Math.pow((this.fluid.getNsc_V()/0.660), 0.5) * Math.pow((data[4][i]/6.782), -0.5) * Math.pow((data[5][i]/0.678), 0.35)), -1);
+      InterfaceFunction f = new InterfaceFunction(data[6][i],data[7][i],xal[i],yag[i],x,eqdata);
       Ridders r = new Ridders();
       this.xai[i] = r.calculate(f);//solve for xai values using the ridders root finding method
       x = xai[i];
@@ -177,22 +221,24 @@ public class AbsorptionColumn{
     }
     
     this.dzv = new double [this.iterations];
-    for(int m = 0;m<this.iterations;m++){//calculate the incremental height values
+    for(int m = 0;m<this.iterations;m++){//calculate the incremental vapour height values
       this.dzv[m] = data[3][m]/(data[7][m]*this.crossArea/(((1-yai[m])-(1-yag[m]))/Math.log((1-yai[m])/(1-yag[m])))*(1-yag[m])*(yag[m]-yai[m]));
     }
     
     this.dzl = new double [this.iterations];
-    for(int n = 0;n<this.iterations;n++){//calculate the incremental height values
+    for(int n = 0;n<this.iterations;n++){//calculate the incremental liquid height values
       this.dzl[n] = data[2][n]/(data[6][n]*this.crossArea/(((1-xal[n])-(1-xai[n]))/Math.log((1-xal[n])/(1-xai[n])))*(1-xal[n])*(xai[n]-xal[n]));
     }
     
     Simpsons szl = new Simpsons();
-    this.zl = szl.calculate(xal,dzl);
-    Simpsons szv = new Simpsons();
-    this.zv = szv.calculate(yag,dzv);
+    this.zl = szl.calculate(xal,dzl);//solve liquid height using integration method
+    System.out.println(zl+"zl");
+    TrapezoidRule szv = new TrapezoidRule();
+    this.zv = szv.calculate(yag,dzv);//solve vapour height using integration method
+    System.out.println(zv+"zv");
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
-    return zl-zv;
+    return zl-zv;//returns height difference
 
   }
 }

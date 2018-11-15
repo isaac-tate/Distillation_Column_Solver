@@ -1,0 +1,9 @@
+public class ResultsScreen{
+  
+  double height, flow;
+  
+  ResultsScreen(double height, double flow){
+    this.height = height;
+    this.flow = flow;
+  }
+}
