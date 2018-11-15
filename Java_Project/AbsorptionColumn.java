@@ -212,7 +212,7 @@ public class AbsorptionColumn{
       this.dzl[n] = data[2][n]/(data[6][n]*this.crossArea/(((1-xal[n])-(1-xai[n]))/Math.log((1-xal[n])/(1-xai[n])))*(1-xal[n])*(xai[n]-xal[n]));
     }
     
-    Simpsons szl = new Simpsons();
+    TrapezoidRule szl = new TrapezoidRule();
     this.zl = szl.calculate(xal,dzl);//solve liquid height using integration method
     System.out.println(zl+"zl");
     TrapezoidRule szv = new TrapezoidRule();
