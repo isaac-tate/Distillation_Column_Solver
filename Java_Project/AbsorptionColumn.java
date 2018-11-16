@@ -74,7 +74,7 @@ public class AbsorptionColumn{
 
     int i;
     if(data.useGUI == false){
-      System.out.println("Would you like to optimize the column? Enter 1 if yes and 0 if no.");
+      System.out.println("Would you like to optimize the column? (1 for yes, 0 for no)");
       i = myscan.nextInt();
     }
     else{

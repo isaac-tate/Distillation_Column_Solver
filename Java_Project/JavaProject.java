@@ -10,6 +10,7 @@ public class JavaProject{
     System.out.println("Oh shiiiiiiit Java queen");
     System.out.println("Kait, pls stop this ^");
     System.out.println("#internkaitlyn");
+    System.out.println("Who spelt my name wrong... like it literally says it above. Twice.");
 
   }
 }

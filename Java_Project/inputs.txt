@@ -1,8 +1,9 @@
-Inlet gas flow rate=10000
-Starting gas mole fraction=0.05
-Starting liquid inlet flow rate=30000
+Inlet gas flow rate=15000
+Starting gas mole fraction=0.12
+Starting liquid inlet flow rate=40000
 Starting liquid mole fraction=0
-Recovery value=0.95
+Recovery value=0.92
 Inlet temperature=25
 Number of iterations=100
-Packing type=pall
+Packing type=rashig
+1

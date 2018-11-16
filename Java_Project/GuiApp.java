@@ -55,10 +55,10 @@ public class GuiApp{
     
     final JPanel buttonPanel = new JPanel();
     JButton startFileButton = new JButton("Use existing files");
-    buttonPanel.add(startFileButton);
     
     JButton startInputButton = new JButton("Use user input");
     buttonPanel.add(startInputButton);
+    buttonPanel.add(startFileButton);
 //Create the second JPanel. Add a JLabel and JList and
 //make use the JPanel is not visible.
     
@@ -213,7 +213,7 @@ public class GuiApp{
       {
         data.optimize = false;
         storeData();
-        inputFrame.setVisible(false);
+        if(dataStored==true){inputFrame.setVisible(false);}
       }
     });
     
@@ -223,7 +223,7 @@ public class GuiApp{
       {
         data.optimize = true;
         storeData();
-        inputFrame.setVisible(false);
+        if(dataStored==true){inputFrame.setVisible(false);}
       }
     });
     
@@ -251,6 +251,10 @@ public class GuiApp{
       double[] eqConstant = new double[]{Double.valueOf(eq0Field.getText()), Double.valueOf(eq1Field.getText()), Double.valueOf(eq2Field.getText()), Double.valueOf(eq3Field.getText()), Double.valueOf(eq4Field.getText()), Double.valueOf(eq5Field.getText()), Double.valueOf(eq6Field.getText())};
       String packingType = (String)in8Field.getSelectedItem();
       packingType = packingType.toLowerCase();
+      
+      for(int i = 0; i<systemConstant.length; i++){
+        if(systemConstant[i]<0){throw new Exception();}
+      }
       
       data.setSC(systemConstant);
       data.setED(eqConstant);
@@ -293,7 +297,6 @@ public class GuiApp{
     
     
     data.setSC(inputs);
-    System.out.println("Values laoded from file");
     
     //----------
     
@@ -333,7 +336,7 @@ public class GuiApp{
     JFrame guiFrame = new JFrame();
     
     guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    guiFrame.setTitle("Use GUI");
+    guiFrame.setTitle("Oops, something went wrong!");
     guiFrame.setSize(250,125);
     
     guiFrame.setLocationRelativeTo(null);

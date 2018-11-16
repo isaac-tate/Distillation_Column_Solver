@@ -161,13 +161,13 @@ public class GuiApp{
     JLabel eqTitle = new JLabel("Equilibrium Inputs (Including 0's)");
     eqTitle.setFont(new Font("Serif", Font.PLAIN, 18));
     JLabel eqblank = new JLabel(" ");
-    JLabel in0Equ = new JLabel("coefficient of x^0"); 
-    JLabel in1Equ = new JLabel("coefficient of x^1");  
-    JLabel in2Equ = new JLabel("coefficient of x^2");
-    JLabel in3Equ = new JLabel("coefficient of x^3");
-    JLabel in4Equ = new JLabel("coefficient of x^4");
-    JLabel in5Equ = new JLabel("coefficient of x^5");
-    JLabel in6Equ = new JLabel("coefficient of x^6");
+    JLabel in0Equ = new JLabel("Coefficient of x^0"); 
+    JLabel in1Equ = new JLabel("Coefficient of x^1");  
+    JLabel in2Equ = new JLabel("Coefficient of x^2");
+    JLabel in3Equ = new JLabel("Coefficient of x^3");
+    JLabel in4Equ = new JLabel("Coefficient of x^4");
+    JLabel in5Equ = new JLabel("Coefficient of x^5");
+    JLabel in6Equ = new JLabel("Coefficient of x^6");
     
     in0Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     in1Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -198,7 +198,7 @@ public class GuiApp{
     equilibriumPanel.add(eq6Field);
    
 
-    JButton noOpButton = new JButton("No not optimize");
+    JButton noOpButton = new JButton("Do not optimize");
     noOpButton.setForeground(Color.red);
     buttonPanel.add(noOpButton);
     
@@ -213,7 +213,7 @@ public class GuiApp{
       {
         data.optimize = false;
         storeData();
-        inputFrame.setVisible(false);
+        if(dataStored==true){inputFrame.setVisible(false);}
       }
     });
     
@@ -223,7 +223,7 @@ public class GuiApp{
       {
         data.optimize = true;
         storeData();
-        inputFrame.setVisible(false);
+        if(dataStored==true){inputFrame.setVisible(false);}
       }
     });
     
@@ -293,7 +293,6 @@ public class GuiApp{
     
     
     data.setSC(inputs);
-    System.out.println("Values laoded from file");
     
     //----------
     
