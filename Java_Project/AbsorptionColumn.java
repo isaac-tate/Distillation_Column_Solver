@@ -144,7 +144,7 @@ public class AbsorptionColumn{
   
   //Method that optimizes the column liquid flow
   public double optimizeLiquidFlow(){
-    OptimizationFunction f = new OptimizationFunction(this,10000);
+    OptimizationFunction f = new OptimizationFunction(this,this.l_2);
     if(this.zv>this.zl){
       IncrementalUp i = new IncrementalUp(this.l_2,this.l_2*100);
       return i.calculate(f);

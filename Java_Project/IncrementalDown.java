@@ -34,7 +34,7 @@ public class IncrementalDown implements RootFinding{
         else if(sign>0){
           xu = xu-delx;
         }
-      }while(Math.abs(fxdel-fxu)>error&&xl<xu);
+      }while(Math.abs(fxu)>error&&xl<xu);
       return xu;
     }
 }
