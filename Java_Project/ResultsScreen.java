@@ -29,7 +29,7 @@ public class ResultsScreen{
     
     resultsPanel.setLayout(new BoxLayout(resultsPanel, BoxLayout.Y_AXIS));
     
-    JLabel titleText = new JLabel("Results from the calulation:");
+    JLabel titleText = new JLabel("Results from the calculation:");
     titlePanel.add(titleText);
     
     JLabel heightText = new JLabel("Height is found to be " + height + " meters");
