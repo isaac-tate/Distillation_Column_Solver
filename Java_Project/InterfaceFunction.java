@@ -1,4 +1,4 @@
-public class InterfaceFunction extends Function{
+public class InterfaceFunction implements Function{
   //The function to determine xai
   
   private double xal,yag,kxa,kya,x;

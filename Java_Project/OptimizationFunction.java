@@ -1,4 +1,4 @@
-public class OptimizationFunction extends Function{
+public class OptimizationFunction implements Function{
   //Function for the optimization of the absorption column
   private AbsorptionColumn mycolumn;
   private double z;
