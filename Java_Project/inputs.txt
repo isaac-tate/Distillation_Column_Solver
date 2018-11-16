@@ -6,3 +6,4 @@ Recovery value=0.92
 Inlet temperature=25
 Number of iterations=100
 Packing type=rashig
+1
