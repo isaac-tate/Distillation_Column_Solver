@@ -4,5 +4,5 @@ Starting liquid inlet flow rate=40
 Starting liquid mole fraction=0
 Recovery value=0.92
 Inlet temperature=25
-Number of iterations=100
+Number of iterations=1000
 Packing type=rashig
