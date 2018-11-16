@@ -60,7 +60,7 @@ public class ResultsScreen{
       @Override
       public void actionPerformed(ActionEvent event)
       {
-        System.out.print("EXPORT");
+        //System.out.print("EXPORT");
         guiFrame.setVisible(false);
         exportV = true;
       }
@@ -70,7 +70,7 @@ public class ResultsScreen{
       @Override
       public void actionPerformed(ActionEvent event)
       {
-        System.out.print("DONT EXPORT");
+        //System.out.print("DONT EXPORT");
         guiFrame.setVisible(false);
         exportV = false;
       }

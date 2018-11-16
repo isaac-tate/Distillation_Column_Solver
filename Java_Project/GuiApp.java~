@@ -213,7 +213,7 @@ public class GuiApp{
       {
         data.optimize = false;
         storeData();
-        inputFrame.setVisible(false);
+        if(dataStored==true){inputFrame.setVisible(false);}
       }
     });
     
@@ -223,7 +223,7 @@ public class GuiApp{
       {
         data.optimize = true;
         storeData();
-        inputFrame.setVisible(false);
+        if(dataStored==true){inputFrame.setVisible(false);}
       }
     });
     
@@ -293,7 +293,6 @@ public class GuiApp{
     
     
     data.setSC(inputs);
-    System.out.println("Values laoded from file");
     
     //----------
     
