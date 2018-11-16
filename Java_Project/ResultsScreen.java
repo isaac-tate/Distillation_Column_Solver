@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.*;
 
 public class ResultsScreen{
   
@@ -32,8 +33,10 @@ public class ResultsScreen{
     JLabel titleText = new JLabel("Results from the calculation:");
     titlePanel.add(titleText);
     
-    JLabel heightText = new JLabel("Height is found to be " + height + " meters");
-    JLabel flowText = new JLabel("Flow is found to be " + flow + " Kmol/h");
+    DecimalFormat df = new DecimalFormat("#######.###");
+    
+    JLabel heightText = new JLabel("Height is found to be " + df.format(height) + " meters");
+    JLabel flowText = new JLabel("Flow is found to be " + df.format(flow) + " Kmol/h");
     heightText.setAlignmentX(Component.CENTER_ALIGNMENT);
     flowText.setAlignmentX(Component.CENTER_ALIGNMENT);
     resultsPanel.add(heightText);
