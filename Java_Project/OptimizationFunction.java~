@@ -1,27 +1,46 @@
-public class OptimizationFunction extends Function{
-  
-  private AbsorptionColumn2 mycolumn;
+public class OptimizationFunction implements Function{
+  //Function for the optimization of the absorption column
+  private AbsorptionColumn mycolumn;
   private double z;
   private double x;
+  double l;
   
-  public Function(AbsorptionColumn2 mycolumn, double l){
-    double x = mycolumn.recalculateHeightDifference(l);
-    this.mycolumn = new AbsorptionColumn2(mycolumn);
+  public OptimizationFunction(AbsorptionColumn mycolumn, double l){
+    this.l = mycolumn.l_2;
+    double x = mycolumn.calculateHeightDifference(l);
+    this.mycolumn = new AbsorptionColumn(mycolumn);
     this.x = x;
   }
+  //Copy constructor
+  public OptimizationFunction(OptimizationFunction source){
+    this.mycolumn = new AbsorptionColumn(source.mycolumn);
+    this.z = source.z;
+    this.x = source.x;
+  }
+  //Mutators
   public double setX(double l){
-    double x = this.mycolumn.recalculateHeightDifference(l);
-    this.mycolumn = new AbsorptionColumn2(mycolumn);
+    double x = this.mycolumn.calculateHeightDifference(l);
+    this.mycolumn = new AbsorptionColumn(mycolumn);
     this.z = mycolumn.z;
     return x;
   }
+   public double setColumn(AbsorptionColumn mycolumn){
+    double x = mycolumn.calculateHeightDifference(this.x);
+    this.mycolumn = new AbsorptionColumn(mycolumn);
+    this.z = mycolumn.z;
+    return x;
+  }
+  //Accessors
   public double getX(){
     return this.x;
   }
   public double getZ(){
     return this.z;
   }
-  public AbsorptionColumn2 getColumn(){
-    return new AbsorptionColumn2(this.mycolumn);
+  public AbsorptionColumn getColumn(){
+    return new AbsorptionColumn(this.mycolumn);
+  }
+  public double getl_2(){
+    return this.l;
   }
 }

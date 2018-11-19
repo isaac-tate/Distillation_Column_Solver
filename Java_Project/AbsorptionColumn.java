@@ -2,44 +2,44 @@ import java.math.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-    /* Inputted Data Should Include
-     * 
-     * Gas inlet flow (gas_in_flow)
-     * Gas phase mole fraction (gas_in_mole_frac)
-     * Liquid inlet flow (liq_in_flow)
-     * Liquid phase mole fraction (liq_in_mole_frac)
-     * Recovery (recovery)
-     * Inlet temp (temp_in)
-     * Packing type (packing)
-     * 
-     * Outputted Data should include
-     * Gas outlet flow (gas_flow_out)
-     * Gas phase mole fraction (gas_out_mole_frac)
-     * Liquid outlet flow (liq_out_flow)
-     * Liquid mole fraction (liq_out_mole_frac)
-     * Tower Height (tower_height)
-     * 
-     */
+/* Inputted Data Should Include
+ * 
+ * Gas inlet flow (gas_in_flow)
+ * Gas phase mole fraction (gas_in_mole_frac)
+ * Liquid inlet flow (liq_in_flow)
+ * Liquid phase mole fraction (liq_in_mole_frac)
+ * Recovery (recovery)
+ * Inlet temp (temp_in)
+ * Packing type (packing)
+ * 
+ * Outputted Data should include
+ * Gas outlet flow (gas_flow_out)
+ * Gas phase mole fraction (gas_out_mole_frac)
+ * Liquid outlet flow (liq_out_flow)
+ * Liquid mole fraction (liq_out_mole_frac)
+ * Tower Height (tower_height)
+ * 
+ */
 
 public class AbsorptionColumn{
   
   //Input objects
   Packing packing;
   Fluid fluid;
-
+  
   //Input values
-  double v_1, y_a1, l_2, x_a2, recovery, temp_in;
+  private double v_1, y_a1, l_2, x_a2, recovery, temp_in;
   
   //System constants
-  double vPrime, lPrime, dC, crossArea, x_a1, y_a2;
- 
+  private double vPrime, lPrime, dC, crossArea, x_a1, y_a2;
+  
   //Other output values
-  double v_2, l_1, z, zl, zv,optL;
+  private double v_2, l_1, z, zl, zv, optL;
   
   //System properties
   int iterations;
   EquilibriumData eqdata;
-  double [] xal, yag, xai, yai, dzv, dzl;
+  private double [] xal, yag, xai, yai, dzv, dzl;
   
   //Constructor
   public AbsorptionColumn(Packing packing, Fluid fluid, InputData data){
@@ -71,18 +71,19 @@ public class AbsorptionColumn{
     
     Scanner myscan = new Scanner(System.in);
     boolean flag = false;
-   //Choose whether or not to optimize the column
-
+    //Choose whether or not to optimize the column
+    
     int i = 0;
     
     if(data.useGUI == false){
       try {
-      System.out.println("Would you like to optimize the column? (1 for yes, 0 for no)");
-      i = myscan.nextInt();
+        System.out.println("Would you like to optimize the column? (1 for yes, 0 for no)");
+        i = myscan.nextInt();
+        flag = true;
       }
       catch (InputMismatchException e) {
         myscan.nextLine();
-        System.out.println("You did not enter 1 or 0. \n Please try again");
+        System.out.println("You did not enter either the integers 1 or 0. \n Please try again");
       }
     }
     else{
@@ -92,9 +93,9 @@ public class AbsorptionColumn{
     
     if(i==1) this.optL = optimizeLiquidFlow();
     else this.optL = 0;
-
     
-
+    
+    
   }
   //copy constructor
   public AbsorptionColumn(AbsorptionColumn source){
@@ -149,6 +150,70 @@ public class AbsorptionColumn{
     this.zv = source.zv;
     this.z = source.z;
   }
+  
+  /*   
+   * 
+   //System properties
+   int iterations;
+   EquilibriumData eqdata;
+   double [] xal, yag, xai, yai, dzv, dzl;
+   */
+  
+  // Accessors for given inputs
+  public double getV1() {return this.v_1;}
+  public double getYA1() {return this.y_a1;}
+  public double getL2() {return this.l_2;}
+  public double getXA2() {return this.x_a2;}
+  public double getRecovery() {return this.recovery;}
+  public double getTempIn() {return this.temp_in;}
+  
+  // Accessors for System Constants
+  public double getVPrime() {return this.vPrime;}
+  public double getLPrime() {return this.lPrime;}
+  public double getDC() {return this.dC;}
+  public double getCrossArea() {return this.crossArea;}
+  public double getXA1() {return this.x_a1;}
+  public double getYA2() {return this.y_a2;}
+  
+  // Accessors for output values
+  public double getV2() {return this.v_2;}
+  public double getL1() {return this.l_1;}
+  public double getZ() {return this.z;}
+  public double getZL() {return this.zl;}
+  public double getZV() {return this.zv;}
+  public double getOptL() {return this.optL;}
+  
+  public double[] getXAL() {
+    double[] copy1 = new double [this.iterations];
+    for(int j = 0;j<this.iterations;j++){
+      copy1[j] = this.xal[j];} return copy1;
+  }
+  public double[] getYAG() {
+    double[] copy2 = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      copy2[k] = this.yag[k];} return copy2;
+  }
+  public double[] getXAI() {
+    double[] copy3 = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      copy3[k] = this.xai[k];} return copy3;
+  }
+  public double[] getYAI() {
+    double[] copy4 = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      copy4[k] = this.yai[k];} return copy4;
+  }
+  public double[] getDZV() {
+    double[] copy5 = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      copy5[k] = this.dzv[k];} return copy5;
+  }
+  public double[] getDZL() {
+    double[] copy6 = new double [this.iterations];
+    for(int k = 0;k<this.iterations;k++){
+      copy6[k] = this.dzl[k];} return copy6;
+  }
+  
   
   //Method that optimizes the column liquid flow
   public double optimizeLiquidFlow(){
@@ -238,10 +303,12 @@ public class AbsorptionColumn{
     else{
       TrapezoidRule szv = new TrapezoidRule();
       this.zv = szv.calculate(yag,dzv);//solve vapour height using integration method 
-       }
+    }
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
     return zl-zv;//returns height difference
-
+    
   }
+  
+  
 }

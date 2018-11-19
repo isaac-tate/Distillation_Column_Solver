@@ -6,7 +6,7 @@ public class OptimizationFunction implements Function{
   double l;
   
   public OptimizationFunction(AbsorptionColumn mycolumn, double l){
-    this.l = mycolumn.l_2;
+    this.l = mycolumn.getL2();
     double x = mycolumn.calculateHeightDifference(l);
     this.mycolumn = new AbsorptionColumn(mycolumn);
     this.x = x;
@@ -21,13 +21,13 @@ public class OptimizationFunction implements Function{
   public double setX(double l){
     double x = this.mycolumn.calculateHeightDifference(l);
     this.mycolumn = new AbsorptionColumn(mycolumn);
-    this.z = mycolumn.z;
+    this.z = mycolumn.getZ();
     return x;
   }
    public double setColumn(AbsorptionColumn mycolumn){
     double x = mycolumn.calculateHeightDifference(this.x);
     this.mycolumn = new AbsorptionColumn(mycolumn);
-    this.z = mycolumn.z;
+    this.z = mycolumn.getZ();
     return x;
   }
   //Accessors

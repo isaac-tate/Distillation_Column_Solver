@@ -25,7 +25,7 @@ public class DataExport{
       
       //DZV
       dzvString.append("dzv values:,");
-      for(Double element : dataColumn.dzv){
+      for(Double element : dataColumn.getDZV()){
         dzvString.append(element);
         dzvString.append(",");
       }
@@ -34,7 +34,7 @@ public class DataExport{
       
       //DZL
       dzlString.append("dzl values:,");
-      for(Double element : dataColumn.dzl){
+      for(Double element : dataColumn.getDZL()){
         dzlString.append(element);
         dzlString.append(",");
       }
@@ -43,7 +43,7 @@ public class DataExport{
       
       //XAL
       xalString.append("xal values:,");
-      for(Double element : dataColumn.xal){
+      for(Double element : dataColumn.getXAL()){
         xalString.append(element);
         xalString.append(",");
       }
@@ -52,7 +52,7 @@ public class DataExport{
       
       //YAG
       yagString.append("yag values:,");
-      for(Double element : dataColumn.yag){
+      for(Double element : dataColumn.getYAG()){
         yagString.append(element);
         yagString.append(",");
       }
@@ -61,7 +61,7 @@ public class DataExport{
       
       //XAI
       xaiString.append("xai values:,");
-      for(Double element : dataColumn.xai){
+      for(Double element : dataColumn.getXAI()){
         xaiString.append(element);
         xaiString.append(",");
       }
@@ -70,7 +70,7 @@ public class DataExport{
       
       //YAI
       yaiString.append("yai values:,");
-      for(Double element : dataColumn.yai){
+      for(Double element : dataColumn.getYAI()){
         yaiString.append(element);
         yaiString.append(",");
       }

@@ -32,7 +32,7 @@ public class RunMe{
     }
     
     if(useGUI.use == true){
-     
+      
       GuiApp myGui = new GuiApp();
       while(!myGui.dataStored){System.out.print("");}
       InputData systemData = myGui.data;
@@ -41,7 +41,7 @@ public class RunMe{
       Fluid fluid = new Fluid();
       Packing packing = new Packing(systemData.getPackingType());
       AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
-      ResultsScreen myResults = new ResultsScreen(myColumn.z, myColumn.optL);
+      ResultsScreen myResults = new ResultsScreen(myColumn.getZ(), myColumn.getOptL());
       if(myResults.exportV == true){DataExport myExport = new DataExport(myColumn);}
       
     }
@@ -60,8 +60,9 @@ public class RunMe{
       boolean flag = false;
       
       while(!flag){
-        System.out.println("How would like to input conditions through a file ('f') or by input ('i')");
-        dataType = myScan.nextLine();
+
+          System.out.println("How would like to input conditions through a file ('f') or by input ('i')");
+          dataType = myScan.nextLine();
         
         switch(dataType){
           case "f":
@@ -74,7 +75,7 @@ public class RunMe{
             flag=true;
             break;
           default:
-            System.out.println("Not a valid input");
+            System.out.println("Not a valid input. Try again.");
         }
       }
       
@@ -84,8 +85,8 @@ public class RunMe{
       Fluid fluid = new Fluid();
       Packing packing = new Packing(systemData.getPackingType());
       AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
-      System.out.println("The height of the column is "+myColumn.z+"m.");
-      System.out.println("The optimal liquid flow rate through the column for optimization of mass transfer is "+myColumn.optL+"kmol/h.");
+      System.out.println("The height of the column is "+myColumn.getZ()+"m.");
+      System.out.println("The optimal liquid flow rate through the column for optimization of mass transfer is "+myColumn.getOptL()+"kmol/h.");
       
       //Exporting Data
       
@@ -95,27 +96,27 @@ public class RunMe{
         
         if(answer_export == 1){
           DataExport myExport = new DataExport(myColumn);
-          System.out.println("Data exported");
+          System.out.println("Data exported.");
           break;
         }
         if(answer_export == 0){
-          System.out.println("Not exporting");
+          System.out.println("Not exporting.");
           break;
         }
         else{
-          System.out.println("Not a valid input");
+          System.out.println("Not a valid input.");
         }
         
       }     
-
+      
     }    
-
+    
   }
   
   public static void valuesFromFile(Scanner myScan, InputData myData){
     
     double[] inputs = new double[7];
-
+    
     System.out.println("Please input a file name (leave blank for default: 'inputs.txt')");
     String fileName = myScan.nextLine();
     
@@ -149,7 +150,7 @@ public class RunMe{
     myData.setSC(inputs);
     
   }
- 
+  
   public static void valuesFromInput(Scanner myScan, InputData myData){
     
     double[] inputs = new double[7];
@@ -190,4 +191,3 @@ public class RunMe{
     
   }
 }
-    
