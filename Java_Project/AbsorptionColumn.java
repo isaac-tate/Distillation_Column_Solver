@@ -167,7 +167,7 @@ public class AbsorptionColumn{
   public double getRecovery() {return this.recovery;}
   public double getTempIn() {return this.temp_in;}
   
-  // Accessors for System Constants
+  // Accessors for system constants
   public double getVPrime() {return this.vPrime;}
   public double getLPrime() {return this.lPrime;}
   public double getDC() {return this.dC;}
@@ -183,6 +183,7 @@ public class AbsorptionColumn{
   public double getZV() {return this.zv;}
   public double getOptL() {return this.optL;}
   
+ // Accessors for system properties
   public double[] getXAL() {
     double[] copy1 = new double [this.iterations];
     for(int j = 0;j<this.iterations;j++){
