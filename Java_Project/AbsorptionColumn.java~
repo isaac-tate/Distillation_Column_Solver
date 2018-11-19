@@ -144,7 +144,7 @@ public class AbsorptionColumn{
   
   //Method that optimizes the column liquid flow
   public double optimizeLiquidFlow(){
-    OptimizationFunction f = new OptimizationFunction(this,10000);
+    OptimizationFunction f = new OptimizationFunction(this,this.l_2);
     if(this.zv>this.zl){
       IncrementalUp i = new IncrementalUp(this.l_2,this.l_2*100);
       return i.calculate(f);
@@ -215,12 +215,22 @@ public class AbsorptionColumn{
       this.dzl[n] = data[2][n]/(data[6][n]*this.crossArea/(((1-xal[n])-(1-xai[n]))/Math.log((1-xal[n])/(1-xai[n])))*(1-xal[n])*(xai[n]-xal[n]));
     }
     
-    TrapezoidRule szl = new TrapezoidRule();
-    this.zl = szl.calculate(xal,dzl);//solve liquid height using integration method
-    //System.out.println(zl+"zl");
-    TrapezoidRule szv = new TrapezoidRule();
-    this.zv = szv.calculate(yag,dzv);//solve vapour height using integration method
-    //System.out.println(zv+"zv");
+    if((xal[1]-xal[0]==xal[2]-xal[1])){
+      Simpsons szl = new Simpsons();
+      this.zl = szl.calculate(xal,dzl);
+    }
+    else{
+      TrapezoidRule szl = new TrapezoidRule();
+      this.zl = szl.calculate(xal,dzl);//solve liquid height using integration method
+    }
+    if((yag[1]-yag[0]==yag[2]-yag[1])){
+      Simpsons szv = new Simpsons();
+      this.zv = szv.calculate(yag,dzv);
+    }
+    else{
+      TrapezoidRule szv = new TrapezoidRule();
+      this.zv = szv.calculate(yag,dzv);//solve vapour height using integration method 
+       }
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
     return zl-zv;//returns height difference

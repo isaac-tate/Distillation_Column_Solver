@@ -1,5 +1,6 @@
 import java.math.*;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
     /* Inputted Data Should Include
      * 
@@ -72,10 +73,17 @@ public class AbsorptionColumn{
     boolean flag = false;
    //Choose whether or not to optimize the column
 
-    int i;
+    int i = 0;
+    
     if(data.useGUI == false){
+      try {
       System.out.println("Would you like to optimize the column? (1 for yes, 0 for no)");
       i = myscan.nextInt();
+      }
+      catch (InputMismatchException e) {
+        myscan.nextLine();
+        System.out.println("You did not enter 1 or 0. \n Please try again");
+      }
     }
     else{
       if(data.optimize==true){i = 1;}
