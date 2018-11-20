@@ -40,7 +40,7 @@ public class GuiApp{
     
     guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     guiFrame.setTitle("Column Calculator");
-    guiFrame.setSize(350,125);
+    guiFrame.setSize(350,150);
     
     guiFrame.setLocationRelativeTo(null);
     
@@ -51,14 +51,18 @@ public class GuiApp{
     
     final JPanel authorPanel = new JPanel();
     JLabel authorText = new JLabel("Created by: Samantha, Isaac, Kaitlin, Curtis and Chris");
+    JCheckBox opFile = new JCheckBox("Optimize existing file input?");
     authorPanel.add(authorText);
+    authorPanel.add(opFile);
     
     final JPanel buttonPanel = new JPanel();
     JButton startFileButton = new JButton("Use existing files");
-    
     JButton startInputButton = new JButton("Use user input");
+
+    
     buttonPanel.add(startInputButton);
     buttonPanel.add(startFileButton);
+    
 //Create the second JPanel. Add a JLabel and JList and
 //make use the JPanel is not visible.
     
@@ -88,6 +92,7 @@ public class GuiApp{
       public void actionPerformed(ActionEvent event)
       {
         fromFiles = true;
+        data.optimize = opFile.isSelected();
         guiFrame.setVisible(false);
         storeDataFromFile();
       }
