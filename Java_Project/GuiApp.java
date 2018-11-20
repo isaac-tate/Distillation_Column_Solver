@@ -239,7 +239,12 @@ public class GuiApp{
   
   public void storeData(){
     
+    
     try{
+      
+      if(Double.valueOf(in2Field.getText()) > 1 || Double.valueOf(in2Field.getText()) < 0){throw new Exception();}
+      if(Double.valueOf(in4Field.getText()) > 1 || Double.valueOf(in4Field.getText()) < 0){throw new Exception();}
+      
       double[] systemConstant = new double[]{Double.valueOf(in1Field.getText()), Double.valueOf(in2Field.getText()), Double.valueOf(in3Field.getText()), Double.valueOf(in4Field.getText()), Double.valueOf(in5Field.getText()), 25, 200};
       double[] eqConstant = new double[]{Double.valueOf(eq0Field.getText()), Double.valueOf(eq1Field.getText()), Double.valueOf(eq2Field.getText()), Double.valueOf(eq3Field.getText()), Double.valueOf(eq4Field.getText()), Double.valueOf(eq5Field.getText()), Double.valueOf(eq6Field.getText())};
       String packingType = (String)in8Field.getSelectedItem();
