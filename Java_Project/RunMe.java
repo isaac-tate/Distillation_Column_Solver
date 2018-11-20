@@ -175,14 +175,10 @@ public class RunMe{
     inputs[4] = myScan.nextDouble();
     //inputs[4] = 0.95;
     
-    System.out.println("Please input an inlet temp");
-    inputs[5] = myScan.nextDouble();
-    //inputs[5] = 25;
-    
-    System.out.println("Please enter a number of iterations");
-    inputs[6] = myScan.nextInt();
+    inputs[5] = 25.0;
+
     myScan.nextLine();
-    //inputs[6] = 100;
+    inputs[6] = 200;
     
     System.out.println("Please input an packing type ('berl', 'rashig', 'pall')");
     myData.setPackingType(myScan.nextLine());

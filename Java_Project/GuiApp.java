@@ -121,8 +121,7 @@ public class GuiApp{
     JLabel in3Text = new JLabel("Starting liquid inlet flow rate");
     JLabel in4Text = new JLabel("Starting liquid mole fraction");
     JLabel in5Text = new JLabel("Recovery value");
-    JLabel in6Text = new JLabel("Inlet temperature");
-    JLabel in7Text = new JLabel("Number of iterations");
+
     JLabel in8Text = new JLabel("Packing Type");
     
     in1Text.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -130,8 +129,6 @@ public class GuiApp{
     in3Text.setAlignmentX(Component.CENTER_ALIGNMENT);
     in4Text.setAlignmentX(Component.CENTER_ALIGNMENT);
     in5Text.setAlignmentX(Component.CENTER_ALIGNMENT);
-    in6Text.setAlignmentX(Component.CENTER_ALIGNMENT);
-    in7Text.setAlignmentX(Component.CENTER_ALIGNMENT);
     in8Text.setAlignmentX(Component.CENTER_ALIGNMENT);
     inTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -147,10 +144,6 @@ public class GuiApp{
     systemPanel.add(in4Field);
     systemPanel.add(in5Text);
     systemPanel.add(in5Field);
-    systemPanel.add(in6Text);
-    systemPanel.add(in6Field);
-    systemPanel.add(in7Text);
-    systemPanel.add(in7Field);
     systemPanel.add(in8Text);
     systemPanel.add(in8Field);
     
@@ -247,7 +240,7 @@ public class GuiApp{
   public void storeData(){
     
     try{
-      double[] systemConstant = new double[]{Double.valueOf(in1Field.getText()), Double.valueOf(in2Field.getText()), Double.valueOf(in3Field.getText()), Double.valueOf(in4Field.getText()), Double.valueOf(in5Field.getText()), Double.valueOf(in6Field.getText()), Double.valueOf(in7Field.getText())};
+      double[] systemConstant = new double[]{Double.valueOf(in1Field.getText()), Double.valueOf(in2Field.getText()), Double.valueOf(in3Field.getText()), Double.valueOf(in4Field.getText()), Double.valueOf(in5Field.getText()), 25, 200};
       double[] eqConstant = new double[]{Double.valueOf(eq0Field.getText()), Double.valueOf(eq1Field.getText()), Double.valueOf(eq2Field.getText()), Double.valueOf(eq3Field.getText()), Double.valueOf(eq4Field.getText()), Double.valueOf(eq5Field.getText()), Double.valueOf(eq6Field.getText())};
       String packingType = (String)in8Field.getSelectedItem();
       packingType = packingType.toLowerCase();

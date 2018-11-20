@@ -55,10 +55,10 @@ public class GuiApp{
     
     final JPanel buttonPanel = new JPanel();
     JButton startFileButton = new JButton("Use existing files");
-    buttonPanel.add(startFileButton);
     
     JButton startInputButton = new JButton("Use user input");
     buttonPanel.add(startInputButton);
+    buttonPanel.add(startFileButton);
 //Create the second JPanel. Add a JLabel and JList and
 //make use the JPanel is not visible.
     
@@ -252,6 +252,10 @@ public class GuiApp{
       String packingType = (String)in8Field.getSelectedItem();
       packingType = packingType.toLowerCase();
       
+      for(int i = 0; i<systemConstant.length; i++){
+        if(systemConstant[i]<0){throw new Exception();}
+      }
+      
       data.setSC(systemConstant);
       data.setED(eqConstant);
       data.setPackingType(packingType);
@@ -332,7 +336,7 @@ public class GuiApp{
     JFrame guiFrame = new JFrame();
     
     guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    guiFrame.setTitle("Use GUI");
+    guiFrame.setTitle("Oops, something went wrong!");
     guiFrame.setSize(250,125);
     
     guiFrame.setLocationRelativeTo(null);
