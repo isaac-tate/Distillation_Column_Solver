@@ -33,13 +33,21 @@ public class RunMe{
     
     if(useGUI.use == true){
       
+      //Opening the Gui
       GuiApp myGui = new GuiApp();
+      //Making sure data has been stored, if not loop till it is
       while(!myGui.dataStored){System.out.print("");}
+      //Store data from GUI into data type
       InputData systemData = myGui.data;
+      //Tell the data class you are using a GUI
       systemData.setGUI(true);
+      //Tell the data class where the data is from
       systemData.setFromFiles(myGui.fromFiles);
+      //Creating new fluid
       Fluid fluid = new Fluid();
+      //Creating new packing
       Packing packing = new Packing(systemData.getPackingType());
+      //Creating new ab col
       AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
       ResultsScreen myResults = new ResultsScreen(myColumn.getZ(), myColumn.getOptL());
       if(myResults.exportV == true){DataExport myExport = new DataExport(myColumn);}
