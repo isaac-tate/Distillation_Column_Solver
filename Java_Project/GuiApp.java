@@ -98,7 +98,7 @@ public class GuiApp{
     JFrame inputFrame = new JFrame();
     inputFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     inputFrame.setTitle("User Inputs");
-    inputFrame.setSize(550,500);
+    inputFrame.setSize(550,400);
     GridLayout layout = new GridLayout(1, 2);
     inputFrame.setLayout(layout);
     inputFrame.setLocationRelativeTo(null);
@@ -159,16 +159,13 @@ public class GuiApp{
     JLabel in2Equ = new JLabel("Coefficient of x^2");
     JLabel in3Equ = new JLabel("Coefficient of x^3");
     JLabel in4Equ = new JLabel("Coefficient of x^4");
-    JLabel in5Equ = new JLabel("Coefficient of x^5");
-    JLabel in6Equ = new JLabel("Coefficient of x^6");
+
     
     in0Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     in1Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     in2Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     in3Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     in4Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
-    in5Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
-    in6Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     eqTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
     eqblank.setAlignmentX(Component.CENTER_ALIGNMENT);
     
@@ -185,10 +182,6 @@ public class GuiApp{
     equilibriumPanel.add(eq3Field);
     equilibriumPanel.add(in4Equ);
     equilibriumPanel.add(eq4Field);
-    equilibriumPanel.add(in5Equ);
-    equilibriumPanel.add(eq5Field);
-    equilibriumPanel.add(in6Equ);
-    equilibriumPanel.add(eq6Field);
    
 
     JButton noOpButton = new JButton("Do not optimize");
@@ -243,6 +236,7 @@ public class GuiApp{
     try{
       
       if(Double.valueOf(in2Field.getText()) > 1 || Double.valueOf(in2Field.getText()) < 0){throw new Exception();}
+      if(Double.valueOf(in4Field.getText()) > 1 || Double.valueOf(in4Field.getText()) < 0){throw new Exception();}
       if(Double.valueOf(in4Field.getText()) > 1 || Double.valueOf(in4Field.getText()) < 0){throw new Exception();}
       
       double[] systemConstant = new double[]{Double.valueOf(in1Field.getText()), Double.valueOf(in2Field.getText()), Double.valueOf(in3Field.getText()), Double.valueOf(in4Field.getText()), Double.valueOf(in5Field.getText()), 25, 200};
