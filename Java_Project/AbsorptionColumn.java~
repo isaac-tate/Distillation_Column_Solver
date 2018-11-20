@@ -49,8 +49,16 @@ public class AbsorptionColumn{
     this.packing = new Packing(packing); //Needs deep copy
     this.fluid = new Fluid(fluid);
     
-    //Given Inputs
-    this.v_1 = conditions[0];
+    this.v_1 = v_1;
+    this.y_a1 = y_a1;
+    this.l_2 = l_2;
+    this.x_a2 = x_a2;
+    this.recovery = recovery;
+    this.temp_in = temp_in;
+      
+      
+      //Given Inputs
+      this.v_1 = conditions[0];
     this.y_a1 = conditions[1];
     this.x_a2 = conditions[3];
     this.recovery = conditions[4];
@@ -183,7 +191,7 @@ public class AbsorptionColumn{
   public double getZV() {return this.zv;}
   public double getOptL() {return this.optL;}
   
- // Accessors for system properties
+  // Accessors for system properties
   public double[] getXAL() {
     double[] copy1 = new double [this.iterations];
     for(int j = 0;j<this.iterations;j++){
