@@ -58,7 +58,7 @@ public class AbsorptionColumn{
       
       
       //Given Inputs
-      this.v_1 = conditions[0];
+    this.v_1 = conditions[0];
     this.y_a1 = conditions[1];
     this.x_a2 = conditions[3];
     this.recovery = conditions[4];
@@ -83,6 +83,7 @@ public class AbsorptionColumn{
     
     int i = 0;
     
+    //If you use a GUI, the program will skip the console text
     if(data.useGUI == false){
       try {
         System.out.println("Would you like to optimize the column? (1 for yes, 0 for no)");

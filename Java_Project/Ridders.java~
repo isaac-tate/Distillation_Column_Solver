@@ -13,6 +13,7 @@ public class Ridders implements RootFinding{
     
     double sign, xnew, y, m, b,fxl,fxu,fxm,fxnew;
     
+    
     do{
       
       fxl = f.setX(xl);

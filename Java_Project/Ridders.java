@@ -13,7 +13,6 @@ public class Ridders implements RootFinding{
     
     double sign, xnew, y, m, b,fxl,fxu,fxm,fxnew;
     
-    
     do{
       
       fxl = f.setX(xl);
@@ -57,7 +56,17 @@ public class Ridders implements RootFinding{
         }
       }
       i++; 
+      
+      try {
+        if (iterations > 1000) throw new Exception("The iterations exceed 1000");                                               
+      }
+      catch(Exception thrown) {
+        System.out.println(thrown.getMessage());
+      }
+      
     }while(e>error&&i<iterations);//continue until e is less than the desired error and/or more than the desired number of iterations have occured
+    
+    
     
     return xnew;//return the new x value 
   }

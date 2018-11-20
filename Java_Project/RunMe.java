@@ -179,14 +179,14 @@ public class RunMe{
     inputs[3] = myScan.nextDouble();
     //inputs[3] = 0;
     
-    System.out.println("Please input a recovery value");
+    System.out.println("Please input a recovery value in decimal form");
     inputs[4] = myScan.nextDouble();
     //inputs[4] = 0.95;
     
     inputs[5] = 25.0;
 
     myScan.nextLine();
-    inputs[6] = 200;
+    inputs[6] = 1000;
     
     System.out.println("Please input an packing type ('berl', 'rashig', 'pall')");
     myData.setPackingType(myScan.nextLine());
