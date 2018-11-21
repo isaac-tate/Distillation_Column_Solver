@@ -6,9 +6,17 @@ public class UserErrorException extends Exception {
     this.userError = userError;
   }
   
-  public UserErrorException() {
-    this ("Unknown value.");
-  } 
-}
-
-//IllegalValueException
+  public UserErrorException(UserErrorException copy) {
+    this.userError = copy.userError;
+  }
+    
+    public String getError() { // getter
+      return ("Invalid input. Please try again.");
+    }
+  }
+  /*public UserErrorException() {
+   this ("Invalid input. Please try again.");
+   } 
+   }
+   
+   //IllegalValueException */

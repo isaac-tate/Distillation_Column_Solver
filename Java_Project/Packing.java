@@ -9,8 +9,8 @@ public class Packing{
     this.setPackingType(type);
   }
   
-  public void setPackingType(String type){
-    
+  public void setPackingType(String type) {
+   
     if(type.equals("rashig")){
       voidFraction = 0.74;
       aPacking = 190;
@@ -36,7 +36,7 @@ public class Packing{
       fpPacking = 0.905;
       chPacking = 0.528;
       colDiameterHeuristic = 10;
-    } 
+    }
     
     else{System.out.println("Not a valid packing type");
       

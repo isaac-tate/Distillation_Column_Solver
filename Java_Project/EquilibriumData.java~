@@ -110,7 +110,7 @@ public class EquilibriumData{
       
     }
     catch(FileNotFoundException e){
-      //System.out.println("Not a valid file name");
+      System.out.println("Not a valid file name");
       fileInputs();
     }
     
