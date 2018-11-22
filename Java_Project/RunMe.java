@@ -239,7 +239,7 @@ public class RunMe{
     myScan.nextLine();
     inputs[6] = 1000;
  
-    System.out.println("Please input an packing type ('berl', 'rashig', 'pall')");
+    System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
     myData.setPackingType(myScan.nextLine());
     myData.setSC(inputs);
     

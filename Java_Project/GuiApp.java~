@@ -40,7 +40,7 @@ public class GuiApp{
     
     guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     guiFrame.setTitle("Column Calculator");
-    guiFrame.setSize(350,125);
+    guiFrame.setSize(350,150);
     
     guiFrame.setLocationRelativeTo(null);
     
@@ -51,14 +51,18 @@ public class GuiApp{
     
     final JPanel authorPanel = new JPanel();
     JLabel authorText = new JLabel("Created by: Samantha, Isaac, Kaitlin, Curtis and Chris");
+    JCheckBox opFile = new JCheckBox("Optimize existing file input?");
     authorPanel.add(authorText);
+    authorPanel.add(opFile);
     
     final JPanel buttonPanel = new JPanel();
     JButton startFileButton = new JButton("Use existing files");
-    
     JButton startInputButton = new JButton("Use user input");
+
+    
     buttonPanel.add(startInputButton);
     buttonPanel.add(startFileButton);
+    
 //Create the second JPanel. Add a JLabel and JList and
 //make use the JPanel is not visible.
     
@@ -88,6 +92,7 @@ public class GuiApp{
       public void actionPerformed(ActionEvent event)
       {
         fromFiles = true;
+        data.optimize = opFile.isSelected();
         guiFrame.setVisible(false);
         storeDataFromFile();
       }
@@ -98,7 +103,7 @@ public class GuiApp{
     JFrame inputFrame = new JFrame();
     inputFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     inputFrame.setTitle("User Inputs");
-    inputFrame.setSize(550,500);
+    inputFrame.setSize(550,400);
     GridLayout layout = new GridLayout(1, 2);
     inputFrame.setLayout(layout);
     inputFrame.setLocationRelativeTo(null);
@@ -121,8 +126,7 @@ public class GuiApp{
     JLabel in3Text = new JLabel("Starting liquid inlet flow rate");
     JLabel in4Text = new JLabel("Starting liquid mole fraction");
     JLabel in5Text = new JLabel("Recovery value");
-    JLabel in6Text = new JLabel("Inlet temperature");
-    JLabel in7Text = new JLabel("Number of iterations");
+
     JLabel in8Text = new JLabel("Packing Type");
     
     in1Text.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -130,8 +134,6 @@ public class GuiApp{
     in3Text.setAlignmentX(Component.CENTER_ALIGNMENT);
     in4Text.setAlignmentX(Component.CENTER_ALIGNMENT);
     in5Text.setAlignmentX(Component.CENTER_ALIGNMENT);
-    in6Text.setAlignmentX(Component.CENTER_ALIGNMENT);
-    in7Text.setAlignmentX(Component.CENTER_ALIGNMENT);
     in8Text.setAlignmentX(Component.CENTER_ALIGNMENT);
     inTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -147,10 +149,6 @@ public class GuiApp{
     systemPanel.add(in4Field);
     systemPanel.add(in5Text);
     systemPanel.add(in5Field);
-    systemPanel.add(in6Text);
-    systemPanel.add(in6Field);
-    systemPanel.add(in7Text);
-    systemPanel.add(in7Field);
     systemPanel.add(in8Text);
     systemPanel.add(in8Field);
     
@@ -166,16 +164,13 @@ public class GuiApp{
     JLabel in2Equ = new JLabel("Coefficient of x^2");
     JLabel in3Equ = new JLabel("Coefficient of x^3");
     JLabel in4Equ = new JLabel("Coefficient of x^4");
-    JLabel in5Equ = new JLabel("Coefficient of x^5");
-    JLabel in6Equ = new JLabel("Coefficient of x^6");
+
     
     in0Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     in1Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     in2Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     in3Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     in4Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
-    in5Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
-    in6Equ.setAlignmentX(Component.CENTER_ALIGNMENT);
     eqTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
     eqblank.setAlignmentX(Component.CENTER_ALIGNMENT);
     
@@ -192,10 +187,6 @@ public class GuiApp{
     equilibriumPanel.add(eq3Field);
     equilibriumPanel.add(in4Equ);
     equilibriumPanel.add(eq4Field);
-    equilibriumPanel.add(in5Equ);
-    equilibriumPanel.add(eq5Field);
-    equilibriumPanel.add(in6Equ);
-    equilibriumPanel.add(eq6Field);
    
 
     JButton noOpButton = new JButton("Do not optimize");
@@ -246,8 +237,14 @@ public class GuiApp{
   
   public void storeData(){
     
+    
     try{
-      double[] systemConstant = new double[]{Double.valueOf(in1Field.getText()), Double.valueOf(in2Field.getText()), Double.valueOf(in3Field.getText()), Double.valueOf(in4Field.getText()), Double.valueOf(in5Field.getText()), Double.valueOf(in6Field.getText()), Double.valueOf(in7Field.getText())};
+      
+      if(Double.valueOf(in2Field.getText()) > 1 || Double.valueOf(in2Field.getText()) < 0){throw new Exception();}
+      if(Double.valueOf(in4Field.getText()) > 1 || Double.valueOf(in4Field.getText()) < 0){throw new Exception();}
+      if(Double.valueOf(in4Field.getText()) > 1 || Double.valueOf(in4Field.getText()) < 0){throw new Exception();}
+      
+      double[] systemConstant = new double[]{Double.valueOf(in1Field.getText()), Double.valueOf(in2Field.getText()), Double.valueOf(in3Field.getText()), Double.valueOf(in4Field.getText()), Double.valueOf(in5Field.getText()), 25, 200};
       double[] eqConstant = new double[]{Double.valueOf(eq0Field.getText()), Double.valueOf(eq1Field.getText()), Double.valueOf(eq2Field.getText()), Double.valueOf(eq3Field.getText()), Double.valueOf(eq4Field.getText()), Double.valueOf(eq5Field.getText()), Double.valueOf(eq6Field.getText())};
       String packingType = (String)in8Field.getSelectedItem();
       packingType = packingType.toLowerCase();

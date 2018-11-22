@@ -46,7 +46,7 @@ public class GuiApp{
     
 //The first JPanel contains a JLabel and JCombobox
     final JPanel startingPanel = new JPanel();
-    JLabel welcomeText = new JLabel("Welcome to Column Optimizor! \n");
+    JLabel welcomeText = new JLabel("Welcome to Column Calculator! \n");
     startingPanel.add(welcomeText);
     
     final JPanel authorPanel = new JPanel();
