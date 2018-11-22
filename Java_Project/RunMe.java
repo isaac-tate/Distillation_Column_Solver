@@ -236,7 +236,6 @@ public class RunMe{
     
     inputs[5] = 25.0;
     
-    //myScan.nextLine();
     inputs[6] = 1000;
  
     System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
