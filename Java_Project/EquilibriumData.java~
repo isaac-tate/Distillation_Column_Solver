@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.util.InputMismatchException;
 
 public class EquilibriumData{
   
@@ -69,8 +70,19 @@ public class EquilibriumData{
   //Manual inputs method
   public void manualInputs(){
     
+    boolean track = false;
+      
+    //try {
     System.out.println("Enter the highest power of x within the equilibrium data.");
     int j = myScan.nextInt();
+    /*track = false;
+    }
+    
+    catch (InputMismatchException e) {
+      myScan.nextLine();
+      System.out.println("Invalid.");
+    }*/
+    
     while(j<0){
       System.out.println("That is not a valid power, please reenter a positive integer or exit the program.");
       j = myScan.nextInt();

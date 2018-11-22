@@ -19,7 +19,7 @@ public class EquilibriumData{
     else{
       
       while(true){
-        System.out.println("How would like to input equilibrium data through a file ('f') or by input ('i')");
+        System.out.println("Would like to input equilibrium data through a file ('f') or by input ('i')?");
         String answer = myScan.nextLine();
         if(answer.equals("f") || answer.equals("i")){
           answer_outside = answer;
@@ -71,17 +71,18 @@ public class EquilibriumData{
   public void manualInputs(){
     
     boolean track = false;
+    int j = 0;
       
-    //try {
+    try {
     System.out.println("Enter the highest power of x within the equilibrium data.");
-    int j = myScan.nextInt();
-    /*track = false;
+    j = myScan.nextInt();
+    track = false;
     }
     
     catch (InputMismatchException e) {
       myScan.nextLine();
       System.out.println("Invalid.");
-    }*/
+    }
     
     while(j<0){
       System.out.println("That is not a valid power, please reenter a positive integer or exit the program.");
