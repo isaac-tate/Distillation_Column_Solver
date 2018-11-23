@@ -55,14 +55,14 @@ public class AbsorptionColumn{
     this.x_a2 = x_a2;
     this.recovery = recovery;
     this.temp_in = temp_in;
+    
       
-      
-      //Given Inputs
+    //Given Inputs
     this.v_1 = conditions[0];
     this.y_a1 = conditions[1];
+    this.l_2 = conditions[2];
     this.x_a2 = conditions[3];
     this.recovery = conditions[4];
-    this.temp_in = conditions[5];
     
     //Calculating System Constants
     this.crossArea = ((Math.PI*Math.pow((packing.getColDiameterHeuristic()*packing.nominalSize), 2))/4);
@@ -71,7 +71,7 @@ public class AbsorptionColumn{
     this.y_a2 = y_a1*(1-recovery)*v_1/v_2;
     
     //Calculating System Properties
-    this.iterations = (int)conditions[6];
+    this.iterations = 1000;
     this.eqdata = new EquilibriumData(data);
     
     //The method recalculateHeightDifference sets the rest of the instance variables and allows for optimization

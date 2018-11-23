@@ -269,7 +269,7 @@ public class GuiApp{
   public void storeDataFromFile(){
     
     
-    double[] inputs = new double[7];
+    double[] inputs = new double[5];
     
 
     String fileName = "inputs.txt";

@@ -14,7 +14,6 @@ public class RunMe{
      * Liquid inlet flow (liq_in_flow)
      * Liquid phase mole fraction (liq_in_mole_frac)
      * Recovery (recovery)
-     * Inlet temp (temp_in)
      * Packing type (packing)
      * 
      * Outputted Data should include
@@ -292,23 +291,27 @@ public class RunMe{
     
     inputs[6] = 1000;
     
+    myScan.nextLine();
     
-    try {
-      System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
-      myScan.nextLine();
-      String packing = myScan.nextLine();
-      myData.setPackingType(packing);
-      myData.setSC(inputs);
-      check = false; 
+    boolean checkPack = false;
+    System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
+    
+    while(!checkPack){
+      try{
+        String packing = myScan.nextLine();
+        if(packing.equals("berl") || packing.equals("rashiq") || packing.equals("pall")){
+          myData.setPackingType(packing);
+          checkPack = true;
+        }
+        else{
+          throw new Exception();
+        }
+      }
+      catch(Exception e){
+        System.out.println("Not a valid packing type - please try again");
+      }
     }
-    catch (InputMismatchException inputThrow6) {
-      myScan.nextLine();
-      System.out.println("Try again and enter one of the three available packing types.");
-      String packing = myScan.nextLine();
-      
-    }
-    
-    
+        
     
     
   }

@@ -92,7 +92,7 @@ public class AbsorptionColumn{
       }
       catch (InputMismatchException e) {
         myscan.nextLine();
-        System.out.println("You did not enter either the integers 1 or 0. \n Please try again");
+        System.out.println("The column will not be optimized.");
       }
     }
     else{
@@ -239,7 +239,7 @@ public class AbsorptionColumn{
     //use incremental search to optimize the column based on a certain liquid flow
   }
   
-  public double calculateHeightDifference(double l){//use to calculate the difference in heights for optimization and construction
+  public double calculateHeightDifference(double l) {//use to calculate the difference in heights for optimization and construction
     
     this.l_2 = l;
     
