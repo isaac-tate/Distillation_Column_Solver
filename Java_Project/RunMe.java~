@@ -176,7 +176,7 @@ public class RunMe{
     catch (UserErrorException | InputMismatchException inputThrow1) {
       myScan.nextLine();
       System.out.println(inputThrow1.getMessage()); 
-      valuesFromInput(myScan, myData);
+      inputs[0] = myScan.nextDouble();
     }    
     
     try {   
@@ -190,7 +190,7 @@ public class RunMe{
     catch (UserErrorException | InputMismatchException inputThrow2) {
       myScan.nextLine();
       System.out.println(inputThrow2.getMessage()); 
-      valuesFromInput(myScan, myData);
+      inputs[1] = myScan.nextDouble();
     }
     
     try {   
@@ -203,7 +203,7 @@ public class RunMe{
     catch (UserErrorException | InputMismatchException inputThrow3) {
       myScan.nextLine();
       System.out.println(inputThrow3.getMessage()); 
-      valuesFromInput(myScan, myData);
+      inputs[2] = myScan.nextDouble();
     }
     
     try {   
@@ -217,7 +217,7 @@ public class RunMe{
     catch (UserErrorException | InputMismatchException inputThrow4) {
       myScan.nextLine();
       System.out.println(inputThrow4.getMessage()); 
-      valuesFromInput(myScan, myData);
+      inputs[3] = myScan.nextDouble();
     }
     
     try {   
@@ -231,15 +231,27 @@ public class RunMe{
     catch (UserErrorException | InputMismatchException inputThrow5) {
       myScan.nextLine();
       System.out.println(inputThrow5.getMessage()); 
-      valuesFromInput(myScan, myData);
+      inputs[4] = myScan.nextDouble();
     }
     
     inputs[5] = 25.0;
     
     inputs[6] = 1000;
- 
-    System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
-    String packing = myScan.nextLine();
+    
+    String packing = "";
+    try {
+      System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
+      packing = myScan.nextLine();
+      if (packing != "berl") throw new UserErrorException(userError);
+      if (packing != "rashig") throw new UserErrorException(userError);
+      if (packing != "pall") throw new UserErrorException(userError);
+      check = false;
+    }
+    catch (UserErrorException inputThrow6) {
+      myScan.nextLine();
+      System.out.println(inputThrow6.getMessage());
+      packing = myScan.nextLine();
+    }
     myData.setPackingType(packing);
     myData.setSC(inputs);
     

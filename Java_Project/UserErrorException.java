@@ -11,7 +11,7 @@ public class UserErrorException extends Exception {
   }
   
   public String getMessage() { // getter
-    return ("Invalid input. Please try again.");
+    return ("Invalid input.");
   }
 }
 /*public UserErrorException() {

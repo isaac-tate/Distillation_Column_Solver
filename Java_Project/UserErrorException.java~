@@ -9,14 +9,14 @@ public class UserErrorException extends Exception {
   public UserErrorException(UserErrorException copy) {
     this.userError = copy.userError;
   }
-    
-    public String getError() { // getter
-      return ("Invalid input. Please try again.");
-    }
+  
+  public String getMessage() { // getter
+    return ("Invalid input. Please try again.");
   }
-  /*public UserErrorException() {
-   this ("Invalid input. Please try again.");
-   } 
-   }
-   
-   //IllegalValueException */
+}
+/*public UserErrorException() {
+ this ("Invalid input. Please try again.");
+ } 
+ }
+ 
+ //IllegalValueException */

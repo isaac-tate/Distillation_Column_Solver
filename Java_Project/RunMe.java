@@ -166,18 +166,21 @@ public class RunMe{
     String userError = ""; // for UserErrorException message
     boolean check = false;
     
-    try { 
-      System.out.println("Please input a starting gas inlet flow rate");
-      inputs[0] = myScan.nextDouble();
-      //inputs[0] = 10000;
-      if (inputs[0] < 0.) throw new UserErrorException(userError);
-      check = false;
+    while(!check) {
+      try { 
+        System.out.println("Please input a starting gas inlet flow rate");
+        inputs[0] = myScan.nextDouble();
+        //inputs[0] = 10000;
+        if (inputs[0] < 0.) throw new UserErrorException(userError);
+        check = true;
+      } 
+      
+      catch (UserErrorException | InputMismatchException inputThrow1) {
+        myScan.nextLine();
+        System.out.println(inputThrow1.getMessage());
+        
+      } 
     }
-    catch (UserErrorException | InputMismatchException inputThrow1) {
-      myScan.nextLine();
-      System.out.println(inputThrow1.getMessage()); 
-      inputs[0] = myScan.nextDouble();
-    }    
     
     try {   
       System.out.println("Please input a starting gas mole fraction");
@@ -238,22 +241,20 @@ public class RunMe{
     
     inputs[6] = 1000;
     
-    String packing = "";
     try {
       System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
-      packing = myScan.nextLine();
-      if (packing != "berl") throw new UserErrorException(userError);
-      if (packing != "rashig") throw new UserErrorException(userError);
-      if (packing != "pall") throw new UserErrorException(userError);
-      check = false;
+      String packing = myScan.nextLine();
+      myData.setPackingType(packing);
+      myData.setSC(inputs);  
+      check = false; 
     }
-    catch (UserErrorException inputThrow6) {
+    catch (InputMismatchException inputThrow6) {
       myScan.nextLine();
-      System.out.println(inputThrow6.getMessage());
-      packing = myScan.nextLine();
-    }
-    myData.setPackingType(packing);
-    myData.setSC(inputs);
+      System.out.println("Try again and enter one of the three available packing types.");
+      String packing = myScan.nextLine();
+    } 
+    
+    
     
   }
 }

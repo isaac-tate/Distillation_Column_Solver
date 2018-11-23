@@ -38,8 +38,8 @@ public class Packing{
       colDiameterHeuristic = 10;
     }
     
-    else{System.out.println("Not a valid packing type");
-      
+    else{
+      System.out.println("Not a valid packing type");
     }
   }
   //Copy constructor
