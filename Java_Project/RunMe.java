@@ -142,12 +142,14 @@ public class RunMe{
       File file = new File(fileName);
       Scanner fileInput = new Scanner(file);
       int i = 0;
-      while(fileInput.hasNext() && i<inputs.length){
+      while(fileInput.hasNext() && i<inputs.length-2){
         String[] valueString = fileInput.nextLine().split("=");
         inputs[i] = new Double(valueString[1]).doubleValue();
         System.out.println(valueString[0] + " = " + inputs[i]);
         i++;
       }
+      inputs[5] = 25;
+      inputs[6] = 1000;
       
       String pack = fileInput.nextLine().split("=")[1];
       myData.setPackingType(pack);
