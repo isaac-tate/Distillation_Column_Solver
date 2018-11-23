@@ -100,26 +100,29 @@ public class RunMe{
       //Exporting Data
       
       while(true){
-        System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
-        int answer_export = myScan.nextInt();
-        
-        if(answer_export == 1){
-          DataExport myExport = new DataExport(myColumn);
-          System.out.println("Data exported.");
-          break;
+        try{
+          System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
+          int answer_export = myScan.nextInt();
+          
+          if(answer_export == 1){
+            DataExport myExport = new DataExport(myColumn);
+            System.out.println("Data exported.");
+            break;
+          }
+          if(answer_export == 0){
+            System.out.println("Not exporting.");
+            break;
+          }
+          else{
+            System.out.println("Not a valid input.");
+          }
         }
-        if(answer_export == 0){
-          System.out.println("Not exporting.");
-          break;
-        }
-        else{
-          System.out.println("Not a valid input.");
-        }
-        
-      }     
-      
-    }    
-    
+        catch (InputMismatchException export) {
+          myScan.nextLine();
+          System.out.print("Please try again and enter a numerical interger.\n");
+        }     
+      }    
+    }
   }
   
   public static void valuesFromFile(Scanner myScan, InputData myData){
