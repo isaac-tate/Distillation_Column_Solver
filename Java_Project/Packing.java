@@ -89,4 +89,7 @@ public class Packing{
   public void setColDiameterHeuristic(double colDiameterHeuristic){
     this.colDiameterHeuristic = colDiameterHeuristic;
   }
+  public Packing clone(){
+    return new Packing(this);
+  }
 }

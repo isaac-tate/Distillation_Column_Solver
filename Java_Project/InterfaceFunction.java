@@ -7,7 +7,7 @@ public class InterfaceFunction implements Function{
   public InterfaceFunction(double kxa, double kya, double xal, double yag, double x, EquilibriumData eqdata){
     this.xal = xal;
     this.yag = yag;
-    this.eqdata = new EquilibriumData(eqdata);
+    this.eqdata = eqdata.clone();
     this.kxa = kxa;
     this.kya = kya;
     double y = eqdata.equilibriumDataY(x);//calculate y using the equilibrium data

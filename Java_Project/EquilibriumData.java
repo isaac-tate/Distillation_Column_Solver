@@ -47,6 +47,10 @@ public class EquilibriumData{
       this.eqdata[i] = source.eqdata[i];
     }
   }
+  //Clone
+  public EquilibriumData clone(){
+    return new EquilibriumData(this);
+  }
   //Accessor 
   public double [] getEqdata(){
     return this.eqdata;

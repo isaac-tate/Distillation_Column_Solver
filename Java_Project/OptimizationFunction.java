@@ -8,25 +8,25 @@ public class OptimizationFunction implements Function{
   public OptimizationFunction(AbsorptionColumn mycolumn, double l){
     this.l = mycolumn.getL2();
     double x = mycolumn.calculateHeightDifference(l);
-    this.mycolumn = new AbsorptionColumn(mycolumn);
+    this.mycolumn = mycolumn.clone();
     this.x = x;
   }
   //Copy constructor
   public OptimizationFunction(OptimizationFunction source){
-    this.mycolumn = new AbsorptionColumn(source.mycolumn);
+    this.mycolumn = source.mycolumn.clone();
     this.z = source.z;
     this.x = source.x;
   }
   //Mutators
   public double setX(double l){
     double x = this.mycolumn.calculateHeightDifference(l);
-    this.mycolumn = new AbsorptionColumn(mycolumn);
+    this.mycolumn = mycolumn.clone();
     this.z = mycolumn.getZ();
     return x;
   }
    public double setColumn(AbsorptionColumn mycolumn){
     double x = mycolumn.calculateHeightDifference(this.x);
-    this.mycolumn = new AbsorptionColumn(mycolumn);
+    this.mycolumn = mycolumn.clone();
     this.z = mycolumn.getZ();
     return x;
   }

@@ -45,8 +45,8 @@ public class AbsorptionColumn{
   public AbsorptionColumn(Packing packing, Fluid fluid, InputData data){
     
     double[] conditions = data.getSC();
-    this.packing = new Packing(packing); //Needs deep copy
-    this.fluid = new Fluid(fluid);
+    this.packing = packing.clone(); //Needs deep copy
+    this.fluid = fluid.clone();
     
     this.v_1 = v_1;
     this.y_a1 = y_a1;
@@ -107,8 +107,8 @@ public class AbsorptionColumn{
   }
   //copy constructor
   public AbsorptionColumn(AbsorptionColumn source){
-    this.packing = new Packing(source.packing); //Needs deep copy
-    this.fluid = new Fluid(source.fluid);
+    this.packing = source.packing.clone(); //Needs deep copy
+    this.fluid = source.fluid.clone();
     
     //Given Inputs
     this.v_1 = source.v_1;
@@ -127,7 +127,7 @@ public class AbsorptionColumn{
     this.x_a1 = source.x_a1;
     this.l_1 = source.l_1;
     this.iterations = source.iterations;
-    this.eqdata = new EquilibriumData(source.eqdata);
+    this.eqdata = source.eqdata.clone();
     
     //Calculate System Properties
     this.xal = new double [this.iterations];
@@ -223,6 +223,9 @@ public class AbsorptionColumn{
       copy6[k] = this.dzl[k];} return copy6;
   }
   
+  public AbsorptionColumn clone(){
+    return new AbsorptionColumn(this);
+  }
   
   //Method that optimizes the column liquid flow
   public double optimizeLiquidFlow(){

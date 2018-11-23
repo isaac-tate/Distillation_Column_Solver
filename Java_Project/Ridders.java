@@ -6,10 +6,10 @@ public class Ridders implements RootFinding{
     double xl = 0;//set lower bound
     double xm = (xu+xl)/2;
     double xold = xm;
-    double e = 100000;//set initial error to 1000
+    double e = 100000;//set initial error to 100000
     int i = 0;
     int iterations = 1000;
-    double error = 0.0000001;//take from file!!
+    double error = 0.0000001;
     
     double sign, xnew, y, m, b,fxl,fxu,fxm,fxnew;
     

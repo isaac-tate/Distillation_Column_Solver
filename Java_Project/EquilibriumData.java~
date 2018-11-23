@@ -14,7 +14,7 @@ public class EquilibriumData{
     if(data.useGUI == true){
       eqdata = data.getED();
     }
-
+    
     
     else{
       
@@ -58,13 +58,13 @@ public class EquilibriumData{
       this.eqdata[i] = eqdata[i];
     }
   }
-   //Returns equivalent y for a given x based on equilibrium data       
+  //Returns equivalent y for a given x based on equilibrium data       
   public double equilibriumDataY(double x){
     double y = 0;
     for(int i = 0;i<this.eqdata.length;i++){
       y = y+Math.pow(x,i)*this.eqdata[i];
     }
-  return y;
+    return y;
   }
   
   //Manual inputs method
@@ -72,16 +72,17 @@ public class EquilibriumData{
     
     boolean track = false;
     int j = 0;
-      
+    
     try {
-    System.out.println("Enter the highest power of x within the equilibrium data.");
-    j = myScan.nextInt();
-    track = false;
+      System.out.println("Enter the highest power of x within the equilibrium data.");
+      j = myScan.nextInt();
+      track = false;
     }
     
-    catch (InputMismatchException e) {
+    catch (InputMismatchException equilcheck1) {
       myScan.nextLine();
-      System.out.println("Invalid.");
+      System.out.println("Invalid. Please enter a numerical value.");
+      j = myScan.nextInt();
     }
     
     while(j<0){
@@ -92,8 +93,17 @@ public class EquilibriumData{
     this.eqdata = new double[j+1];
     System.out.println("Enter the coefficients of the equilibrium equation in increasing order.");
     for(int i = 0;i<j+1;i++){
+      try {
       System.out.println("Enter the coefficient of x^"+i+".");
       this.eqdata[i] = myScan.nextDouble();
+      track = false;
+      }
+      
+      catch (InputMismatchException equilcheck2) {
+        myScan.nextLine();
+        System.out.println("Invalid. Please enter a numerical value.");
+        this.eqdata[i] = myScan.nextDouble();
+      }
     }
     
   }
@@ -102,7 +112,7 @@ public class EquilibriumData{
   public void fileInputs(){
     
     ArrayList<String> valueList = new ArrayList<String>();
-
+    
     System.out.println("Please input a file name (leave blank for default: 'equilibrium.txt')");
     String fileName = myScan.nextLine();
     
