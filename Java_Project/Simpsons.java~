@@ -1,5 +1,5 @@
 public class Simpsons implements Integration{
-  
+  //Integration method that utilizes Simpsons method to solve
   public double calculate(double [] x, double [] y){
     
     double intapprox,a,b,delx,b2;
@@ -58,3 +58,4 @@ public class Simpsons implements Integration{
     }
     return intapprox;
   }
+}

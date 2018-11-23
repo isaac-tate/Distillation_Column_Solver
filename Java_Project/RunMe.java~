@@ -80,7 +80,7 @@ public class RunMe{
             break;
           case "i":
             valuesFromInput(myScan, systemData);
-            packType = myScan.nextLine();
+            //packType = myScan.nextLine();
             flag=true;
             break;
           default:
@@ -94,32 +94,36 @@ public class RunMe{
       Fluid fluid = new Fluid();
       Packing packing = new Packing(systemData.getPackingType());
       AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
-      System.out.println("The height of the column is "+myColumn.getZ()+"m.");
-      System.out.println("The optimal liquid flow rate through the column for optimization of mass transfer is "+myColumn.getOptL()+"kmol/h.");
+      System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
+      System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
       
       //Exporting Data
       
       while(true){
-        System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
-        int answer_export = myScan.nextInt();
-        
-        if(answer_export == 1){
-          DataExport myExport = new DataExport(myColumn);
-          System.out.println("Data exported.");
-          break;
+        try{
+          System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
+          int answer_export = myScan.nextInt();
+          
+          if(answer_export == 1){
+            DataExport myExport = new DataExport(myColumn);
+            System.out.println("Data exported.");
+            break;
+          }
+          if(answer_export == 0){
+            System.out.println("Not exporting.");
+            break;
+          }
+          else{
+            System.out.println("Not a valid input.");
+          }
         }
-        if(answer_export == 0){
-          System.out.println("Not exporting.");
-          break;
-        }
-        else{
-          System.out.println("Not a valid input.");
-        }
-        
-      }     
-      
-    }    
-    
+        catch (InputMismatchException export) {
+          myScan.nextLine();
+          System.out.print("Please try again and enter a numerical interger.\n");
+        }     
+      }
+      System.out.println("Thank you for using column calculator.");
+    }
   }
   
   public static void valuesFromFile(Scanner myScan, InputData myData){
@@ -138,12 +142,14 @@ public class RunMe{
       File file = new File(fileName);
       Scanner fileInput = new Scanner(file);
       int i = 0;
-      while(fileInput.hasNext() && i<inputs.length){
+      while(fileInput.hasNext() && i<inputs.length-2){
         String[] valueString = fileInput.nextLine().split("=");
         inputs[i] = new Double(valueString[1]).doubleValue();
         System.out.println(valueString[0] + " = " + inputs[i]);
         i++;
       }
+      inputs[5] = 25;
+      inputs[6] = 1000;
       
       String pack = fileInput.nextLine().split("=")[1];
       myData.setPackingType(pack);
@@ -165,95 +171,145 @@ public class RunMe{
     double[] inputs = new double[7];
     String userError = ""; // for UserErrorException message
     boolean check = false;
+    boolean check1 = false;
+    boolean check2 = false;
+    boolean check3 = false;
+    boolean check4 = false;
+    boolean check5 = false;
     
-    try { 
-      System.out.println("Please input a starting gas inlet flow rate");
-      inputs[0] = myScan.nextDouble();
-      //inputs[0] = 10000;
-      if (inputs[0] < 0.) throw new UserErrorException(userError);
-      check = false;
-    }
-    catch (UserErrorException | InputMismatchException inputThrow1) {
-      myScan.nextLine();
-      System.out.println(inputThrow1.getMessage()); 
-      inputs[0] = myScan.nextDouble();
-    }    
-    
-    try {   
-      System.out.println("Please input a starting gas mole fraction");
-      inputs[1] = myScan.nextDouble();
-      //inputs[1] = 0.05;
-      if (inputs[1] < 0.) throw new UserErrorException(userError);
-      if (inputs[1] > 1.) throw new UserErrorException(userError);
-      check = false;  
-    }
-    catch (UserErrorException | InputMismatchException inputThrow2) {
-      myScan.nextLine();
-      System.out.println(inputThrow2.getMessage()); 
-      inputs[1] = myScan.nextDouble();
-    }
-    
-    try {   
-      System.out.println("Please input a starting liquid inlet flow rate");
-      inputs[2] = myScan.nextDouble();
-      //inputs[2] = 30000;
-      if (inputs[2] < 0.) throw new UserErrorException(userError);
-      check = false;  
-    }
-    catch (UserErrorException | InputMismatchException inputThrow3) {
-      myScan.nextLine();
-      System.out.println(inputThrow3.getMessage()); 
-      inputs[2] = myScan.nextDouble();
+    while(!check1) {
+      try { 
+        System.out.println("Please input a starting gas inlet flow rate");
+        inputs[0] = myScan.nextDouble();
+        //inputs[0] = 10000;
+        if (inputs[0] < 0.) throw new UserErrorException(userError);
+        check1 = true;
+      } 
+      catch (InputMismatchException inputThrow1) {
+        myScan.nextLine();
+        System.out.println("Try again and enter a positive numerical value.");
+        
+        // inputs[0] = myScan.nextDouble();
+      }
+      catch (UserErrorException inputThrow1) {
+        myScan.nextLine();
+        System.out.println(inputThrow1.getMessage());
+        //inputs[0] = myScan.nextDouble(); 
+      } 
     }
     
-    try {   
-      System.out.println("Please input a starting liquid mole fraction");
-      inputs[3] = myScan.nextDouble();
-      //inputs[3] = 0;
-      if (inputs[3] < 0.) throw new UserErrorException(userError);
-      if (inputs[3] > 1.) throw new UserErrorException(userError);
-      check = false;  
-    }
-    catch (UserErrorException | InputMismatchException inputThrow4) {
-      myScan.nextLine();
-      System.out.println(inputThrow4.getMessage()); 
-      inputs[3] = myScan.nextDouble();
-    }
-    
-    try {   
-      System.out.println("Please input a recovery value in decimal form");
-      inputs[4] = myScan.nextDouble();
-      //inputs[4] = 0.95;
-      if (inputs[4] < 0.) throw new UserErrorException(userError);
-      if (inputs[4] > 1.) throw new UserErrorException(userError);
-      check = false;  
-    }
-    catch (UserErrorException | InputMismatchException inputThrow5) {
-      myScan.nextLine();
-      System.out.println(inputThrow5.getMessage()); 
-      inputs[4] = myScan.nextDouble();
+    while(!check2) {
+      try {   
+        System.out.println("Please input a starting gas mole fraction");
+        inputs[1] = myScan.nextDouble();
+        //inputs[1] = 0.05;
+        if (inputs[1] < 0.) throw new UserErrorException(userError);
+        if (inputs[1] > 1.) throw new UserErrorException(userError);
+        check2 = true;  
+      }
+      catch (InputMismatchException inputThrow1) {
+        myScan.nextLine();
+        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
+        
+        // inputs[0] = myScan.nextDouble();
+      }
+      catch (UserErrorException inputThrow1) {
+        myScan.nextLine();
+        System.out.println(inputThrow1.getMessage());
+        //inputs[0] = myScan.nextDouble(); 
+      } 
     }
     
+    
+    while(!check3) {
+      try {   
+        System.out.println("Please input a starting liquid inlet flow rate");
+        inputs[2] = myScan.nextDouble();
+        //inputs[2] = 30000;
+        if (inputs[2] < 0.) throw new UserErrorException(userError);
+        check3 = true;  
+      }
+      catch (InputMismatchException inputThrow1) {
+        myScan.nextLine();
+        System.out.println("Try again and enter a positive numerical value.");
+        
+        // inputs[0] = myScan.nextDouble();
+      }
+      catch (UserErrorException inputThrow1) {
+        myScan.nextLine();
+        System.out.println(inputThrow1.getMessage());
+        //inputs[0] = myScan.nextDouble(); 
+      } 
+    }
+    
+    
+    while(!check4) {
+      try {   
+        System.out.println("Please input a starting liquid mole fraction");
+        inputs[3] = myScan.nextDouble();
+        //inputs[3] = 0;
+        if (inputs[3] < 0.) throw new UserErrorException(userError);
+        if (inputs[3] > 1.) throw new UserErrorException(userError);
+        check4 = true;  
+      }
+      catch (InputMismatchException inputThrow1) {
+        myScan.nextLine();
+        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
+        
+        // inputs[0] = myScan.nextDouble();
+      }
+      catch (UserErrorException inputThrow1) {
+        myScan.nextLine();
+        System.out.println(inputThrow1.getMessage());
+        //inputs[0] = myScan.nextDouble(); 
+      } 
+    }
+    
+    
+    while(!check5) {
+      try {   
+        System.out.println("Please input a recovery value in decimal form");
+        inputs[4] = myScan.nextDouble();
+        //inputs[4] = 0.95;
+        if (inputs[4] < 0.) throw new UserErrorException(userError);
+        if (inputs[4] > 1.) throw new UserErrorException(userError);
+        check5 = true;  
+      }
+      catch (InputMismatchException inputThrow1) {
+        myScan.nextLine();
+        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
+        
+        // inputs[0] = myScan.nextDouble();
+      }
+      catch (UserErrorException inputThrow1) {
+        myScan.nextLine();
+        System.out.println(inputThrow1.getMessage());
+        //inputs[0] = myScan.nextDouble(); 
+      } 
+    }
+     
     inputs[5] = 25.0;
     
     inputs[6] = 1000;
     
-    String packing = "";
+    
     try {
       System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
-      packing = myScan.nextLine();
-      if (packing != "berl") throw new UserErrorException(userError);
-      if (packing != "rashig") throw new UserErrorException(userError);
-      if (packing != "pall") throw new UserErrorException(userError);
-      check = false;
-    }
-    catch (UserErrorException inputThrow6) {
       myScan.nextLine();
-      System.out.println(inputThrow6.getMessage());
-      packing = myScan.nextLine();
+      String packing = myScan.nextLine();
+      myData.setPackingType(packing);
+      myData.setSC(inputs);
+      check = false; 
     }
-    myData.setPackingType(packing);
-    myData.setSC(inputs);
+    catch (InputMismatchException inputThrow6) {
+      myScan.nextLine();
+      System.out.println("Try again and enter one of the three available packing types.");
+      String packing = myScan.nextLine();
+      
+    }
+    
+    
+    
     
   }
 }
