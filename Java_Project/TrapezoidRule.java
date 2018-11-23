@@ -1,4 +1,4 @@
-public class TrapezoidRule implements Integration{
+public class TrapezoidRule extends Integration{
   
   public double calculate(double [] x, double [] y){
     
@@ -9,5 +9,8 @@ public class TrapezoidRule implements Integration{
     }
     return area;
   }
+  
+
+
 }
       
