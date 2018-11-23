@@ -14,9 +14,3 @@ public class UserErrorException extends Exception {
     return ("Invalid input. Please try again.");
   }
 }
-/*public UserErrorException() {
- this ("Invalid input. Please try again.");
- } 
- }
- 
- //IllegalValueException */

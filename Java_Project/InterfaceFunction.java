@@ -98,6 +98,6 @@ public class InterfaceFunction implements Function{
     return this.x;
   }
   public EquilibriumData getEqdata(){
-    return new EquilibriumData(this.eqdata);
+    return this.eqdata.clone();
   }
 }

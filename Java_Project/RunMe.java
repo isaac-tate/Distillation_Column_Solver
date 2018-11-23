@@ -79,14 +79,12 @@ public class RunMe{
             break;
           case "i":
             valuesFromInput(myScan, systemData);
-            //packType = myScan.nextLine();
             flag=true;
             break;
           default:
             System.out.println("Not a valid input. Try again.");
         }
       }
-      
       
       //DONE GETTING INPUTS
       
@@ -160,7 +158,6 @@ public class RunMe{
       valuesFromFile(myScan, myData);
     }
     
-    
     myData.setSC(inputs);
     
   }
@@ -180,20 +177,17 @@ public class RunMe{
       try { 
         System.out.println("Please input a starting gas inlet flow rate");
         inputs[0] = myScan.nextDouble();
-        //inputs[0] = 10000;
+        //inputs[0] = 15;
         if (inputs[0] <= 0.) throw new UserErrorException(userError);
         check1 = true;
       } 
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
         System.out.println("Try again and enter a positive numerical value.");
-        
-        // inputs[0] = myScan.nextDouble();
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
     
@@ -201,47 +195,39 @@ public class RunMe{
       try {   
         System.out.println("Please input a starting gas mole fraction");
         inputs[1] = myScan.nextDouble();
-        //inputs[1] = 0.05;
+        //inputs[1] = 0.12;
         if (inputs[1] < 0.) throw new UserErrorException(userError);
         if (inputs[1] > 1.) throw new UserErrorException(userError);
         check2 = true;  
       }
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
-        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
-        
-        // inputs[0] = myScan.nextDouble();
+        System.out.println("Try again and enter a positive numerical value between 1 and 0."); 
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
-    
     
     while(!check3) {
       try {   
         System.out.println("Please input a starting liquid inlet flow rate");
         inputs[2] = myScan.nextDouble();
-        //inputs[2] = 30000;
+        //inputs[2] = 40;
         if (inputs[2] <= 0.) throw new UserErrorException(userError);
         check3 = true;  
       }
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
         System.out.println("Try again and enter a positive numerical value.");
-        
-        // inputs[0] = myScan.nextDouble();
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
-    
-    
+     
     while(!check4) {
       try {   
         System.out.println("Please input a starting liquid mole fraction");
@@ -254,22 +240,18 @@ public class RunMe{
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
         System.out.println("Try again and enter a positive numerical value between 1 and 0.");
-        
-        // inputs[0] = myScan.nextDouble();
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
-    
     
     while(!check5) {
       try {   
         System.out.println("Please input a recovery value in decimal form");
         inputs[4] = myScan.nextDouble();
-        //inputs[4] = 0.95;
+        //inputs[4] = 0.92;
         if (inputs[4] < 0.) throw new UserErrorException(userError);
         if (inputs[4] > 1.) throw new UserErrorException(userError);
         check5 = true;  
@@ -277,18 +259,15 @@ public class RunMe{
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
         System.out.println("Try again and enter a positive numerical value between 1 and 0.");
-        
-        // inputs[0] = myScan.nextDouble();
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
-     
+    //Temperature input
     inputs[5] = 25.0;
-    
+    //Iteration input
     inputs[6] = 1000;
     
     myScan.nextLine();

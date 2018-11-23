@@ -9,8 +9,5 @@ public class TrapezoidRule extends Integration{
     }
     return area;
   }
-  
-
-
 }
       

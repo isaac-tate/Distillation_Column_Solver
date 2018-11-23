@@ -59,13 +59,11 @@ public class GuiApp{
     JButton startFileButton = new JButton("Use existing files");
     JButton startInputButton = new JButton("Use user input");
 
-    
     buttonPanel.add(startInputButton);
     buttonPanel.add(startFileButton);
     
 //Create the second JPanel. Add a JLabel and JList and
 //make use the JPanel is not visible.
-    
     
     guiFrame.add(startingPanel, BorderLayout.NORTH);
     guiFrame.add(authorPanel);
@@ -73,7 +71,6 @@ public class GuiApp{
     
 //make sure the JFrame is visible
     guiFrame.setVisible(true);
-    
     
     //BUTTONS
     
@@ -229,12 +226,6 @@ public class GuiApp{
     
   }
   
-  public void userFile(){
-    
-    
-    
-  }
-  
   public void storeData(){
     
     
@@ -365,8 +356,6 @@ public class GuiApp{
         guiFrame.setVisible(false);
       }
     });
-    
-    
     
   }
   

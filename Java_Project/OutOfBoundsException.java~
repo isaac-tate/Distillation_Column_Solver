@@ -7,10 +7,10 @@ public class OutOfBoundsException extends Exception {
     this.outOfBounds = outOfBounds;
   }
   
-  public OutOfBoundsException(OutOfBoundsException copy) {
+ /* public OutOfBoundsException(OutOfBoundsException copy) {
     super();
     this.outOfBounds = copy.outOfBounds;
-  }
+  } */
   
   public boolean getBounds() { // getter
     return this.outOfBounds;

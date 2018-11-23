@@ -38,7 +38,7 @@ public class OptimizationFunction implements Function{
     return this.z;
   }
   public AbsorptionColumn getColumn(){
-    return new AbsorptionColumn(this.mycolumn);
+    return this.mycolumn.clone();
   }
   public double getl_2(){
     return this.l;

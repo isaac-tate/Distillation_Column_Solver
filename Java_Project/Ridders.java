@@ -66,8 +66,6 @@ public class Ridders implements RootFinding{
       
     }while(e>error&&i<iterations);//continue until e is less than the desired error and/or more than the desired number of iterations have occured
     
-    
-    
     return xnew;//return the new x value 
   }
 }

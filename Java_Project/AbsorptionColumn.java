@@ -45,7 +45,7 @@ public class AbsorptionColumn{
   public AbsorptionColumn(Packing packing, Fluid fluid, InputData data){
     
     double[] conditions = data.getSC();
-    this.packing = packing.clone(); //Needs deep copy
+    this.packing = packing.clone();
     this.fluid = fluid.clone();
     
     this.v_1 = v_1;
@@ -107,7 +107,7 @@ public class AbsorptionColumn{
   }
   //copy constructor
   public AbsorptionColumn(AbsorptionColumn source){
-    this.packing = source.packing.clone(); //Needs deep copy
+    this.packing = source.packing.clone();
     this.fluid = source.fluid.clone();
     
     //Given Inputs
@@ -318,9 +318,6 @@ public class AbsorptionColumn{
     }
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
-    return zl-zv;//returns height difference
-    
-  }
-  
-  
+    return zl-zv;//returns height difference  
+  } 
 }
