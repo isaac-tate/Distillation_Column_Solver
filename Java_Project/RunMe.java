@@ -80,7 +80,7 @@ public class RunMe{
             break;
           case "i":
             valuesFromInput(myScan, systemData);
-            packType = myScan.nextLine();
+            //packType = myScan.nextLine();
             flag=true;
             break;
           default:
@@ -206,7 +206,7 @@ public class RunMe{
       }
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
-        System.out.println("Try again and enter a positive numerical value.");
+        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
         
         // inputs[0] = myScan.nextDouble();
       }
@@ -251,7 +251,7 @@ public class RunMe{
       }
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
-        System.out.println("Try again and enter a positive numerical value.");
+        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
         
         // inputs[0] = myScan.nextDouble();
       }
@@ -274,7 +274,7 @@ public class RunMe{
       }
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
-        System.out.println("Try again and enter a positive numerical value.");
+        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
         
         // inputs[0] = myScan.nextDouble();
       }
@@ -284,9 +284,7 @@ public class RunMe{
         //inputs[0] = myScan.nextDouble(); 
       } 
     }
-    
-    
-    
+     
     inputs[5] = 25.0;
     
     inputs[6] = 1000;
@@ -294,6 +292,7 @@ public class RunMe{
     
     try {
       System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
+      myScan.nextLine();
       String packing = myScan.nextLine();
       myData.setPackingType(packing);
       myData.setSC(inputs);
