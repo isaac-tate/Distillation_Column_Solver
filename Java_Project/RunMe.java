@@ -299,7 +299,7 @@ public class RunMe{
     while(!checkPack){
       try{
         String packing = myScan.nextLine();
-        if(packing.equals("berl") || packing.equals("rashiq") || packing.equals("pall")){
+        if(packing.equals("berl") || packing.equals("rashig") || packing.equals("pall")){
           myData.setPackingType(packing);
           checkPack = true;
         }
