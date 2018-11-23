@@ -181,7 +181,7 @@ public class RunMe{
         System.out.println("Please input a starting gas inlet flow rate");
         inputs[0] = myScan.nextDouble();
         //inputs[0] = 10000;
-        if (inputs[0] < 0.) throw new UserErrorException(userError);
+        if (inputs[0] <= 0.) throw new UserErrorException(userError);
         check1 = true;
       } 
       catch (InputMismatchException inputThrow1) {
@@ -225,7 +225,7 @@ public class RunMe{
         System.out.println("Please input a starting liquid inlet flow rate");
         inputs[2] = myScan.nextDouble();
         //inputs[2] = 30000;
-        if (inputs[2] < 0.) throw new UserErrorException(userError);
+        if (inputs[2] <= 0.) throw new UserErrorException(userError);
         check3 = true;  
       }
       catch (InputMismatchException inputThrow1) {
