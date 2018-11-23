@@ -45,7 +45,6 @@ public class AbsorptionColumn{
   public AbsorptionColumn(Packing packing, Fluid fluid, InputData data){
     
     double[] conditions = data.getSC();
-    
     this.packing = new Packing(packing); //Needs deep copy
     this.fluid = new Fluid(fluid);
     

@@ -91,8 +91,8 @@ public class RunMe{
       //DONE GETTING INPUTS
       
       Fluid fluid = new Fluid();
-      Packing packing = new Packing(systemData.getPackingType());
-      AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
+      Packing pack = new Packing(systemData.getPackingType());
+      AbsorptionColumn myColumn = new AbsorptionColumn(pack, fluid, systemData);
       System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
       System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
       
@@ -311,8 +311,6 @@ public class RunMe{
         System.out.println("Not a valid packing type - please try again");
       }
     }
-        
-    
-    
+    myData.setSC(inputs);
   }
 }
