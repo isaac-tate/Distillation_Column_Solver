@@ -177,7 +177,7 @@ public class RunMe{
     
     while(!check1) {
       try { 
-        System.out.println("Please input a starting gas inlet flow rate");
+        System.out.println("Please input a starting gas inlet flow rate in kmol/h.");
         inputs[0] = myScan.nextDouble();
         //inputs[0] = 15;
         if (inputs[0] <= 0.) throw new UserErrorException(userError);
@@ -214,7 +214,7 @@ public class RunMe{
     
     while(!check3) {
       try {   
-        System.out.println("Please input a starting liquid inlet flow rate");
+        System.out.println("Please input a starting liquid inlet flow rate in kmol/h.");
         inputs[2] = myScan.nextDouble();
         //inputs[2] = 40;
         if (inputs[2] <= 0.) throw new UserErrorException(userError);
@@ -232,7 +232,7 @@ public class RunMe{
      
     while(!check4) {
       try {   
-        System.out.println("Please input a starting liquid mole fraction");
+        System.out.println("Please input a starting liquid mole fraction.");
         inputs[3] = myScan.nextDouble();
         //inputs[3] = 0;
         if (inputs[3] < 0.) throw new UserErrorException(userError);
@@ -251,7 +251,7 @@ public class RunMe{
     
     while(!check5) {
       try {   
-        System.out.println("Please input a recovery value in decimal form");
+        System.out.println("Please input a recovery value in decimal form.");
         inputs[4] = myScan.nextDouble();
         //inputs[4] = 0.92;
         if (inputs[4] < 0.) throw new UserErrorException(userError);

@@ -1,6 +1,6 @@
-Inlet gas flow rate=15
+Inlet gas flow rate (kmol/h)=15
 Starting gas mole fraction=0.12
-Starting liquid inlet flow rate=40
+Starting liquid inlet flow rate (kmol/h)=40
 Starting liquid mole fraction=0
-Recovery value=0.92
+Recovery value as a decimal=0.92
 Packing type=rashig
