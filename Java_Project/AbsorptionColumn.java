@@ -99,7 +99,9 @@ public class AbsorptionColumn{
       else{i = 0;}
     }
     
-    if(i==1) this.optL = optimizeLiquidFlow();
+    if(i==1){ this.optL = optimizeLiquidFlow();
+      double a  = calculateHeightDifference(this.optL);
+    }
     else this.optL = 0;
     
     
@@ -246,9 +248,9 @@ public class AbsorptionColumn{
     this.l_2 = l;
     
     //Calculating System Constants
-    this.lPrime = (l_2*(1-x_a2)/3600);
-    this.x_a1 = ((vPrime/lPrime)*((y_a1/(1-y_a1))-(y_a2/(1-y_a2))))/(1+((vPrime/lPrime)*((y_a1/(1-y_a1))-(y_a2/(1-y_a2)))));
-    this.l_1 = lPrime/(1-x_a1)*3600;
+    this.lPrime = (this.l_2*(1-this.x_a2)/3600);
+    this.x_a1 = ((this.vPrime/this.lPrime)*((this.y_a1/(1-this.y_a1))-(this.y_a2/(1-this.y_a2))))/(1+((this.vPrime/this.lPrime)*((this.y_a1/(1-this.y_a1))-(this.y_a2/(1-this.y_a2)))));
+    this.l_1 = this.lPrime/(1-this.x_a1)*3600;
     
     //Calculating System Properties
     double delta_x = this.x_a1/this.iterations;//calculate delta x
@@ -316,6 +318,8 @@ public class AbsorptionColumn{
       TrapezoidRule szv = new TrapezoidRule();
       this.zv = szv.calculate(yag,dzv);//solve vapour height using integration method 
     }
+    System.out.println(zl+"zl");
+    System.out.println(zv+"zu");
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
     return zl-zv;//returns height difference  

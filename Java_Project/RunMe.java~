@@ -14,7 +14,6 @@ public class RunMe{
      * Liquid inlet flow (liq_in_flow)
      * Liquid phase mole fraction (liq_in_mole_frac)
      * Recovery (recovery)
-     * Inlet temp (temp_in)
      * Packing type (packing)
      * 
      * Outputted Data should include
@@ -80,7 +79,6 @@ public class RunMe{
             break;
           case "i":
             valuesFromInput(myScan, systemData);
-            //packType = myScan.nextLine();
             flag=true;
             break;
           default:
@@ -88,15 +86,15 @@ public class RunMe{
         }
       }
       
-      
       //DONE GETTING INPUTS
       
       Fluid fluid = new Fluid();
-      Packing packing = new Packing(systemData.getPackingType());
-      AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
+      Packing pack = new Packing(systemData.getPackingType());
+      AbsorptionColumn myColumn = new AbsorptionColumn(pack, fluid, systemData);
       System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
+      if(myColumn.getOptL()!=0){
       System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
-      
+      }
       //Exporting Data
       
       while(true){
@@ -161,7 +159,6 @@ public class RunMe{
       valuesFromFile(myScan, myData);
     }
     
-    
     myData.setSC(inputs);
     
   }
@@ -181,20 +178,17 @@ public class RunMe{
       try { 
         System.out.println("Please input a starting gas inlet flow rate");
         inputs[0] = myScan.nextDouble();
-        //inputs[0] = 10000;
-        if (inputs[0] < 0.) throw new UserErrorException(userError);
+        //inputs[0] = 15;
+        if (inputs[0] <= 0.) throw new UserErrorException(userError);
         check1 = true;
       } 
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
         System.out.println("Try again and enter a positive numerical value.");
-        
-        // inputs[0] = myScan.nextDouble();
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
     
@@ -202,47 +196,39 @@ public class RunMe{
       try {   
         System.out.println("Please input a starting gas mole fraction");
         inputs[1] = myScan.nextDouble();
-        //inputs[1] = 0.05;
+        //inputs[1] = 0.12;
         if (inputs[1] < 0.) throw new UserErrorException(userError);
         if (inputs[1] > 1.) throw new UserErrorException(userError);
         check2 = true;  
       }
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
-        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
-        
-        // inputs[0] = myScan.nextDouble();
+        System.out.println("Try again and enter a positive numerical value between 1 and 0."); 
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
-    
     
     while(!check3) {
       try {   
         System.out.println("Please input a starting liquid inlet flow rate");
         inputs[2] = myScan.nextDouble();
-        //inputs[2] = 30000;
-        if (inputs[2] < 0.) throw new UserErrorException(userError);
+        //inputs[2] = 40;
+        if (inputs[2] <= 0.) throw new UserErrorException(userError);
         check3 = true;  
       }
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
         System.out.println("Try again and enter a positive numerical value.");
-        
-        // inputs[0] = myScan.nextDouble();
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
-    
-    
+     
     while(!check4) {
       try {   
         System.out.println("Please input a starting liquid mole fraction");
@@ -255,22 +241,18 @@ public class RunMe{
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
         System.out.println("Try again and enter a positive numerical value between 1 and 0.");
-        
-        // inputs[0] = myScan.nextDouble();
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
-    
     
     while(!check5) {
       try {   
         System.out.println("Please input a recovery value in decimal form");
         inputs[4] = myScan.nextDouble();
-        //inputs[4] = 0.95;
+        //inputs[4] = 0.92;
         if (inputs[4] < 0.) throw new UserErrorException(userError);
         if (inputs[4] > 1.) throw new UserErrorException(userError);
         check5 = true;  
@@ -278,38 +260,37 @@ public class RunMe{
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
         System.out.println("Try again and enter a positive numerical value between 1 and 0.");
-        
-        // inputs[0] = myScan.nextDouble();
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
         System.out.println(inputThrow1.getMessage());
-        //inputs[0] = myScan.nextDouble(); 
       } 
     }
-     
+    //Temperature input
     inputs[5] = 25.0;
-    
+    //Iteration input
     inputs[6] = 1000;
     
+    myScan.nextLine();
     
-    try {
-      System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
-      myScan.nextLine();
-      String packing = myScan.nextLine();
-      myData.setPackingType(packing);
-      myData.setSC(inputs);
-      check = false; 
+    boolean checkPack = false;
+    System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
+    
+    while(!checkPack){
+      try{
+        String packing = myScan.nextLine();
+        if(packing.equals("berl") || packing.equals("rashig") || packing.equals("pall")){
+          myData.setPackingType(packing);
+          checkPack = true;
+        }
+        else{
+          throw new Exception();
+        }
+      }
+      catch(Exception e){
+        System.out.println("Not a valid packing type - please try again");
+      }
     }
-    catch (InputMismatchException inputThrow6) {
-      myScan.nextLine();
-      System.out.println("Try again and enter one of the three available packing types.");
-      String packing = myScan.nextLine();
-      
-    }
-    
-    
-    
-    
+    myData.setSC(inputs);
   }
 }

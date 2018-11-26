@@ -1,12 +1,17 @@
 public class IncrementalDown implements RootFinding{
   
   private double xl,xu;
+ 
+  public IncrementalDown(double xl,double xu){
+    this.xl = xl;
+    this.xu = xu;
+  }
   
  public double calculate (Function f){ 
     
-    double delx = 10;//to change
+    double delx = xu/100;//to change
     double sign,fxdel,fxu;
-    double error = 0.000001;
+    double error = 0.001;
     
       do{
         fxu = f.setX(xu);
@@ -29,7 +34,7 @@ public class IncrementalDown implements RootFinding{
         else if(sign>0){
           xu = xu-delx;
         }
-      }while(Math.abs(fxdel-fxu)>error&&xl<xu);
+      }while(Math.abs(fxu)>error&&xl<xu);
       return xu;
     }
 }

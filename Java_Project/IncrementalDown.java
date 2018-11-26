@@ -9,11 +9,14 @@ public class IncrementalDown implements RootFinding{
   
  public double calculate (Function f){ 
     
-    double delx = xu/100;//to change
+   System.out.println("incrementaldown");
+    double delx = xu/5;//to change
     double sign,fxdel,fxu;
-    double error = 0.001;
-    
-      do{
+    double error = 0.00001;
+    int i = 0;
+    int iterations = 1000;
+      
+    do{
         fxu = f.setX(xu);
         fxdel = f.setX(xu-delx);
         
@@ -28,13 +31,32 @@ public class IncrementalDown implements RootFinding{
           sign = 0;
         }
         
-        if(sign<0){
-          delx = delx/2;
+        if(Math.abs(fxu)>error&&Math.abs(fxdel)>error){
+          if(sign<0){
+            delx = delx/2;
+          }
+          else if(sign>0){
+            xu = xu-delx;
+          }
         }
-        else if(sign>0){
-          xu = xu-delx;
+        
+        i++;
+        
+        try {
+          if (iterations > 1000) throw new Exception("The iterations in the incremental search exceed 1000");                                               
         }
-      }while(Math.abs(fxu)>error&&xl<xu);
-      return xu;
+        catch(Exception thrown) {
+          System.out.println(thrown.getMessage());
+          System.exit(0);
+        }
+        
+      }while(Math.abs(fxu)>error&&xl<xu&&Math.abs(fxdel)>error);
+      
+      if(Math.abs(fxu)<Math.abs(fxdel)){
+        return xu;
+      }
+      else{
+        return xu-delx;
+      }
     }
 }

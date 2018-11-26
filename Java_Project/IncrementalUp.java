@@ -10,9 +10,12 @@ public class IncrementalUp implements RootFinding{
   
   public double calculate (Function f){ 
     
-    double delx = xl/100;
+    System.out.println("incrementalup");
+    double delx = xl/5;
     double sign,fxl,fxdel;
-    double error = 0.001;
+    double error = 0.00001;
+    int i = 0;
+    int iterations = 1000;
       
       do{
         fxl = f.setX(xl);
@@ -28,15 +31,33 @@ public class IncrementalUp implements RootFinding{
         else{
           sign = 0;
         }
+        if(Math.abs(fxl)>error&&Math.abs(fxdel)>error){
+          if(sign<0){
+            delx = delx/2;
+          }
+          else if(sign>0){
+            xl = xl+delx;
+          }
+        }
         
-        if(sign<0){
-          delx = delx/2;
+        i++;
+        
+        try {
+          if (iterations > 1000) throw new Exception("The iterations in the incremental search exceed 1000");                                               
         }
-        else if(sign>0){
-          xl = xl+delx;
+        catch(Exception thrown) {
+          System.out.println(thrown.getMessage());
+          System.exit(0);
         }
-      }while(Math.abs(fxl)>error&&xl<xu);
-      return xl;
+       
+      }while(Math.abs(fxl)>error&&xl<xu&&Math.abs(fxdel)>error);
+      
+      if(Math.abs(fxl)<Math.abs(fxdel)){
+        return xl;
+      }
+      else{
+        return (delx+xl);
+      }
     }
     
   }

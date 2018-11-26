@@ -20,8 +20,8 @@ public class OptimizationFunction implements Function{
   //Mutators
   public double setX(double l){
     double x = this.mycolumn.calculateHeightDifference(l);
-    this.mycolumn = mycolumn.clone();
-    this.z = mycolumn.getZ();
+    //this.mycolumn = mycolumn.clone();
+    //this.z = mycolumn.getZ();
     return x;
   }
    public double setColumn(AbsorptionColumn mycolumn){

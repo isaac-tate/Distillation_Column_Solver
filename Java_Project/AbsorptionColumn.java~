@@ -45,9 +45,8 @@ public class AbsorptionColumn{
   public AbsorptionColumn(Packing packing, Fluid fluid, InputData data){
     
     double[] conditions = data.getSC();
-    
-    this.packing = new Packing(packing); //Needs deep copy
-    this.fluid = new Fluid(fluid);
+    this.packing = packing.clone();
+    this.fluid = fluid.clone();
     
     this.v_1 = v_1;
     this.y_a1 = y_a1;
@@ -55,14 +54,14 @@ public class AbsorptionColumn{
     this.x_a2 = x_a2;
     this.recovery = recovery;
     this.temp_in = temp_in;
+    
       
-      
-      //Given Inputs
+    //Given Inputs
     this.v_1 = conditions[0];
     this.y_a1 = conditions[1];
+    this.l_2 = conditions[2];
     this.x_a2 = conditions[3];
     this.recovery = conditions[4];
-    this.temp_in = conditions[5];
     
     //Calculating System Constants
     this.crossArea = ((Math.PI*Math.pow((packing.getColDiameterHeuristic()*packing.nominalSize), 2))/4);
@@ -71,7 +70,7 @@ public class AbsorptionColumn{
     this.y_a2 = y_a1*(1-recovery)*v_1/v_2;
     
     //Calculating System Properties
-    this.iterations = (int)conditions[6];
+    this.iterations = 1000;
     this.eqdata = new EquilibriumData(data);
     
     //The method recalculateHeightDifference sets the rest of the instance variables and allows for optimization
@@ -108,8 +107,8 @@ public class AbsorptionColumn{
   }
   //copy constructor
   public AbsorptionColumn(AbsorptionColumn source){
-    this.packing = new Packing(source.packing); //Needs deep copy
-    this.fluid = new Fluid(source.fluid);
+    this.packing = source.packing.clone();
+    this.fluid = source.fluid.clone();
     
     //Given Inputs
     this.v_1 = source.v_1;
@@ -128,7 +127,7 @@ public class AbsorptionColumn{
     this.x_a1 = source.x_a1;
     this.l_1 = source.l_1;
     this.iterations = source.iterations;
-    this.eqdata = new EquilibriumData(source.eqdata);
+    this.eqdata = source.eqdata.clone();
     
     //Calculate System Properties
     this.xal = new double [this.iterations];
@@ -224,6 +223,9 @@ public class AbsorptionColumn{
       copy6[k] = this.dzl[k];} return copy6;
   }
   
+  public AbsorptionColumn clone(){
+    return new AbsorptionColumn(this);
+  }
   
   //Method that optimizes the column liquid flow
   public double optimizeLiquidFlow(){
@@ -316,9 +318,6 @@ public class AbsorptionColumn{
     }
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
-    return zl-zv;//returns height difference
-    
-  }
-  
-  
+    return zl-zv;//returns height difference  
+  } 
 }
