@@ -9,7 +9,6 @@ public class IncrementalDown implements RootFinding{
   
  public double calculate (Function f){ 
     
-   System.out.println("incrementaldown");
     double delx = xu/5;//to change
     double sign,fxdel,fxu;
     double error = 0.00001;

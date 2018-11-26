@@ -318,8 +318,7 @@ public class AbsorptionColumn{
       TrapezoidRule szv = new TrapezoidRule();
       this.zv = szv.calculate(yag,dzv);//solve vapour height using integration method 
     }
-    System.out.println(zl+"zl");
-    System.out.println(zv+"zu");
+   
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}
     return zl-zv;//returns height difference  

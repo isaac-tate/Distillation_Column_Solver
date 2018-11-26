@@ -10,7 +10,6 @@ public class IncrementalUp implements RootFinding{
   
   public double calculate (Function f){ 
     
-    System.out.println("incrementalup");
     double delx = xl/5;
     double sign,fxl,fxdel;
     double error = 0.00001;
