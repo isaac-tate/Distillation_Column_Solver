@@ -99,8 +99,8 @@ public class AbsorptionColumn{
       else{i = 0;}
     }
     
-    if(i==1){ this.optL = optimizeLiquidFlow();
-      double a  = calculateHeightDifference(this.optL);
+    if(i==1){ this.optL = optimizeLiquidFlow();//optimize the column
+      double a  = calculateHeightDifference(this.optL);//use the optimized liquid value to recalculate the height
     }
     else this.optL = 0;
     
