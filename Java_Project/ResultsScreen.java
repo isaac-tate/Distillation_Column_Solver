@@ -7,10 +7,12 @@ public class ResultsScreen{
   
   double height, flow;
   boolean exportV;
+  InputData systemData;
   
-  ResultsScreen(double height, double flow){
+  ResultsScreen(double height, double flow, InputData systemData){
     this.height = height;
     this.flow = flow;
+    this.systemData = systemData;
     
     JFrame guiFrame = new JFrame();
     
@@ -36,7 +38,9 @@ public class ResultsScreen{
     DecimalFormat df = new DecimalFormat("#######.###");
     
     JLabel heightText = new JLabel("Height is found to be " + df.format(height) + " meters");
-    JLabel flowText = new JLabel("Flow is found to be " + df.format(flow) + " Kmol/h");
+    JLabel flowText;
+    if(systemData.optimize==true){flowText = new JLabel("Flow is found to be " + df.format(flow) + " Kmol/h");}
+    else{flowText = new JLabel("");}
     heightText.setAlignmentX(Component.CENTER_ALIGNMENT);
     flowText.setAlignmentX(Component.CENTER_ALIGNMENT);
     resultsPanel.add(heightText);

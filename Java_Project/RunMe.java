@@ -50,7 +50,7 @@ public class RunMe{
       Packing packing = new Packing(systemData.getPackingType());
       //Creating new ab col
       AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
-      ResultsScreen myResults = new ResultsScreen(myColumn.getZ(), myColumn.getOptL());
+      ResultsScreen myResults = new ResultsScreen(myColumn.getZ(), myColumn.getOptL(), systemData);
       if(myResults.exportV == true){DataExport myExport = new DataExport(myColumn);}
       
     }
