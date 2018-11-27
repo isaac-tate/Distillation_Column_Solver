@@ -21,19 +21,18 @@ public class RunMe{
     
     /* Inputted Data Should Include
      * 
-     * Gas inlet flow (gas_in_flow)
-     * Gas phase mole fraction (gas_in_mole_frac)
-     * Liquid inlet flow (liq_in_flow)
-     * Liquid phase mole fraction (liq_in_mole_frac)
+     * Gas inlet flow (v_1)
+     * Gas phase mole fraction (y_a1)
+     * Liquid inlet flow (l_2)
+     * Liquid phase mole fraction (x_a2)
      * Recovery (recovery)
+     * Inlet temp (temp_in)
      * Packing type (packing)
      * 
-     * Outputted Data should include
-     * Gas outlet flow (gas_flow_out)
-     * Gas phase mole fraction (gas_out_mole_frac)
-     * Liquid outlet flow (liq_out_flow)
-     * Liquid mole fraction (liq_out_mole_frac)
-     * Tower Height (tower_height)
+     * Outputted Data should Include
+     * 
+     * Liquid outlet flow (optL)
+     * Tower Height (z)
      * 
      */
     
