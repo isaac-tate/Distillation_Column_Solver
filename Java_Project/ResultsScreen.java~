@@ -39,7 +39,7 @@ public class ResultsScreen{
     
     JLabel heightText = new JLabel("Height is found to be " + df.format(height) + " meters");
     JLabel flowText;
-    if(systemData.optimize==true){flowText = new JLabel("Flow is found to be " + df.format(flow) + " Kmol/h");}
+    if(systemData.optimize==true){flowText = new JLabel("Optimized flow is found to be " + df.format(flow) + " kmol/h");}
     else{flowText = new JLabel("");}
     heightText.setAlignmentX(Component.CENTER_ALIGNMENT);
     flowText.setAlignmentX(Component.CENTER_ALIGNMENT);

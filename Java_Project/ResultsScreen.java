@@ -1,3 +1,12 @@
+/*
+ * Class: Results Screen
+ * 
+ * This is the GUI for displaying results, and asking if the user would like to export data
+ * It is closely linked to the DataExport class
+ * It is seperated from the GUI app for simplicity and easy modifications
+ * 
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
