@@ -118,11 +118,11 @@ public class GuiApp{
     inTitle.setFont(new Font("Serif", Font.PLAIN, 18));
     
     JLabel blank = new JLabel(" ");
-    JLabel in1Text = new JLabel("Inlet gas flow rate");  
+    JLabel in1Text = new JLabel("Inlet gas flow rate (kmol/h)");  
     JLabel in2Text = new JLabel("Starting gas mole fraction");
-    JLabel in3Text = new JLabel("Starting liquid inlet flow rate");
+    JLabel in3Text = new JLabel("Starting liquid inlet flow rate (kmol/h)");
     JLabel in4Text = new JLabel("Starting liquid mole fraction");
-    JLabel in5Text = new JLabel("Recovery value");
+    JLabel in5Text = new JLabel("Recovery value as a decimal");
 
     JLabel in8Text = new JLabel("Packing Type");
     

@@ -77,14 +77,11 @@ public class DataExport{
       yaiString.append("\n");
       br.write(yaiString.toString());
       
-      
-      
       br.close();
     }
     catch(IOException e){
       System.out.println("Gotcha ya");
     }
-    
   }
 }
   

@@ -97,4 +97,7 @@ public class Fluid{
   public void setNsc_L(double nsc_L){this.nsc_L = nsc_L;}
   
   public void setNsc_V(double nsc_V){this.nsc_V = nsc_V;}
+  
+  public Fluid clone(){return new Fluid(this);}
+    
 }

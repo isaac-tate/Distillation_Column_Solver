@@ -1,5 +1,15 @@
+/*
+ * Class: GuiApp
+ * 
+ * This is the hub of the graphical user interface
+ * It is responsible for the welcome screen, input screen, and optimize screen
+ * 
+ */
+
+
+
 //Imports are listed in full to show what's being used
-//could just import javax.swing.* and java.awt.* etc..
+
 import java.awt.*;
 import javax.swing.*;
 import java.awt.BorderLayout;

@@ -1,4 +1,12 @@
-//No need for an abstract class here as it's only a difference in values and not methods between packings
+
+/* 
+ * Class: Packing
+ * 
+ * This is the class responsible for holding all the packing information
+ * It is set with an input string with the name of the desired packing type
+ * No need for an abstract class here as it's only a difference in values and not methods between packings
+ * 
+ */
 
 public class Packing{
   

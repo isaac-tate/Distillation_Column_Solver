@@ -1,4 +1,14 @@
-
+/*
+ * Class: Run Me
+ * 
+ * This is the Mack Daddy of all classes
+ * It contains the main method
+ * It is responsible for creating all instances of objects (including GUIs, Input Data, and AbCol)
+ * It also contains the user input funcationaility if the GUI is not used using a Scanner
+ * It also sets the Input Data variables, before passing it to the required classes to be used for calculation
+ * This is the "brains" of the operation
+ * 
+ */
 import java.util.Scanner;
 import java.io.*;
 import java.util.InputMismatchException;
