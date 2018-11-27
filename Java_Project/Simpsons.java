@@ -1,6 +1,6 @@
 public class Simpsons extends Integration{
   
-    /*Class: Simpsons
+  /*Class: Simpsons
    * 
    * Simpsons is a child of the abstract parent class Integration, and so contains a calculate method that returns 
    * the integrated value of two arrays

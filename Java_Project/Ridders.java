@@ -7,7 +7,6 @@ public class Ridders implements RootFinding{
    * This class implements the interface RootFinding and so contains a method 
    * public double calculate(Function f)
    * 
-   * 
    */
   
   public double calculate(Function f){

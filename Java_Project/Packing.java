@@ -1,19 +1,10 @@
-
-/* 
- * Class: Packing
- * 
- * This is the class responsible for holding all the packing information
- * It is set with an input string with the name of the desired packing type
- * No need for an abstract class here as it's only a difference in values and not methods between packings
- * 
- */
-
 public class Packing{
   
-   /*Class: Packing
+  /* Class: Packing
    * 
-   * This class contains the instance variables and methods for the creation of an object that represents column packing
-   * Three separate packing types are available for use and one is chosen based on a user String input
+   * This is the class responsible for holding all the packing information
+   * It is set with an input string with the name of the desired packing type
+   * No need for an abstract class here as it's only a difference in values and not methods between packings
    * 
    */
   

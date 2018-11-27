@@ -19,24 +19,24 @@ import java.util.InputMismatchException;
  * 
  */
 
-/*Class: AbsorptionColumn
- * 
- * This class contains the instance variables and methods for the creation of an object representing an absorption column
- * Along with a large number of double and double [] instance variables representing the various properties of the column, 
- * the absorption column also contains a Packing object, a Fluid object, and an EquilibriumData object
- * 
- * To construct the object the class requires an input of an object of type Packing, an object of type Fluid, and the inputted
- * data described above.
- * 
- * The class contains a method used to calculate the difference between the liquid and vapour heights of the column as well as
- * a method that optimizes the mass transfer through the column by adjusting the liquid flow rates.
- * 
- * The required accessor methods as well as a copy constructor and a clone method are in place. However, due to the complex nature
- * of the column, no mutators are in place to change the variables once the column has been constructed.
- * 
- */ 
-
 public class AbsorptionColumn{
+  
+  /*Class: AbsorptionColumn
+   * 
+   * This class contains the instance variables and methods for the creation of an object representing an absorption column
+   * Along with a large number of double and double [] instance variables representing the various properties of the column, 
+   * the absorption column also contains a Packing object, a Fluid object, and an EquilibriumData object
+   * 
+   * To construct the object the class requires an input of an object of type Packing, an object of type Fluid, and the inputted
+   * data described above.
+   * 
+   * The class contains a method used to calculate the difference between the liquid and vapour heights of the column as well as
+   * a method that optimizes the mass transfer through the column by adjusting the liquid flow rates.
+   * 
+   * The required accessor methods as well as a copy constructor and a clone method are in place. However, due to the complex nature
+   * of the column, no mutators are in place to change the variables once the column has been constructed.
+   * 
+   */ 
   
   //Input objects
   Packing packing;

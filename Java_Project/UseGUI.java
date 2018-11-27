@@ -1,13 +1,3 @@
-/*
- * Class: UseGUI
- * 
- * This is the first gui class, and it only responsible for asking the user if they would like to use a gui
- * This information is stored in an Input Data class, and sent back to the RunMe to use this information
- * It is seperate from the main GUI app to avoid creating a whole gui, when the user may not want one
- * 
- */
-
-
 //Imports are listed in full to show what's being used
 //could just import javax.swing.* and java.awt.* etc..
 import java.awt.*;
@@ -16,9 +6,15 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
-
 public class UseGUI{
+  
+  /*Class: UseGUI 
+   * 
+   * This is the first gui class, and it only responsible for asking the user if they would like to use a gui
+   * This information is stored in an Input Data class, and sent back to the RunMe to use this information
+   * It is seperate from the main GUI app to avoid creating a whole gui, when the user may not want one
+   * 
+   */
   
   public boolean use;
   public boolean answered = false;

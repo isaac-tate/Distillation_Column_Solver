@@ -1,17 +1,16 @@
-/*
- * Class: Data Export
- * 
- * The Data Export class is responsible for exporting the absorption column data to a cvs (comma seperated value) file
- * The imported StringBuilder is used to build a string of all the values we would like to export
- * This string is then saved to a file using the imported FileWriter to "outputData.cvs"
- * Commas are added between each value to complie with csv file format
- * 
- */
-
 import java.lang.*;
 import java.io.*;
 
 public class DataExport{
+  
+  /*Class: Data Export
+   * 
+   * The Data Export class is responsible for exporting the absorption column data to a cvs (comma seperated value) file
+   * The imported StringBuilder is used to build a string of all the values we would like to export
+   * This string is then saved to a file using the imported FileWriter to "outputData.cvs"
+   * Commas are added between each value to complie with csv file format
+   * 
+   */
   
   AbsorptionColumn dataColumn;
   

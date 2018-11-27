@@ -1,4 +1,5 @@
 public class TrapezoidRule extends Integration{
+  
   /*Class: TrapezoidRule
    * 
    * TrapezoidRule is a child of the abstract parent class Integration, and so contains a calculate method that returns 

@@ -1,13 +1,3 @@
-/*
- * Class: GuiApp
- * 
- * This is the hub of the graphical user interface
- * It is responsible for the welcome screen, input screen, and optimize screen
- * 
- */
-
-
-
 //Imports are listed in full to show what's being used
 
 import java.awt.*;
@@ -18,9 +8,14 @@ import java.awt.event.ActionEvent;
 import java.io.*;
 import java.util.*;
 
-
-
 public class GuiApp{
+  
+  /*Class: GuiApp
+   * 
+   * This is the hub of the graphical user interface
+   * It is responsible for the welcome screen, input screen, and optimize screen
+   * 
+   */
   
   public boolean fromFiles;
   public boolean dataStored = false;

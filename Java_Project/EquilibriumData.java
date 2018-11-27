@@ -2,19 +2,19 @@ import java.util.*;
 import java.io.*;
 import java.util.InputMismatchException;
 
-/*CLass: EquilibriumData
- * 
- * The EquilibriumData class holds an array of double values that represent an equilibrium equation
- * 
- * The user may enter this data either through a file or through manual input.
- * If manual input is chosen the user is prompted to enter the highest coefficient in the equilibrium equation
- * The user is then prompter to enter the coefficients of the equation in increasing order, not neglecting zeros
- * 
- * A method exists within this class that, given an x value, returns the equivalent y value based on the equilibrium data
- * 
- */
-
 public class EquilibriumData{
+  
+  /*Class: EquilibriumData
+   * 
+   * The EquilibriumData class holds an array of double values that represent an equilibrium equation
+   * 
+   * The user may enter this data either through a file or through manual input.
+   * If manual input is chosen the user is prompted to enter the highest coefficient in the equilibrium equation
+   * The user is then prompter to enter the coefficients of the equation in increasing order, not neglecting zeros
+   * 
+   * A method exists within this class that, given an x value, returns the equivalent y value based on the equilibrium data
+   * 
+   */
   
   //Equilibrium equation coefficients
   private double [] eqdata;

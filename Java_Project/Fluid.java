@@ -1,12 +1,11 @@
-/*
- * Class: Fluid
- * 
- * Fluid is the class that holds all the properties of the working fluid
- * It can be created using default values without arguements, or arguements can be specified for custom fluids
- * 
- */
-
 public class Fluid{
+  
+  /*Class: Fluid
+   * 
+   * Fluid is the class that holds all the properties of the working fluid
+   * It can be created using default values without arguements, or arguements can be specified for custom fluids
+   * 
+   */
   
   private double d_AB_L, d_AB_V , mu_L , rho_L ,mu_V ,rho_V ,mW_A ,mW_L ,mW_V, nsc_L, nsc_V;
   
