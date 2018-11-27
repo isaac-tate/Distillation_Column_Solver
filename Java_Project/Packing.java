@@ -2,6 +2,14 @@
 
 public class Packing{
   
+   /*Class: Packing
+   * 
+   * This class contains the instance variables and methods for the creation of an object that represents column packing
+   * Three separate packing types are available for use and one is chosen based on a user String input
+   * 
+   */
+  
+  //nominalSize is constant for all three packing types and may be set as a static final variable
   public static final double nominalSize = 0.025; //[m]
   private double voidFraction, aPacking, fPacking, fpPacking, chPacking, colDiameterHeuristic;
   
@@ -9,6 +17,7 @@ public class Packing{
     this.setPackingType(type);
   }
   
+  //Set the instance variables based on the user String input
   public void setPackingType(String type) {
    
     if(type.equals("rashig")){
@@ -89,6 +98,7 @@ public class Packing{
   public void setColDiameterHeuristic(double colDiameterHeuristic){
     this.colDiameterHeuristic = colDiameterHeuristic;
   }
+  //Clone method
   public Packing clone(){
     return new Packing(this);
   }

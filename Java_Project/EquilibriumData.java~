@@ -15,7 +15,6 @@ public class EquilibriumData{
       eqdata = data.getED();
     }
     
-    
     else{
       
       while(true){
@@ -46,6 +45,10 @@ public class EquilibriumData{
     for(int i = 0;i<source.eqdata.length;i++){
       this.eqdata[i] = source.eqdata[i];
     }
+  }
+  //Clone
+  public EquilibriumData clone(){
+    return new EquilibriumData(this);
   }
   //Accessor 
   public double [] getEqdata(){
@@ -105,7 +108,6 @@ public class EquilibriumData{
         this.eqdata[i] = myScan.nextDouble();
       }
     }
-    
   }
   
   //File inputs method
@@ -130,7 +132,6 @@ public class EquilibriumData{
         valueList.add(thisValue[1]);
         System.out.println(thisValue[0] + " = " + thisValue[1]);
       }
-      
     }
     catch(FileNotFoundException e){
       System.out.println("Not a valid file name");
@@ -142,10 +143,5 @@ public class EquilibriumData{
     for(int i = 0; i<valueList.size(); i++){
       eqdata[i] = new Double(valueList.get(i)).doubleValue();
     }                                      
-    
-    
   }
-  
-  
-  
 }

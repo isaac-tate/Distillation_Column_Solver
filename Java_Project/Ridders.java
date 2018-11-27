@@ -1,14 +1,30 @@
 public class Ridders implements RootFinding{
-  //Rootfinding method that returns the root of a given function using Ridders method
+  
+   /*Class: Ridders
+   * 
+   * This class contains the ridders method used for root finding
+   * 
+   * This class implements the interface RootFinding and so contains a method 
+   * public double calculate(Function f)
+   * 
+   * 
+   */
+  
   public double calculate(Function f){
     
-    double xu = 0.118;//set upper bound to equilibrium data limit
-    double xl = 0;//set lower bound
+    //Set upper bound to equilibrium data limit
+    double xu = 0.118;
+    //Set lower bound equal to zero
+    double xl = 0;
+    //Set midpoint
     double xm = (xu+xl)/2;
     double xold = xm;
-    double e = 100000;//set initial error to 100000
+    //set initial error to 100000 so the loop runs for the first time
+    double e = 100000;
     int i = 0;
+    //Set maximum number of iterations
     int iterations = 1000;
+    //Set error tolerance
     double error = 0.0000001;
     
     double sign, xnew, y, m, b,fxl,fxu,fxm,fxnew;
@@ -18,7 +34,8 @@ public class Ridders implements RootFinding{
       fxl = f.setX(xl);
       fxu = f.setX(xu);
       
-      sign = fxl-fxu;//determine the sign of f(xl)-f(xu) to find new x
+      //determine the sign of f(xl)-f(xu)
+      sign = fxl-fxu;
       if(sign>0){
         sign = 1;
       }
@@ -32,13 +49,17 @@ public class Ridders implements RootFinding{
       xm = (xu+xl)/2;
       
       fxm = f.setX(xm);
-      xnew = xm+(xm-xl)*((sign*fxm)/(Math.pow(Math.pow(fxm,2)-fxl*fxu,0.5)));//calculate new x
+      //Calculate new x
+      xnew = xm+(xm-xl)*((sign*fxm)/(Math.pow(Math.pow(fxm,2)-fxl*fxu,0.5)));
       fxnew  = f.setX(xnew);
-      e = Math.abs((xnew-xold)/xnew);//find error
+      //Find error
+      e = Math.abs((xnew-xold)/xnew);
       
-      xold = xnew;//set x = newly found x
+      //Set x = newly found x
+      xold = xnew;
       
-      if(xnew<xm){//determine new bounds based on position of new x within the numerical line
+      //Determine new bounds based on position of new x within the numerical line
+      if(xnew<xm){
         if(fxl*fxnew<0){
           xu = xnew;}
         else if(fxnew*fxm<0){
@@ -57,6 +78,7 @@ public class Ridders implements RootFinding{
       }
       i++; 
       
+      //Endless loop exception in case no root can be found within tolerance
       try {
         if (iterations > 1000) throw new Exception("The iterations in the root finiding method exceed 1000");                                               
       }
@@ -65,8 +87,10 @@ public class Ridders implements RootFinding{
         System.exit(0);
       }
       
-    }while(e>error&&i<iterations);//continue until e is less than the desired error and/or more than the desired number of iterations have occured
+      //Continue until e is less than the desired error and/or more than the desired number of iterations have occured
+    }while(e>error&&i<iterations);
     
-    return xnew;//return the new x value 
+    //Return the new x value 
+    return xnew;
   }
 }

@@ -58,10 +58,11 @@ public class Ridders implements RootFinding{
       i++; 
       
       try {
-        if (iterations > 1000) throw new Exception("The iterations exceed 1000");                                               
+        if (iterations > 1000) throw new Exception("The iterations in the root finiding method exceed 1000");                                               
       }
       catch(Exception thrown) {
         System.out.println(thrown.getMessage());
+        System.exit(0);
       }
       
     }while(e>error&&i<iterations);//continue until e is less than the desired error and/or more than the desired number of iterations have occured

@@ -1,9 +1,18 @@
 public class InterfaceFunction implements Function{
-  //The function to determine xai
   
+  /*Class: InterfaceFunction
+   * 
+   * This class implements the Function interface and so contains a method double setX(double x)
+   * This particular class holds the non-linear function for the calculation of xai, the interface value of x
+   * 
+   * A root finding method may be used with the setX function to determine the root of this function
+   * 
+   */
+ 
   private double xal,yag,kxa,kya,x;
   private EquilibriumData eqdata;
   
+  //Constructor
   public InterfaceFunction(double kxa, double kya, double xal, double yag, double x, EquilibriumData eqdata){
     this.xal = xal;
     this.yag = yag;
@@ -17,6 +26,7 @@ public class InterfaceFunction implements Function{
     double b = 0.5*(this.yag+y-m*(this.xal+x));
     this.x = y-(m*x+b);//calculate the function for the determination of xai
   }
+  
   //Copy constructor
   public InterfaceFunction(InterfaceFunction source){
     this.xal = source.xal;
@@ -26,6 +36,7 @@ public class InterfaceFunction implements Function{
     this.kya = source.kya;
     this.x = source.x;
   }
+  
   //Mutators
   public double setX(double x){
     double y = this.eqdata.equilibriumDataY(x);//calculate y using the equilibrium data
@@ -36,6 +47,7 @@ public class InterfaceFunction implements Function{
     double g = y-(m*x+b);//calculate the function for the determination of xai
     return g;
   }
+  
   public double setXal(double xal){
     double y = this.eqdata.equilibriumDataY(this.x);//calculate y using the equilibrium data
     double lmlconc =((1-xal)-(1-this.x))/Math.log((1-xal)/(1-this.x));///log mean liquid concentration at interface
@@ -45,6 +57,7 @@ public class InterfaceFunction implements Function{
     double g = y-(m*this.x+b);//calculate the function for the determination of xai
     return g;
   }
+  
   public double setYag(double yag){
     double y = this.eqdata.equilibriumDataY(this.x);//calculate y using the equilibrium data
     double lmlconc =((1-this.xal)-(1-this.x))/Math.log((1-this.xal)/(1-this.x));///log mean liquid concentration at interface
@@ -54,6 +67,7 @@ public class InterfaceFunction implements Function{
     double g = y-(m*this.x+b);//calculate the function for the determination of xai
     return g;
   }
+  
   public double setKxa(double kxa){
     double y = this.eqdata.equilibriumDataY(this.x);//calculate y using the equilibrium data
     double lmlconc =((1-this.xal)-(1-this.x))/Math.log((1-this.xal)/(1-this.x));///log mean liquid concentration at interface
@@ -63,6 +77,7 @@ public class InterfaceFunction implements Function{
     double g = y-(m*this.x+b);//calculate the function for the determination of xai
     return g;
   }
+  
   public double setKya(double kya){
     double y = this.eqdata.equilibriumDataY(this.x);//calculate y using the equilibrium data
     double lmlconc =((1-this.xal)-(1-this.x))/Math.log((1-this.xal)/(1-this.x));///log mean liquid concentration at interface
@@ -72,6 +87,7 @@ public class InterfaceFunction implements Function{
     double g = y-(m*this.x+b);//calculate the function for the determination of xai
     return g;
   }
+  
     public double setEqdata(EquilibriumData eqdata){
     double y = eqdata.equilibriumDataY(this.x);//calculate y using the equilibrium data
     double lmlconc =((1-this.xal)-(1-this.x))/Math.log((1-this.xal)/(1-this.x));///log mean liquid concentration at interface
@@ -81,6 +97,7 @@ public class InterfaceFunction implements Function{
     double g = y-(m*this.x+b);//calculate the function for the determination of xai
     return g;
   }
+    
   //Accessors
   public double getXal(){
     return this.xal;

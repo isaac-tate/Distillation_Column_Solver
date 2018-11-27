@@ -2,8 +2,21 @@ import java.util.*;
 import java.io.*;
 import java.util.InputMismatchException;
 
+/*CLass: EquilibriumData
+ * 
+ * The EquilibriumData class holds an array of double values that represent an equilibrium equation
+ * 
+ * The user may enter this data either through a file or through manual input.
+ * If manual input is chosen the user is prompted to enter the highest coefficient in the equilibrium equation
+ * The user is then prompter to enter the coefficients of the equation in increasing order, not neglecting zeros
+ * 
+ * A method exists within this class that, given an x value, returns the equivalent y value based on the equilibrium data
+ * 
+ */
+
 public class EquilibriumData{
   
+  //Equilibrium equation coefficients
   private double [] eqdata;
   Scanner myScan = new Scanner(System.in);
   
@@ -11,12 +24,14 @@ public class EquilibriumData{
     
     String answer_outside;
     
+    //If the GUI is used, the eqdata is taken directly from the GuiApp
     if(data.useGUI == true){
       eqdata = data.getED();
     }
     
     else{
       
+      //Determine whether data is input from a file or an input
       while(true){
         System.out.println("Would like to input equilibrium data through a file ('f') or by input ('i')?");
         String answer = myScan.nextLine();
@@ -76,6 +91,7 @@ public class EquilibriumData{
     boolean track = false;
     int j = 0;
     
+    //Prompts the user to enter the highest power value within the equilibrium equation
     try {
       System.out.println("Enter the highest power of x within the equilibrium data.");
       j = myScan.nextInt();
@@ -92,7 +108,8 @@ public class EquilibriumData{
       System.out.println("That is not a valid power, please reenter a positive integer or exit the program.");
       j = myScan.nextInt();
     }
-    //takes in the equilibrium coefficients from user input
+    
+    //Takes in the equilibrium coefficients from user input
     this.eqdata = new double[j+1];
     System.out.println("Enter the coefficients of the equilibrium equation in increasing order.");
     for(int i = 0;i<j+1;i++){
