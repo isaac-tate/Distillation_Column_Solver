@@ -251,6 +251,14 @@ public class RunMe{
       //Determine whether or not the parameters resulted in a functioning column
       boolean z = Double.isNaN(myColumn.getZ());
       if(z==false){
+        System.out.printf("The outlet liquid flow rate of the column is %.2f kmol/h.\n",myColumn.getL1());
+        System.out.printf("The inlet liquid flow rate of the column is %.2f kmol/h.\n",myColumn.getL2());
+        System.out.printf("The inlet vapour flow rate of the column is %.2f kmol/h.\n",myColumn.getV1());
+        System.out.printf("The outlet vapour flow rate of the column is %.2f kmol/h.\n",myColumn.getL2());
+        System.out.printf("The outlet liquid mole fraction of the column is %.2f.\n",myColumn.getXA1());
+        System.out.printf("The inlet liquid mole fraction of the column is %.2f.\n",myColumn.getXA2());
+        System.out.printf("The inlet vapour mole fraction of the column is %.2f.\n",myColumn.getYA1());
+        System.out.printf("The outlet vapour mole fraction of the column is %.2f.\n",myColumn.getYA2());
         System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
         if(myColumn.getOptL()!=0){
           System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
