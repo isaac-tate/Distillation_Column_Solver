@@ -1,28 +1,38 @@
-
 import java.util.Scanner;
 import java.io.*;
 import java.util.InputMismatchException;
 
 public class RunMe{
+  
+  /* Class: RunMe
+   * 
+   * This is the Mack Daddy of all classes
+   * It contains the main method
+   * It is responsible for creating all instances of objects (including GUIs, Input Data, and AbCol)
+   * It also contains the user input funcationaility if the GUI is not used using a Scanner
+   * It also sets the Input Data variables, before passing it to the required classes to be used for calculation
+   * This is the "brains" of the operation
+   * 
+   */
+  
   public static void main(String[] args){
     
     UseGUI useGUI = new UseGUI();
     
     /* Inputted Data Should Include
      * 
-     * Gas inlet flow (gas_in_flow)
-     * Gas phase mole fraction (gas_in_mole_frac)
-     * Liquid inlet flow (liq_in_flow)
-     * Liquid phase mole fraction (liq_in_mole_frac)
+     * Gas inlet flow (v_1)
+     * Gas phase mole fraction (y_a1)
+     * Liquid inlet flow (l_2)
+     * Liquid phase mole fraction (x_a2)
      * Recovery (recovery)
+     * Inlet temp (temp_in)
      * Packing type (packing)
      * 
-     * Outputted Data should include
-     * Gas outlet flow (gas_flow_out)
-     * Gas phase mole fraction (gas_out_mole_frac)
-     * Liquid outlet flow (liq_out_flow)
-     * Liquid mole fraction (liq_out_mole_frac)
-     * Tower Height (tower_height)
+     * Outputted Data should Include
+     * 
+     * Liquid outlet flow (optL)
+     * Tower Height (z)
      * 
      */
     
@@ -70,7 +80,7 @@ public class RunMe{
       
       while(!flag){
         
-        System.out.println("Would like to input conditions through a file ('f') or by input ('i')?");
+        System.out.println("Would you like to input conditions through a file ('f') or by input ('i')?");
         dataType = myScan.nextLine();
         
         switch(dataType){
@@ -92,10 +102,15 @@ public class RunMe{
       Fluid fluid = new Fluid();
       Packing pack = new Packing(systemData.getPackingType());
       AbsorptionColumn myColumn = new AbsorptionColumn(pack, fluid, systemData);
-      System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
-      if(myColumn.getOptL()!=0){
-        System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
+      //Determine whether or not the parameters resulted in a functioning column
+      boolean z = Double.isNaN(myColumn.getZ());
+      if(z==false){
+        System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
+        if(myColumn.getOptL()!=0){
+          System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
+        }
       }
+      else System.out.println("These parameters do not result in a functioning column.");
       //Exporting Data
       
       while(true){
@@ -195,7 +210,7 @@ public class RunMe{
     
     while(!check2) {
       try {   
-        System.out.println("Please input a starting gas mole fraction");
+        System.out.println("Please input a starting gas mole fraction as a decimal between 0 and 1.");
         inputs[1] = myScan.nextDouble();
         //inputs[1] = 0.12;
         if (inputs[1] < 0.) throw new UserErrorException(userError);
@@ -232,7 +247,7 @@ public class RunMe{
      
     while(!check4) {
       try {   
-        System.out.println("Please input a starting liquid mole fraction.");
+        System.out.println("Please input a starting liquid mole fraction as a decimal between 0 and 1.");
         inputs[3] = myScan.nextDouble();
         //inputs[3] = 0;
         if (inputs[3] < 0.) throw new UserErrorException(userError);
@@ -251,7 +266,7 @@ public class RunMe{
     
     while(!check5) {
       try {   
-        System.out.println("Please input a recovery value in decimal form.");
+        System.out.println("Please input a recovery value as a decimal between 0 and 1.");
         inputs[4] = myScan.nextDouble();
         //inputs[4] = 0.92;
         if (inputs[4] < 0.) throw new UserErrorException(userError);
@@ -260,7 +275,7 @@ public class RunMe{
       }
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
-        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
+        System.out.println("Try again and enter a positive numerical value between 0 and 1.");
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();

@@ -143,6 +143,8 @@ public class RunMe{
   public static void valuesFromFile(Scanner myScan, InputData myData){
     
     double[] inputs = new double[7];
+    String string = "";
+    int num = 0;
     
     System.out.println("Please input a file name (leave blank for default: 'inputs.txt')");
     String fileName = myScan.nextLine();
@@ -174,6 +176,12 @@ public class RunMe{
       System.out.println("Not a valid file name");
       valuesFromFile(myScan, myData);
     }
+   /* try {
+      num = Integer.parseInt(string);
+    }
+    catch (NumberFormatException e) {
+      System.out.println("One of the file inputs was incorrect. Please choose a different file.");
+    }*/
     
     myData.setSC(inputs);
     
@@ -244,7 +252,7 @@ public class RunMe{
         System.out.println(inputThrow1.getMessage());
       } 
     }
-     
+    
     while(!check4) {
       try {   
         System.out.println("Please input a starting liquid mole fraction as a decimal between 0 and 1.");

@@ -114,9 +114,9 @@ public class EquilibriumData{
     System.out.println("Enter the coefficients of the equilibrium equation in increasing order.");
     for(int i = 0;i<j+1;i++){
       try {
-      System.out.println("Enter the coefficient of x^"+i+".");
-      this.eqdata[i] = myScan.nextDouble();
-      track = false;
+        System.out.println("Enter the coefficient of x^"+i+".");
+        this.eqdata[i] = myScan.nextDouble();
+        track = false;
       }
       
       catch (InputMismatchException equilcheck2) {
@@ -131,6 +131,8 @@ public class EquilibriumData{
   public void fileInputs(){
     
     ArrayList<String> valueList = new ArrayList<String>();
+    String string = "";
+    int num = 0;
     
     System.out.println("Please input a file name (leave blank for default: 'equilibrium.txt')");
     String fileName = myScan.nextLine();
@@ -153,6 +155,13 @@ public class EquilibriumData{
     catch(FileNotFoundException e){
       System.out.println("Not a valid file name");
       fileInputs();
+    }
+    
+    try {
+      num = Integer.parseInt(string);
+    }
+    catch (NumberFormatException e) {
+      System.out.println("One of the file inputs was incorrect. Please choose a different file.");
     }
     
     eqdata = new double[valueList.size()];
