@@ -80,7 +80,7 @@ public class RunMe{
       
       while(!flag){
         
-        System.out.println("Would like to input conditions through a file ('f') or by input ('i')?");
+        System.out.println("Would you like to input conditions through a file ('f') or by input ('i')?");
         dataType = myScan.nextLine();
         
         switch(dataType){
@@ -102,10 +102,15 @@ public class RunMe{
       Fluid fluid = new Fluid();
       Packing pack = new Packing(systemData.getPackingType());
       AbsorptionColumn myColumn = new AbsorptionColumn(pack, fluid, systemData);
-      System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
-      if(myColumn.getOptL()!=0){
-        System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
+      //Determine whether or not the parameters resulted in a functioning column
+      boolean z = Double.isNaN(myColumn.getZ());
+      if(z==false){
+        System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
+        if(myColumn.getOptL()!=0){
+          System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
+        }
       }
+      else System.out.println("These parameters do not result in a functioning column.");
       //Exporting Data
       
       while(true){
@@ -205,7 +210,7 @@ public class RunMe{
     
     while(!check2) {
       try {   
-        System.out.println("Please input a starting gas mole fraction");
+        System.out.println("Please input a starting gas mole fraction as a decimal between 0 and 1.");
         inputs[1] = myScan.nextDouble();
         //inputs[1] = 0.12;
         if (inputs[1] < 0.) throw new UserErrorException(userError);
@@ -242,7 +247,7 @@ public class RunMe{
      
     while(!check4) {
       try {   
-        System.out.println("Please input a starting liquid mole fraction.");
+        System.out.println("Please input a starting liquid mole fraction as a decimal between 0 and 1.");
         inputs[3] = myScan.nextDouble();
         //inputs[3] = 0;
         if (inputs[3] < 0.) throw new UserErrorException(userError);
@@ -261,7 +266,7 @@ public class RunMe{
     
     while(!check5) {
       try {   
-        System.out.println("Please input a recovery value in decimal form.");
+        System.out.println("Please input a recovery value as a decimal between 0 and 1.");
         inputs[4] = myScan.nextDouble();
         //inputs[4] = 0.92;
         if (inputs[4] < 0.) throw new UserErrorException(userError);
@@ -270,7 +275,7 @@ public class RunMe{
       }
       catch (InputMismatchException inputThrow1) {
         myScan.nextLine();
-        System.out.println("Try again and enter a positive numerical value between 1 and 0.");
+        System.out.println("Try again and enter a positive numerical value between 0 and 1.");
       }
       catch (UserErrorException inputThrow1) {
         myScan.nextLine();
