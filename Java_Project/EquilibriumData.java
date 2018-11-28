@@ -23,13 +23,6 @@ public class EquilibriumData{
   public EquilibriumData(InputData data){
     
     String answer_outside;
-    
-    //If the GUI is used, the eqdata is taken directly from the GuiApp
-    if(data.useGUI == true){
-      eqdata = data.getED();
-    }
-    
-    else{
       
       //Determine whether data is input from a file or an input
       while(true){
@@ -52,7 +45,7 @@ public class EquilibriumData{
           manualInputs();
           break;
       }
-    }
+    //}
   }
   //Copy constructor
   public EquilibriumData(EquilibriumData source){
@@ -148,6 +141,13 @@ public class EquilibriumData{
       
       while(fileInput.hasNext()){
         String[] thisValue = fileInput.nextLine().split("=");
+        if(RunMe.isStringNumeric(thisValue[1])==false){
+          System.out.println("One or more of the equilibrium data inputs is incorrect.");
+          System.out.println("Enter anything into the scanner to exit.");
+          Scanner exit = new Scanner(System.in);
+          String m = exit.nextLine();
+          System.exit(0);
+        }
         valueList.add(thisValue[1]);
         System.out.println(thisValue[0] + " = " + thisValue[1]);
       }
@@ -155,13 +155,6 @@ public class EquilibriumData{
     catch(FileNotFoundException e){
       System.out.println("Not a valid file name");
       fileInputs();
-    }
-    
-    try {
-      num = Integer.parseInt(string);
-    }
-    catch (NumberFormatException e) {
-      System.out.println("One of the file inputs was incorrect. Please choose a different file.");
     }
     
     eqdata = new double[valueList.size()];

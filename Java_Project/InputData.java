@@ -4,7 +4,7 @@ public class InputData{
    * 
    * The input data class is responsible for carrying information throughout the program
    * It has varibales which include the packing type, system constants and equlibData
-   * It also carries data about if the user is using the GUI, if the user would like to optimize, or if data is from files.]
+   * It also carries data about if the user would like to optimize, or if data is from files.]
    * Essentially, this is the memory of the whole program, but has no functionality without other classes
    * 
    */ 
@@ -13,12 +13,9 @@ public class InputData{
   private double[] systemConstants;
   private double[] equlibData;
   public boolean optimize = true;
-  public boolean useGUI;
   public boolean dataFromFiles;
   
   public void setFromFiles(boolean set){dataFromFiles=set;}
-  
-  public void setGUI(boolean use){this.useGUI = use;}
   
   public void setSC(double[] systemConstants){
     this.systemConstants = systemConstants;

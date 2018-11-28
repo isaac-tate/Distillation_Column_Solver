@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.io.*;
 import java.util.InputMismatchException;
+import java.lang.*;
+import java.text.DecimalFormatSymbols;
 
 public class RunMe{
   
@@ -8,16 +10,13 @@ public class RunMe{
    * 
    * This is the Mack Daddy of all classes
    * It contains the main method
-   * It is responsible for creating all instances of objects (including GUIs, Input Data, and AbCol)
-   * It also contains the user input funcationaility if the GUI is not used using a Scanner
+   * It is responsible for creating all instances of objects (including Input Data, and AbCol)
    * It also sets the Input Data variables, before passing it to the required classes to be used for calculation
    * This is the "brains" of the operation
    * 
    */
   
   public static void main(String[] args){
-    
-    UseGUI useGUI = new UseGUI();
     
     /* Inputted Data Should Include
      * 
@@ -35,37 +34,6 @@ public class RunMe{
      * Tower Height (z)
      * 
      */
-    
-    boolean answered = false;
-    while(answered == false){
-      answered = useGUI.answered;
-      System.out.print("");
-    }
-    
-    if(useGUI.use == true){
-      
-      //Opening the Gui
-      GuiApp myGui = new GuiApp();
-      //Making sure data has been stored, if not loop till it is
-      while(!myGui.dataStored){System.out.print("");}
-      //Store data from GUI into data type
-      InputData systemData = myGui.data;
-      //Tell the data class you are using a GUI
-      systemData.setGUI(true);
-      //Tell the data class where the data is from
-      systemData.setFromFiles(myGui.fromFiles);
-      //Creating new fluid
-      Fluid fluid = new Fluid();
-      //Creating new packing
-      Packing packing = new Packing(systemData.getPackingType());
-      //Creating new ab col
-      AbsorptionColumn myColumn = new AbsorptionColumn(packing, fluid, systemData);
-      ResultsScreen myResults = new ResultsScreen(myColumn.getZ(), myColumn.getOptL(), systemData);
-      if(myResults.exportV == true){DataExport myExport = new DataExport(myColumn);}
-      
-    }
-    
-    if(useGUI.use == false){
       
       InputData systemData = new InputData();
       Scanner myScan = new Scanner(System.in);
@@ -112,7 +80,6 @@ public class RunMe{
       }
       else System.out.println("These parameters do not result in a functioning column.");
       //Exporting Data
-      
       while(true){
         try{
           System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
@@ -138,7 +105,7 @@ public class RunMe{
       }
       System.out.println("Thank you for using column calculator.");
     }
-  }
+  //}
   
   public static void valuesFromFile(Scanner myScan, InputData myData){
     
@@ -160,6 +127,14 @@ public class RunMe{
       int i = 0;
       while(fileInput.hasNext() && i<inputs.length-2){
         String[] valueString = fileInput.nextLine().split("=");
+        if(isStringNumeric(valueString[1])==false){
+          System.out.println("One or more of the file inputs is incorrect.");
+          System.out.println("Enter anything into the scanner to exit.");
+          Scanner exit = new Scanner(System.in);
+          String m = exit.nextLine();
+          System.exit(0);
+        }
+          
         inputs[i] = new Double(valueString[1]).doubleValue();
         System.out.println(valueString[0] + " = " + inputs[i]);
         i++;
@@ -168,6 +143,13 @@ public class RunMe{
       inputs[6] = 1000;
       
       String pack = fileInput.nextLine().split("=")[1];
+      if(pack.equals("berl")==false&&pack.equals("pall")==false&&pack.equals("rashig")==false){
+        System.out.println("This is not an acceptable packing type.");
+        System.out.println("Enter anything into the scanner to exit.");
+        Scanner exit = new Scanner(System.in);
+        String m = exit.nextLine();
+        System.exit(0);
+      }
       myData.setPackingType(pack);
       System.out.println("The packing type is " + myData.getPackingType());
       
@@ -176,15 +158,14 @@ public class RunMe{
       System.out.println("Not a valid file name");
       valuesFromFile(myScan, myData);
     }
-   /* try {
-      num = Integer.parseInt(string);
+    if(inputs[0]<0||inputs[1]<0||inputs[1]>1||inputs[2]<0||inputs[3]<0||inputs[3]>1||inputs[4]<0||inputs[4]>1){
+      System.out.println("One or more of your file inputs do not meet the require parameters.");
+      System.out.println("Enter anything into the scanner to exit.");
+      Scanner exit = new Scanner(System.in);
+      String m = exit.nextLine();
+      System.exit(0);
     }
-    catch (NumberFormatException e) {
-      System.out.println("One of the file inputs was incorrect. Please choose a different file.");
-    }*/
-    
     myData.setSC(inputs);
-    
   }
   
   public static void valuesFromInput(Scanner myScan, InputData myData){
@@ -316,5 +297,30 @@ public class RunMe{
       }
     }
     myData.setSC(inputs);
+  }
+  
+  public static boolean isStringNumeric( String source )
+  {
+    DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+    char negative = symbols.getMinusSign();
+    
+    if ( !Character.isDigit( source.charAt( 0 ) ) && source.charAt( 0 ) != negative ) return false;
+    
+    boolean decimalFound = false;
+    char decimal = symbols.getDecimalSeparator();
+    
+    for ( char c : source.substring( 1 ).toCharArray() )
+    {
+      if ( !Character.isDigit( c ) )
+      {
+        if ( c == decimal && !decimalFound )
+        {
+          decimalFound = true;
+          continue;
+        }
+        return false;
+      }
+    }
+    return true;
   }
 }

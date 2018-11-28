@@ -1,4 +1,4 @@
-coefficient of x^0=0
-coefficient of x^1=0.01384
-coefficient of x^2=4.068
-coefficient of x^3=-13.135
+Coefficient of x^0=0
+Coefficient of x^1=0.01384
+Coefficient of x^2=4.068
+Coefficient of x^3=-13.135

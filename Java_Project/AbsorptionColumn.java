@@ -92,8 +92,6 @@ public class AbsorptionColumn{
     
     int i = 0;
     
-    //If you use a GUI, the program will skip the console text
-    if(data.useGUI == false){
       try {
         System.out.println("Would you like to optimize the column? (1 for yes, 0 for no)");
         i = myscan.nextInt();
@@ -104,11 +102,6 @@ public class AbsorptionColumn{
         myscan.nextLine();
         System.out.println("The column will not be optimized.");
       }
-    }
-    else{
-      if(data.optimize==true){i = 1;}
-      else{i = 0;}
-    }
     
     if(i==1){ this.optL = optimizeLiquidFlow();//optimize the column
       double a  = calculateHeightDifference(this.optL);//use the optimized liquid value to recalculate the height
