@@ -158,6 +158,15 @@ public class AbsorptionColumn{
     for(int k = 0;k<this.iterations;k++){
       this.dzl[k] = source.dzl[k];
     }
+    this.zvArray = new double [this.iterations-1];
+    for(int k = 0;k<this.iterations-1;k++){
+      this.zvArray[k] = source.zvArray[k];
+    }
+    this.zlArray = new double [this.iterations-1];
+    for(int k = 0;k<this.iterations-1;k++){
+      this.zlArray[k] = source.zlArray[k];
+    }
+    
     this.zl = source.zl;
     this.zv = source.zv;
     
@@ -345,6 +354,8 @@ public class AbsorptionColumn{
       TrapezoidRule szv = new TrapezoidRule();
       this.zv = szv.calculate(yag,dzv);
     }
+    
+    //Calculate the height at each specific iteration
     this.zlArray = new double [this.iterations-1];
     double [] p =new double [2];
     double [] w = new double [2];
