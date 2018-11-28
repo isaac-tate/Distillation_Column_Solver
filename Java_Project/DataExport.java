@@ -98,6 +98,15 @@ public class DataExport{
       y2String.append("\n");
       br.write(y2String.toString());
       
+      //ZLArray
+      zlString.append("zl values:,");
+      for(Double element : dataColumn.getZLArray()){
+        zlString.append(element);
+        zlString.append(",");
+      }
+      zlString.append("\n");
+      br.write(zlString.toString());
+      
       //XAL
       xalString.append("xal values:,");
       for(Double element : dataColumn.getXAL()){
@@ -106,6 +115,15 @@ public class DataExport{
       }
       xalString.append("\n");
       br.write(xalString.toString());
+      
+      //ZVArray
+      zvString.append("zv values:,");
+      for(Double element : dataColumn.getZVArray()){
+        zvString.append(element);
+        zvString.append(",");
+      }
+      zvString.append("\n");
+      br.write(zvString.toString());
       
       //YAG
       yagString.append("yag values:,");
@@ -151,25 +169,7 @@ public class DataExport{
       }
       dzlString.append("\n");
       br.write(dzlString.toString());
-      
-      //ZVArray
-      zvString.append("zv values:,");
-      for(Double element : dataColumn.getZVArray()){
-        zvString.append(element);
-        zvString.append(",");
-      }
-      zvString.append("\n");
-      br.write(zvString.toString());
-      
-      //ZLArray
-      zlString.append("zl values:,");
-      for(Double element : dataColumn.getZLArray()){
-        zlString.append(element);
-        zlString.append(",");
-      }
-      zlString.append("\n");
-      br.write(zlString.toString());
-      
+    
       br.close();
     }
     catch(IOException e){
