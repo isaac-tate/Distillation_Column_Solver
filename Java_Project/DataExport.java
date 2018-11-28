@@ -27,6 +27,8 @@ public class DataExport{
       BufferedWriter br = new BufferedWriter(new FileWriter("outputData.csv"));
       StringBuilder dzvString = new StringBuilder();
       StringBuilder dzlString = new StringBuilder();
+      StringBuilder zvString = new StringBuilder();
+      StringBuilder zlString = new StringBuilder();
       StringBuilder xalString = new StringBuilder();
       StringBuilder yagString = new StringBuilder();
       StringBuilder xaiString = new StringBuilder();
@@ -49,6 +51,24 @@ public class DataExport{
       }
       dzlString.append("\n");
       br.write(dzlString.toString());
+      
+      //ZVArray
+      zvString.append("zv values:,");
+      for(Double element : dataColumn.getZVArray()){
+        zvString.append(element);
+        zvString.append(",");
+      }
+      zvString.append("\n");
+      br.write(zvString.toString());
+      
+      //ZLArray
+      zlString.append("zl values:,");
+      for(Double element : dataColumn.getZLArray()){
+        zlString.append(element);
+        zlString.append(",");
+      }
+      zlString.append("\n");
+      br.write(zlString.toString());
       
       //XAL
       xalString.append("xal values:,");

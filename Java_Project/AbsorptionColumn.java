@@ -54,7 +54,7 @@ public class AbsorptionColumn{
   //System properties
   int iterations;
   EquilibriumData eqdata;
-  private double [] xal, yag, xai, yai, dzv, dzl;
+  private double [] xal, yag, xai, yai, dzv, dzl, zvArray, zlArray;
   
   //Constructor
   public AbsorptionColumn(Packing packing, Fluid fluid, InputData data){
@@ -221,6 +221,16 @@ public class AbsorptionColumn{
     for(int k = 0;k<this.iterations;k++){
       copy6[k] = this.dzl[k];} return copy6;
   }
+   public double[] getZLArray() {
+    double[] copy7 = new double [this.iterations-1];
+    for(int k = 0;k<this.iterations-1;k++){
+      copy7[k] = this.zlArray[k];} return copy7;
+  }
+    public double[] getZVArray() {
+    double[] copy8 = new double [this.iterations-1];
+    for(int k = 0;k<this.iterations-1;k++){
+      copy8[k] = this.zvArray[k];} return copy8;
+  }
   
   //Clone method to properly copy the object
   public AbsorptionColumn clone(){
@@ -335,6 +345,29 @@ public class AbsorptionColumn{
       TrapezoidRule szv = new TrapezoidRule();
       this.zv = szv.calculate(yag,dzv);
     }
+    this.zlArray = new double [this.iterations-1];
+    double [] p =new double [2];
+    double [] w = new double [2];
+    TrapezoidRule array = new TrapezoidRule();
+    for(int i = 0; i<iterations-1;i++){
+      p[0] = xal[i];
+      p[1] = xal[i+1];
+      w[0] = dzl[i];
+      w[1] = dzl[i+1];
+      for(int j = 0;j<i;j++){
+        this.zlArray[i] = zlArray[j]+array.calculate(p,w);
+      }
+    }
+    this.zvArray = new double [this.iterations-1];
+    for(int i = 0; i<iterations-1;i++){
+      p[0] = yag[i];
+      p[1] = yag[i+1];
+      w[0] = dzv[i];
+      w[1] = dzv[i+1];
+      for(int j = 0;j<i;j++){
+        this.zvArray[i] = zvArray[j]+array.calculate(p,w);
+      }
+    }  
    
     //Set the height of the column to whichever height is larger
     if(this.zl>=this.zv){this.z = zl;}
