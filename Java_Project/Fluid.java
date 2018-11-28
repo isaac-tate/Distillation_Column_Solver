@@ -25,7 +25,7 @@ public class Fluid{
     
   }
   //in case the user wants a different fluid set
-  public Fluid(double d_AB_L, double d_AB_V, double mu_L, double rho_L, double mu_V, double rho_V, double mW_A, double mW_L, double mW_V, double nsc_L, double nsc_V){
+  public Fluid(double d_AB_L, double d_AB_V, double mu_L, double rho_L, double mu_V, double rho_V, double mW_A, double mW_L, double mW_V){
     
     this.d_AB_L = d_AB_L;
     this.d_AB_V = d_AB_V;
