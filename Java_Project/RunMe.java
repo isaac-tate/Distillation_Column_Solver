@@ -263,10 +263,7 @@ public class RunMe{
         if(myColumn.getOptL()!=0){
           System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
         }
-      }
-      else System.out.println("These parameters do not result in a functioning column.");
-      //Exporting Data
-      while(true){
+        while(true){
         try{
           System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
           int answer_export = myScan.nextInt();
@@ -289,9 +286,12 @@ public class RunMe{
           System.out.print("Please try again and enter a numerical interger.\n");
         }     
       }
+      }
+      else System.out.println("These parameters do not result in a functioning column.");
+      //Exporting Data
+      
       System.out.println("Thank you for using column calculator.");
     }
-  //}
   
   public static void valuesFromFile(Scanner myScan, InputData myData){
     
