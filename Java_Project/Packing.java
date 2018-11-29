@@ -19,7 +19,7 @@ public class Packing{
   //Set the instance variables based on the user String input
   public void setPackingType(String type) {
    
-    if(type.equals("rashig")){
+    if(type.equals("raschig")){
       voidFraction = 0.74;
       aPacking = 190;
       fPacking = 587;

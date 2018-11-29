@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class IncrementalUp implements RootFinding{
   
   /*Class: IncrementalUp
@@ -66,6 +67,8 @@ public class IncrementalUp implements RootFinding{
       }
       catch(Exception thrown) {
         System.out.println(thrown.getMessage());
+        Scanner exit = new Scanner(System.in);
+        String a = exit.nextLine();
         System.exit(0);
       }
       

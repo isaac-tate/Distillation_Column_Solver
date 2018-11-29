@@ -3,4 +3,4 @@ Starting gas mole fraction as a decimal between 0 and 1 =0.12
 Starting liquid inlet flow rate as a positive number (kmol/h) =40
 Starting liquid mole fraction as a decimal between 0 and 1 =0
 Recovery value as a decimal between 0 and 1 =0.92
-Packing type, either pall, berl, or rashig =rashig
+Packing type, either pall, berl, or raschig =raschig

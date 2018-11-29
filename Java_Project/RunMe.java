@@ -299,7 +299,7 @@ public class RunMe{
     String string = "";
     int num = 0;
     
-    System.out.println("Please input a file name (leave blank for default: 'inputs.txt')");
+    System.out.println("Please input a file name including .txt (leave blank for default: 'inputs.txt')");
     String fileName = myScan.nextLine();
     
     if(fileName.isEmpty()){
@@ -329,7 +329,7 @@ public class RunMe{
       inputs[6] = 1000;
       
       String pack = fileInput.nextLine().split("=")[1];
-      if(pack.equals("berl")==false&&pack.equals("pall")==false&&pack.equals("rashig")==false){
+      if(pack.equals("berl")==false&&pack.equals("pall")==false&&pack.equals("raschig")==false){
         System.out.println("This is not an acceptable packing type.");
         System.out.println("Enter anything into the scanner to exit.");
         Scanner exit = new Scanner(System.in);
@@ -465,12 +465,12 @@ public class RunMe{
     myScan.nextLine();
     
     boolean checkPack = false;
-    System.out.println("Please input a packing type ('berl', 'rashig', 'pall')");
+    System.out.println("Please input a packing type ('berl', 'raschig', 'pall')");
     
     while(!checkPack){
       try{
         String packing = myScan.nextLine();
-        if(packing.equals("berl") || packing.equals("rashig") || packing.equals("pall")){
+        if(packing.equals("berl") || packing.equals("raschig") || packing.equals("pall")){
           myData.setPackingType(packing);
           checkPack = true;
         }
