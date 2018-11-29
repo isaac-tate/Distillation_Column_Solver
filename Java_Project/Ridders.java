@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Ridders implements RootFinding{
   
-   /*Class: Ridders
+  /*Class: Ridders
    * 
    * This class contains the ridders method used for root finding
    * 
@@ -84,6 +84,7 @@ public class Ridders implements RootFinding{
       }
       catch(Exception thrown) {
         System.out.println(thrown.getMessage());
+        System.out.println("Enter anything into the scanner to exit.");
         Scanner exit = new Scanner(System.in);
         String a = exit.nextLine();
         System.exit(0);

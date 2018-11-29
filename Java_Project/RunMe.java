@@ -34,236 +34,236 @@ public class RunMe{
      * Tower Height (z)
      * 
      */
+    
+    InputData systemData = new InputData();
+    Scanner myScan = new Scanner(System.in);
+    
+    System.out.println("Welcome to column calculator.");
+    
+    //GETTING INPUTS
+    String dataType; //The input for the method used to get inputs
+    String packType = "";
+    
+    boolean flag = false;
+    
+    while(!flag){
       
-      InputData systemData = new InputData();
-      Scanner myScan = new Scanner(System.in);
+      System.out.println("Would you like to input conditions through a file ('f') or by input ('i')?");
+      dataType = myScan.nextLine();
       
-      System.out.println("Welcome to column calculator.");
-      
-      //GETTING INPUTS
-      String dataType; //The input for the method used to get inputs
-      String packType = "";
-      
-      boolean flag = false;
-      
-      while(!flag){
-        
-        System.out.println("Would you like to input conditions through a file ('f') or by input ('i')?");
-        dataType = myScan.nextLine();
-        
-        switch(dataType){
-          case "f":
-            valuesFromFile(myScan, systemData);
-            flag=true;
-            break;
-          case "i":
-            valuesFromInput(myScan, systemData);
-            flag=true;
-            break;
-          default:
-            System.out.println("Not a valid input. Try again.");
+      switch(dataType){
+        case "f":
+          valuesFromFile(myScan, systemData);
+          flag=true;
+          break;
+        case "i":
+          valuesFromInput(myScan, systemData);
+          flag=true;
+          break;
+        default:
+          System.out.println("Not a valid input. Try again.");
+      }
+    }
+    
+    //DONE GETTING INPUTS
+    
+    Fluid fluid;
+    double d_AB_L = 0, d_AB_V = 0,mu_L = 0,mu_V = 0,rho_L = 0,rho_V = 0,mw_A = 0,mw_L = 0,mw_V = 0; 
+    while(true){
+      try{
+        //Allows the user to input fluid values or use the default parameters
+        System.out.println("Would you like to use the default fluid parameters (0) or input a different set (1)?");
+        int defaultOpt = myScan.nextInt();
+        if(defaultOpt == 1){
+          String userError = ""; // for UserErrorException message
+          boolean check1 = false;
+          boolean check2 = false;
+          boolean check3 = false;
+          boolean check4 = false;
+          boolean check5 = false;
+          boolean check6 = false;
+          boolean check7 = false;
+          boolean check8 = false;
+          boolean check9 = false;
+          while(!check1) {
+            try { 
+              System.out.println("Please input the diffusion coefficient of the liquid in m^2/s.");
+              d_AB_L = myScan.nextDouble();
+              if (d_AB_L <= 0.) throw new UserErrorException(userError);
+              check1 = true;
+            } 
+            catch (InputMismatchException inputThrow1) {
+              myScan.nextLine();
+              System.out.println("Try again and enter a positive numerical value.");
+            }
+            catch (UserErrorException inputThrow1) {
+              myScan.nextLine();
+              System.out.println(inputThrow1.getMessage());
+            } 
+          }
+          while(!check2) {
+            try { 
+              System.out.println("Please input the diffusion coefficient of the vapour in m^2/s.");
+              d_AB_V = myScan.nextDouble();
+              if (d_AB_V <= 0.) throw new UserErrorException(userError);
+              check2 = true;
+            } 
+            catch (InputMismatchException inputThrow1) {
+              myScan.nextLine();
+              System.out.println("Try again and enter a positive numerical value.");
+            }
+            catch (UserErrorException inputThrow1) {
+              myScan.nextLine();
+              System.out.println(inputThrow1.getMessage());
+            } 
+          }
+          while(!check3) {
+            try { 
+              System.out.println("Please input the viscosity of the liquid in Pa-s.");
+              mu_L = myScan.nextDouble();
+              if (mu_L <= 0.) throw new UserErrorException(userError);
+              check3 = true;
+            } 
+            catch (InputMismatchException inputThrow1) {
+              myScan.nextLine();
+              System.out.println("Try again and enter a positive numerical value.");
+            }
+            catch (UserErrorException inputThrow1) {
+              myScan.nextLine();
+              System.out.println(inputThrow1.getMessage());
+            } 
+          }
+          while(!check4) {
+            try { 
+              System.out.println("Please input the viscosity of the vapour in Pa-s.");
+              mu_V = myScan.nextDouble();
+              if (mu_V <= 0.) throw new UserErrorException(userError);
+              check4 = true;
+            } 
+            catch (InputMismatchException inputThrow1) {
+              myScan.nextLine();
+              System.out.println("Try again and enter a positive numerical value.");
+            }
+            catch (UserErrorException inputThrow1) {
+              myScan.nextLine();
+              System.out.println(inputThrow1.getMessage());
+            } 
+          }
+          while(!check5) {
+            try { 
+              System.out.println("Please input the density of the liquid in kg/m^3.");
+              rho_L = myScan.nextDouble();
+              if (rho_L <= 0.) throw new UserErrorException(userError);
+              check5 = true;
+            } 
+            catch (InputMismatchException inputThrow1) {
+              myScan.nextLine();
+              System.out.println("Try again and enter a positive numerical value.");
+            }
+            catch (UserErrorException inputThrow1) {
+              myScan.nextLine();
+              System.out.println(inputThrow1.getMessage());
+            } 
+          }
+          while(!check6) {
+            try { 
+              System.out.println("Please input the density of the vapour in kg/m^3.");
+              rho_V = myScan.nextDouble();
+              if (rho_V <= 0.) throw new UserErrorException(userError);
+              check6 = true;
+            } 
+            catch (InputMismatchException inputThrow1) {
+              myScan.nextLine();
+              System.out.println("Try again and enter a positive numerical value.");
+            }
+            catch (UserErrorException inputThrow1) {
+              myScan.nextLine();
+              System.out.println(inputThrow1.getMessage());
+            } 
+          }
+          while(!check7) {
+            try { 
+              System.out.println("Please input the molar weight of the liquid in g/mol.");
+              mw_L = myScan.nextDouble();
+              if (mw_L <= 0.) throw new UserErrorException(userError);
+              check7 = true;
+            } 
+            catch (InputMismatchException inputThrow1) {
+              myScan.nextLine();
+              System.out.println("Try again and enter a positive numerical value.");
+            }
+            catch (UserErrorException inputThrow1) {
+              myScan.nextLine();
+              System.out.println(inputThrow1.getMessage());
+            } 
+          }
+          while(!check8) {
+            try { 
+              System.out.println("Please input the molar weight of the vapour in g/mol.");
+              mw_V = myScan.nextDouble();
+              if (mw_V <= 0.) throw new UserErrorException(userError);
+              check8 = true;
+            } 
+            catch (InputMismatchException inputThrow1) {
+              myScan.nextLine();
+              System.out.println("Try again and enter a positive numerical value.");
+            }
+            catch (UserErrorException inputThrow1) {
+              myScan.nextLine();
+              System.out.println(inputThrow1.getMessage());
+            } 
+          }
+          while(!check9) {
+            try { 
+              System.out.println("Please input the average molar weight in g/mol.");
+              mw_A = myScan.nextDouble();
+              if (mw_A <= 0.) throw new UserErrorException(userError);
+              check9 = true;
+            } 
+            catch (InputMismatchException inputThrow1) {
+              myScan.nextLine();
+              System.out.println("Try again and enter a positive numerical value.");
+            }
+            catch (UserErrorException inputThrow1) {
+              myScan.nextLine();
+              System.out.println(inputThrow1.getMessage());
+            } 
+          }
+          fluid = new Fluid(d_AB_L,d_AB_V,mu_L,rho_L,mu_V,rho_V,mw_A,mw_L,mw_V);
+          break;
+        }
+        if(defaultOpt == 0){
+          fluid = new Fluid();
+          break;
+        }
+        else{
+          System.out.println("Not a valid input.");
         }
       }
-      
-      //DONE GETTING INPUTS
-      
-      Fluid fluid;
-      double d_AB_L = 0, d_AB_V = 0,mu_L = 0,mu_V = 0,rho_L = 0,rho_V = 0,mw_A = 0,mw_L = 0,mw_V = 0; 
+      catch (InputMismatchException export) {
+        myScan.nextLine();
+        System.out.print("Please try again and enter a numerical interger.\n");
+      }     
+    }
+    
+    Packing pack = new Packing(systemData.getPackingType());
+    AbsorptionColumn myColumn = new AbsorptionColumn(pack, fluid, systemData);
+    //Determine whether or not the parameters resulted in a functioning column
+    boolean z = Double.isNaN(myColumn.getZ());
+    if(z==false){
+      System.out.printf("The outlet liquid flow rate of the column is %.2f kmol/h.\n",myColumn.getL1());
+      System.out.printf("The inlet liquid flow rate of the column is %.2f kmol/h.\n",myColumn.getL2());
+      System.out.printf("The inlet vapour flow rate of the column is %.2f kmol/h.\n",myColumn.getV1());
+      System.out.printf("The outlet vapour flow rate of the column is %.2f kmol/h.\n",myColumn.getL2());
+      System.out.printf("The outlet liquid mole fraction of the column is %.2f.\n",myColumn.getXA1());
+      System.out.printf("The inlet liquid mole fraction of the column is %.2f.\n",myColumn.getXA2());
+      System.out.printf("The inlet vapour mole fraction of the column is %.2f.\n",myColumn.getYA1());
+      System.out.printf("The outlet vapour mole fraction of the column is %.2f.\n",myColumn.getYA2());
+      System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
+      if(myColumn.getOptL()!=0){
+        System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
+      }
       while(true){
-        try{
-          //Allows the user to input fluid values or use the default parameters
-          System.out.println("Would you like to use the default fluid parameters (0) or input a different set (1)?");
-          int defaultOpt = myScan.nextInt();
-          if(defaultOpt == 1){
-            String userError = ""; // for UserErrorException message
-            boolean check1 = false;
-            boolean check2 = false;
-            boolean check3 = false;
-            boolean check4 = false;
-            boolean check5 = false;
-            boolean check6 = false;
-            boolean check7 = false;
-            boolean check8 = false;
-            boolean check9 = false;
-            while(!check1) {
-              try { 
-                System.out.println("Please input the diffusion coefficient of the liquid in m^2/s.");
-                d_AB_L = myScan.nextDouble();
-                if (d_AB_L <= 0.) throw new UserErrorException(userError);
-                check1 = true;
-              } 
-              catch (InputMismatchException inputThrow1) {
-                myScan.nextLine();
-                System.out.println("Try again and enter a positive numerical value.");
-              }
-              catch (UserErrorException inputThrow1) {
-                myScan.nextLine();
-                System.out.println(inputThrow1.getMessage());
-              } 
-            }
-            while(!check2) {
-              try { 
-                System.out.println("Please input the diffusion coefficient of the vapour in m^2/s.");
-                d_AB_V = myScan.nextDouble();
-                if (d_AB_V <= 0.) throw new UserErrorException(userError);
-                check2 = true;
-              } 
-              catch (InputMismatchException inputThrow1) {
-                myScan.nextLine();
-                System.out.println("Try again and enter a positive numerical value.");
-              }
-              catch (UserErrorException inputThrow1) {
-                myScan.nextLine();
-                System.out.println(inputThrow1.getMessage());
-              } 
-            }
-            while(!check3) {
-              try { 
-                System.out.println("Please input the viscosity of the liquid in Pa-s.");
-                mu_L = myScan.nextDouble();
-                if (mu_L <= 0.) throw new UserErrorException(userError);
-                check3 = true;
-              } 
-              catch (InputMismatchException inputThrow1) {
-                myScan.nextLine();
-                System.out.println("Try again and enter a positive numerical value.");
-              }
-              catch (UserErrorException inputThrow1) {
-                myScan.nextLine();
-                System.out.println(inputThrow1.getMessage());
-              } 
-            }
-            while(!check4) {
-              try { 
-                System.out.println("Please input the viscosity of the vapour in Pa-s.");
-                mu_V = myScan.nextDouble();
-                if (mu_V <= 0.) throw new UserErrorException(userError);
-                check4 = true;
-              } 
-              catch (InputMismatchException inputThrow1) {
-                myScan.nextLine();
-                System.out.println("Try again and enter a positive numerical value.");
-              }
-              catch (UserErrorException inputThrow1) {
-                myScan.nextLine();
-                System.out.println(inputThrow1.getMessage());
-              } 
-            }
-            while(!check5) {
-              try { 
-                System.out.println("Please input the density of the liquid in kg/m^3.");
-                rho_L = myScan.nextDouble();
-                if (rho_L <= 0.) throw new UserErrorException(userError);
-                check5 = true;
-              } 
-              catch (InputMismatchException inputThrow1) {
-                myScan.nextLine();
-                System.out.println("Try again and enter a positive numerical value.");
-              }
-              catch (UserErrorException inputThrow1) {
-                myScan.nextLine();
-                System.out.println(inputThrow1.getMessage());
-              } 
-            }
-            while(!check6) {
-              try { 
-                System.out.println("Please input the density of the vapour in kg/m^3.");
-                rho_V = myScan.nextDouble();
-                if (rho_V <= 0.) throw new UserErrorException(userError);
-                check6 = true;
-              } 
-              catch (InputMismatchException inputThrow1) {
-                myScan.nextLine();
-                System.out.println("Try again and enter a positive numerical value.");
-              }
-              catch (UserErrorException inputThrow1) {
-                myScan.nextLine();
-                System.out.println(inputThrow1.getMessage());
-              } 
-            }
-            while(!check7) {
-              try { 
-                System.out.println("Please input the molar weight of the liquid in g/mol.");
-                mw_L = myScan.nextDouble();
-                if (mw_L <= 0.) throw new UserErrorException(userError);
-                check7 = true;
-              } 
-              catch (InputMismatchException inputThrow1) {
-                myScan.nextLine();
-                System.out.println("Try again and enter a positive numerical value.");
-              }
-              catch (UserErrorException inputThrow1) {
-                myScan.nextLine();
-                System.out.println(inputThrow1.getMessage());
-              } 
-            }
-            while(!check8) {
-              try { 
-                System.out.println("Please input the molar weight of the vapour in g/mol.");
-                mw_V = myScan.nextDouble();
-                if (mw_V <= 0.) throw new UserErrorException(userError);
-                check8 = true;
-              } 
-              catch (InputMismatchException inputThrow1) {
-                myScan.nextLine();
-                System.out.println("Try again and enter a positive numerical value.");
-              }
-              catch (UserErrorException inputThrow1) {
-                myScan.nextLine();
-                System.out.println(inputThrow1.getMessage());
-              } 
-            }
-            while(!check9) {
-              try { 
-                System.out.println("Please input the average molar weight in g/mol.");
-                mw_A = myScan.nextDouble();
-                if (mw_A <= 0.) throw new UserErrorException(userError);
-                check9 = true;
-              } 
-              catch (InputMismatchException inputThrow1) {
-                myScan.nextLine();
-                System.out.println("Try again and enter a positive numerical value.");
-              }
-              catch (UserErrorException inputThrow1) {
-                myScan.nextLine();
-                System.out.println(inputThrow1.getMessage());
-              } 
-            }
-            fluid = new Fluid(d_AB_L,d_AB_V,mu_L,rho_L,mu_V,rho_V,mw_A,mw_L,mw_V);
-            break;
-          }
-          if(defaultOpt == 0){
-            fluid = new Fluid();
-            break;
-          }
-          else{
-            System.out.println("Not a valid input.");
-          }
-        }
-        catch (InputMismatchException export) {
-          myScan.nextLine();
-          System.out.print("Please try again and enter a numerical interger.\n");
-        }     
-      }
-        
-      Packing pack = new Packing(systemData.getPackingType());
-      AbsorptionColumn myColumn = new AbsorptionColumn(pack, fluid, systemData);
-      //Determine whether or not the parameters resulted in a functioning column
-      boolean z = Double.isNaN(myColumn.getZ());
-      if(z==false){
-        System.out.printf("The outlet liquid flow rate of the column is %.2f kmol/h.\n",myColumn.getL1());
-        System.out.printf("The inlet liquid flow rate of the column is %.2f kmol/h.\n",myColumn.getL2());
-        System.out.printf("The inlet vapour flow rate of the column is %.2f kmol/h.\n",myColumn.getV1());
-        System.out.printf("The outlet vapour flow rate of the column is %.2f kmol/h.\n",myColumn.getL2());
-        System.out.printf("The outlet liquid mole fraction of the column is %.2f.\n",myColumn.getXA1());
-        System.out.printf("The inlet liquid mole fraction of the column is %.2f.\n",myColumn.getXA2());
-        System.out.printf("The inlet vapour mole fraction of the column is %.2f.\n",myColumn.getYA1());
-        System.out.printf("The outlet vapour mole fraction of the column is %.2f.\n",myColumn.getYA2());
-        System.out.printf("The height of the column is %.2f m.\n",myColumn.getZ());
-        if(myColumn.getOptL()!=0){
-          System.out.printf("The optimal liquid flow rate through the column for optimization of mass transfer is %.2f kmol/h.\n",myColumn.getOptL());
-        }
-        while(true){
         try{
           System.out.println("Would you like to export data to a csv (excel)? (1 for yes, 0 for no)");
           int answer_export = myScan.nextInt();
@@ -286,12 +286,12 @@ public class RunMe{
           System.out.print("Please try again and enter a numerical interger.\n");
         }     
       }
-      }
-      else System.out.println("These parameters do not result in a functioning column.");
-      //Exporting Data
-      
-      System.out.println("Thank you for using column calculator.");
     }
+    else System.out.println("These parameters do not result in a functioning column.");
+    //Exporting Data
+    
+    System.out.println("Thank you for using column calculator.");
+  }
   
   public static void valuesFromFile(Scanner myScan, InputData myData){
     
@@ -320,7 +320,7 @@ public class RunMe{
           String m = exit.nextLine();
           System.exit(0);
         }
-          
+        
         inputs[i] = new Double(valueString[1]).doubleValue();
         System.out.println(valueString[0] + " = " + inputs[i]);
         i++;
@@ -329,7 +329,7 @@ public class RunMe{
       inputs[6] = 1000;
       
       String pack = fileInput.nextLine().split("=")[1];
-      if(pack.equals("berl")==false&&pack.equals("pall")==false&&pack.equals("raschig")==false){
+      if(pack.equalsIgnoreCase("berl")==false&&pack.equalsIgnoreCase("pall")==false&&pack.equalsIgnoreCase("raschig")==false){
         System.out.println("This is not an acceptable packing type.");
         System.out.println("Enter anything into the scanner to exit.");
         Scanner exit = new Scanner(System.in);
@@ -470,7 +470,7 @@ public class RunMe{
     while(!checkPack){
       try{
         String packing = myScan.nextLine();
-        if(packing.equals("berl") || packing.equals("raschig") || packing.equals("pall")){
+        if(packing.equalsIgnoreCase("berl") || packing.equalsIgnoreCase("raschig") || packing.equalsIgnoreCase("pall")){
           myData.setPackingType(packing);
           checkPack = true;
         }
@@ -485,21 +485,21 @@ public class RunMe{
     myData.setSC(inputs);
   }
   
-  public static boolean isStringNumeric( String source )
+  public static boolean isStringNumeric(String source)
   {
     DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
     char negative = symbols.getMinusSign();
     
-    if ( !Character.isDigit( source.charAt( 0 ) ) && source.charAt( 0 ) != negative ) return false;
+    if (!Character.isDigit(source.charAt(0))&&source.charAt(0)!=negative) return false;
     
     boolean decimalFound = false;
     char decimal = symbols.getDecimalSeparator();
     
-    for ( char c : source.substring( 1 ).toCharArray() )
+    for (char c:source.substring(1).toCharArray())
     {
-      if ( !Character.isDigit( c ) )
+      if (!Character.isDigit(c))
       {
-        if ( c == decimal && !decimalFound )
+        if (c==decimal&&!decimalFound)
         {
           decimalFound = true;
           continue;

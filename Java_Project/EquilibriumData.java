@@ -23,28 +23,28 @@ public class EquilibriumData{
   public EquilibriumData(InputData data){
     
     String answer_outside;
-      
-      //Determine whether data is input from a file or an input
-      while(true){
-        System.out.println("Would like to input equilibrium data through a file ('f') or by input ('i')?");
-        String answer = myScan.nextLine();
-        if(answer.equals("f") || answer.equals("i")){
-          answer_outside = answer;
-          break;
-        }
-        else{
-          System.out.println("This is not a valid input");
-        }
+    
+    //Determine whether data is input from a file or an input
+    while(true){
+      System.out.println("Would like to input equilibrium data through a file ('f') or by input ('i')?");
+      String answer = myScan.nextLine();
+      if(answer.equals("f") || answer.equals("i")){
+        answer_outside = answer;
+        break;
       }
-      
-      switch(answer_outside){
-        case "f":
-          fileInputs();
-          break;
-        case "i":
-          manualInputs();
-          break;
+      else{
+        System.out.println("This is not a valid input");
       }
+    }
+    
+    switch(answer_outside){
+      case "f":
+        fileInputs();
+        break;
+      case "i":
+        manualInputs();
+        break;
+    }
     //}
   }
   //Copy constructor

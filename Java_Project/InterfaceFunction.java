@@ -8,7 +8,7 @@ public class InterfaceFunction implements Function{
    * A root finding method may be used with the setX function to determine the root of this function
    * 
    */
- 
+  
   private double xal,yag,kxa,kya,x;
   private EquilibriumData eqdata;
   
@@ -88,7 +88,7 @@ public class InterfaceFunction implements Function{
     return g;
   }
   
-    public double setEqdata(EquilibriumData eqdata){
+  public double setEqdata(EquilibriumData eqdata){
     double y = eqdata.equilibriumDataY(this.x);//calculate y using the equilibrium data
     double lmlconc =((1-this.xal)-(1-this.x))/Math.log((1-this.xal)/(1-this.x));///log mean liquid concentration at interface
     double lmgconc =((1-y)-(1-this.yag))/Math.log((1-y)/(1-this.yag));//log mean gas concentration at interface
@@ -97,7 +97,7 @@ public class InterfaceFunction implements Function{
     double g = y-(m*this.x+b);//calculate the function for the determination of xai
     return g;
   }
-    
+  
   //Accessors
   public double getXal(){
     return this.xal;

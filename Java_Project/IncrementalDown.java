@@ -66,6 +66,7 @@ public class IncrementalDown implements RootFinding{
       }
       catch(Exception thrown) {
         System.out.println(thrown.getMessage());
+        System.out.println("Enter anything into the scanner to exit.");
         Scanner exit = new Scanner(System.in);
         String a = exit.nextLine();
         System.exit(0);

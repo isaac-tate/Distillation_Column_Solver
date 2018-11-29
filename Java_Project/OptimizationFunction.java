@@ -1,6 +1,6 @@
 public class OptimizationFunction implements Function{
   
-   /*Class: OptimizationFunction
+  /*Class: OptimizationFunction
    * 
    * This class implements the Function interface and so contains a method double setX(double x)
    * This particular class holds the non-linear function for the calculation of the difference between zl and zv
@@ -37,13 +37,13 @@ public class OptimizationFunction implements Function{
     return x;
   }
   
-   public double setColumn(AbsorptionColumn mycolumn){
+  public double setColumn(AbsorptionColumn mycolumn){
     double x = mycolumn.calculateHeightDifference(this.x);
     this.mycolumn = mycolumn.clone();
     this.z = mycolumn.getZ();
     return x;
   }
-   
+  
   //Accessors
   public double getX(){
     return this.x;

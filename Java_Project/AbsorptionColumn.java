@@ -63,7 +63,7 @@ public class AbsorptionColumn{
     double[] conditions = data.getSC();
     this.packing = packing.clone();
     this.fluid = fluid.clone();
-      
+    
     //Initialize given inputs
     this.v_1 = conditions[0];
     this.y_a1 = conditions[1];
@@ -92,16 +92,16 @@ public class AbsorptionColumn{
     
     int i = 0;
     
-      try {
-        System.out.println("Would you like to optimize the column? (1 for yes, 0 for no)");
-        i = myscan.nextInt();
-        flag = true;
-      }
-      //If a value that is not a number is entered the column will automatically not be optimized
-      catch (InputMismatchException e) {
-        myscan.nextLine();
-        System.out.println("The column will not be optimized.");
-      }
+    try {
+      System.out.println("Would you like to optimize the column? (1 for yes, 0 for no)");
+      i = myscan.nextInt();
+      flag = true;
+    }
+    //If a value that is not a number is entered the column will automatically not be optimized
+    catch (InputMismatchException e) {
+      myscan.nextLine();
+      System.out.println("The column will not be optimized.");
+    }
     
     if(i==1){ this.optL = optimizeLiquidFlow();//optimize the column
       double a  = calculateHeightDifference(this.optL);//use the optimized liquid value to recalculate the height
@@ -230,12 +230,12 @@ public class AbsorptionColumn{
     for(int k = 0;k<this.iterations;k++){
       copy6[k] = this.dzl[k];} return copy6;
   }
-   public double[] getZLArray() {
+  public double[] getZLArray() {
     double[] copy7 = new double [this.iterations-1];
     for(int k = 0;k<this.iterations-1;k++){
       copy7[k] = this.zlArray[k];} return copy7;
   }
-    public double[] getZVArray() {
+  public double[] getZVArray() {
     double[] copy8 = new double [this.iterations-1];
     for(int k = 0;k<this.iterations-1;k++){
       copy8[k] = this.zvArray[k];} return copy8;
@@ -379,7 +379,7 @@ public class AbsorptionColumn{
         this.zvArray[i] = zvArray[j]+array.calculate(p,w);
       }
     }  
-   
+    
     //Set the height of the column to whichever height is larger
     if(this.zl>=this.zv){this.z = zl;}
     else{this.z = zv;}

@@ -7,8 +7,8 @@ public abstract class Integration{//a generalized class that can hold a number o
    * 
    */
   
-    public abstract double calculate(double [] x, double [] y);
-      
+  public abstract double calculate(double [] x, double [] y);
+  
 }
                                    
      

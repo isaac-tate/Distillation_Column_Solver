@@ -18,8 +18,8 @@ public class Packing{
   
   //Set the instance variables based on the user String input
   public void setPackingType(String type) {
-   
-    if(type.equals("raschig")){
+    
+    if(type.equalsIgnoreCase("raschig")){
       voidFraction = 0.74;
       aPacking = 190;
       fPacking = 587;
@@ -28,7 +28,7 @@ public class Packing{
       colDiameterHeuristic = 30;
     }
     
-    else if(type.equals("berl")){
+    else if(type.equalsIgnoreCase("berl")){
       voidFraction = 0.68;
       aPacking = 260;
       fPacking = 361;
@@ -37,7 +37,7 @@ public class Packing{
       colDiameterHeuristic = 15;
     }
     
-    else if(type.equals("pall")){
+    else if(type.equalsIgnoreCase("pall")){
       voidFraction = 0.94;
       aPacking = 225;
       fPacking = 180;
@@ -69,7 +69,7 @@ public class Packing{
   public double getFPacking(){
     return this.fPacking;
   }
-    public double getFPPacking(){
+  public double getFPPacking(){
     return this.fpPacking;
   }
   public double getChPacking(){
@@ -88,7 +88,7 @@ public class Packing{
   public void getFPacking(double fPacking){
     this.fPacking = fPacking;
   }
-    public void setFPPacking(double fpPacking){
+  public void setFPPacking(double fpPacking){
     this.fpPacking = fpPacking;
   }
   public void setChPacking(double chPacking){

@@ -7,7 +7,7 @@ public class Simpsons extends Integration{
    * Simpsons integrates using the simpsons method, which requires the distance between values in the x array to be constant
    * 
    */
-
+  
   public double calculate(double [] x, double [] y){
     
     double intapprox,a,b,delx,b2;
@@ -27,7 +27,7 @@ public class Simpsons extends Integration{
         }
       }
     }
-
+    
     a = x[0];
     b = x[x.length-1];
     
@@ -67,9 +67,7 @@ public class Simpsons extends Integration{
       intapprox = intapprox+(3/8)*(y[y.length-4]+3*y[y.length-3]+3*y[y.length-2]+y[y.length-1]);
       
     }
-    
     //Return the integrated value below
     return intapprox;
   }
-
 }

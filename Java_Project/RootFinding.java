@@ -8,5 +8,5 @@ public interface RootFinding{
    */
   
   public double calculate(Function f);
-
+  
 }

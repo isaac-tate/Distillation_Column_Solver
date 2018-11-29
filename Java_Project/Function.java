@@ -7,6 +7,6 @@ public interface Function{
    * 
    */
   
- public double setX(double x);
-    
+  public double setX(double x);
+  
 }
